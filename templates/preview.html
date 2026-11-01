@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Langit Kita Dibakar</title>
+<link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@700&family=Readex+Pro:wght@500;700&family=Amiri:wght@700&display=block" rel="stylesheet">
+<style>
+:root{--bg:#06110E;--pri:#34D399;--sec:#FFF9EF;--ter:#00E1EF;--red:#FF5A5F;--card:#0B1F19;--mut:#8FB5A8}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#020605;color:var(--sec);font-family:'Readex Pro',sans-serif;overflow:hidden}
+#wrap{position:absolute;left:50%;top:0;width:1080px;height:1920px;transform-origin:50% 0}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:var(--bg)}
+#shk,#art,#ui{position:absolute;inset:0}
+.el{position:absolute;left:0;top:0;visibility:hidden}
+.head{width:960px;text-align:center;font:700 96px/1.08 'Reem Kufi';color:var(--sec);text-transform:uppercase;letter-spacing:-1px;text-shadow:0 6px 0 #06110E}
+.m{display:inline-block;overflow:hidden;vertical-align:top;padding:0 4px 8px}
+.w{display:inline-block}
+.r{color:var(--red)}.g{color:var(--pri)}.c{color:var(--ter)}
+.lbl{font:700 44px/1.1 'Readex Pro';color:var(--sec);text-align:center;white-space:nowrap}
+.src{font:500 28px/1.2 'Readex Pro';color:var(--mut);text-align:center;white-space:nowrap;background:#06110Ecc;padding:6px 16px;border-radius:14px}
+.big{text-align:center;background:#0B1F19e6;border:3px solid var(--red);border-radius:32px;padding:18px 44px}
+.big .n{font:700 140px/1 'Reem Kufi';color:var(--red)}.big .t{font:700 40px/1 'Readex Pro';color:var(--sec);margin-top:6px}
+.fact{font:700 40px/1.2 'Readex Pro';color:var(--sec);background:var(--card);border:3px solid var(--ter);padding:18px 30px;border-radius:30px;white-space:nowrap}
+.fact b{color:var(--ter)}
+.stamp{font:700 104px/1 'Reem Kufi';color:var(--red);border:12px solid var(--red);padding:18px 40px;border-radius:20px;background:var(--bg);white-space:nowrap}
+.card{width:920px;background:var(--card);border:2px solid #34D39980;border-radius:40px;padding:50px 54px 40px;text-align:center}
+.card .ar{font:700 72px/1.75 Amiri;direction:rtl;color:var(--sec)}
+.card .tr{font:500 40px/1.4 'Readex Pro';color:var(--sec);margin-top:22px}
+.card .ref{font:700 30px/1.3 'Readex Pro';color:var(--ter);margin-top:28px}
+.card .brand{display:flex;gap:10px;align-items:center;justify-content:center;font:700 24px/1 'Readex Pro';color:var(--mut);margin-top:22px}
+.card .brand img{width:34px;height:34px}
+.dem{font:700 52px/1 'Reem Kufi';color:var(--sec);background:var(--card);border:4px solid var(--ter);padding:22px 36px;border-radius:50px;white-space:nowrap}
+.cta{font:700 84px/1 'Reem Kufi';color:var(--bg);background:var(--pri);padding:30px 60px;border-radius:80px;white-space:nowrap}
+.brandname{font:700 92px/1 'Reem Kufi';color:var(--sec);white-space:nowrap}
+.dl{font:700 48px/1 'Reem Kufi';color:var(--bg);background:var(--ter);padding:24px 48px;border-radius:60px;white-space:nowrap}
+#logoBig{width:460px;height:460px}
+#wm{left:80px;top:262px;display:flex;gap:12px;align-items:center;font:700 30px/1 'Reem Kufi';color:var(--sec)}
+#wm img{width:52px;height:52px}
+#progbg{position:absolute;left:80px;top:236px;width:920px;height:6px;background:#ffffff1c;border-radius:3px}
+#prog{width:100%;height:100%;background:var(--pri);border-radius:3px;transform-origin:0 50%}
+#ctl{position:fixed;left:0;right:0;bottom:0;height:56px;display:flex;gap:12px;align-items:center;padding:0 16px;background:#0B1F19;font:500 14px 'Readex Pro'}
+#ctl input[type=range]{flex:1}
+#ctl button{font:700 14px 'Readex Pro';background:#34D399;color:#06110E;border:0;border-radius:8px;padding:8px 16px;cursor:pointer}
+body.render #ctl{display:none}
+</style>
+</head>
+<body>
+<div id="wrap"><div id="stage"><div id="shk">
+<svg id="art" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="gBand" x1="0" y1="-560" x2="0" y2="420" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#A7F3D0"/><stop offset=".45" stop-color="#34D399"/><stop offset="1" stop-color="#00E1EF"/></linearGradient>
+  <linearGradient id="gNight" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#06110E"/><stop offset=".7" stop-color="#14261F"/><stop offset="1" stop-color="#2A2420"/></linearGradient>
+  <linearGradient id="gBlue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#062A33"/><stop offset=".65" stop-color="#0C6B70"/><stop offset="1" stop-color="#1FB8A8"/></linearGradient>
+  <linearGradient id="gFire" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#FF5A5F"/><stop offset="1" stop-color="#FFB38A"/></linearGradient>
+  <pattern id="geo" width="140" height="140" patternUnits="userSpaceOnUse">
+    <g fill="none" stroke="#34D399" stroke-width="2" opacity=".07" transform="translate(70 70)">
+      <rect x="-34" y="-34" width="68" height="68"/><rect x="-34" y="-34" width="68" height="68" transform="rotate(45)"/><circle r="14"/>
+    </g>
+  </pattern>
+  <symbol id="person" overflow="visible"><circle cx="0" cy="-34" r="13"/><path d="M-20,16 L-20,-6 C-20,-18 -12,-20 0,-20 C12,-20 20,-18 20,-6 L20,16Z"/><rect x="-10" y="-33" width="20" height="10" rx="4" fill="#FFF9EF"/></symbol>
+  <symbol id="tree" overflow="visible"><rect x="-5" y="-30" width="10" height="34" fill="#0A1C17"/><path d="M0,-150 L42,-70 L22,-70 L52,-24 L-52,-24 L-22,-70 L-42,-70Z"/></symbol>
+  <symbol id="flame" overflow="visible"><path d="M0,-70 C24,-40 34,-22 30,-4 C26,14 12,22 0,22 C-12,22 -26,14 -30,-4 C-34,-22 -20,-34 -8,-40 C-10,-26 -2,-20 4,-26 C10,-38 6,-56 0,-70Z" fill="url(#gFire)"/><path d="M0,-22 C8,-10 12,0 10,8 C8,16 4,20 0,20 C-4,20 -9,16 -10,8 C-11,0 -6,-8 0,-22Z" fill="#FFF9EF" opacity=".85"/></symbol>
+  <symbol id="cloud" overflow="visible"><circle cx="-90" cy="10" r="70"/><circle cx="0" cy="-20" r="95"/><circle cx="100" cy="5" r="75"/><circle cx="40" cy="40" r="70"/><circle cx="-40" cy="45" r="65"/></symbol>
+  <symbol id="house" overflow="visible"><rect x="-60" y="-70" width="120" height="70" fill="#163B31"/><path d="M-75,-68 L0,-128 L75,-68Z" fill="#1F5A48"/><rect x="-40" y="-52" width="24" height="22" fill="#FFF9EF" opacity=".55"/><rect x="14" y="-50" width="26" height="50" fill="#0A1C17"/></symbol>
+  <symbol id="bird" overflow="visible"><path d="M-22,0 C-12,-12 -4,-10 0,0 C4,-10 12,-12 22,0" fill="none" stroke="#FFF9EF" stroke-width="5" stroke-linecap="round"/></symbol>
+</defs>
+
+<g id="cam">
+<!-- LANGIT -->
+<rect width="1080" height="1920" fill="url(#gNight)"/>
+<rect id="skyBlue" width="1080" height="1920" fill="url(#gBlue)" opacity="0"/>
+<g id="L2"><rect x="-280" y="-280" width="1640" height="2480" fill="url(#geo)"/></g>
+<circle id="sun" cx="840" cy="700" r="92" fill="#FF5A5F" opacity=".55"/>
+<g id="birds"><use href="#bird" x="-120" y="800"/><use href="#bird" x="-60" y="960" transform="scale(.8)"/><use href="#bird" x="-200" y="860" transform="scale(.9)"/><use href="#bird" x="-260" y="1080" transform="scale(.7)"/></g>
+
+<!-- GUNUNG & HUTAN JAUH -->
+<g id="Lmount"><path d="M-100,1470 L120,1290 L260,1380 L420,1250 L600,1400 L760,1270 L920,1360 L1180,1240 L1180,1500 L-100,1500Z" fill="#0E241D"/></g>
+<g id="Lfar" fill="#123A2E"></g>
+
+<!-- OBJEK UTAMA: kubah -->
+<g transform="translate(540,1080)"><g id="dome">
+  <path id="halo" d="M-280,420 L-280,40 C-280,-120 -170,-200 -90,-270 C-40,-315 -10,-360 0,-430 C10,-360 40,-315 90,-270 C170,-200 280,-120 280,40 L280,420" fill="none" stroke="#34D399" stroke-width="130" stroke-linejoin="round" opacity="0"/>
+  <g id="domeBody">
+    <path d="M-280,420 L-280,40 C-280,-120 -170,-200 -90,-270 C-40,-315 -10,-360 0,-430 C10,-360 40,-315 90,-270 C170,-200 280,-120 280,40 L280,420" fill="none" stroke="url(#gBand)" stroke-width="56" stroke-linejoin="round"/>
+    <path d="M-200,420 L-200,70 C-200,-50 -120,-120 -60,-175 C-30,-200 -10,-230 0,-270 C10,-230 30,-200 60,-175 C120,-120 200,-50 200,70 L200,420" fill="none" stroke="url(#gBand)" stroke-width="10" opacity=".55"/>
+  </g>
+  <g id="cracks" fill="none" stroke="#FF5A5F" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M-250,-150 L-215,-110 L-240,-70 L-200,-30 L-225,20 L-190,60"/><path d="M300,-40 L265,0 L292,40 L255,90 L280,140"/><path d="M-28,-385 L12,-345 L-16,-305 L18,-262"/>
+  </g>
+</g></g>
+
+<!-- HUTAN DEKAT, KAMPUNG, TANAH -->
+<rect x="0" y="1560" width="1080" height="360" fill="#0A1C17"/>
+<g id="Lnear" fill="#174A3A"></g>
+<g id="fires"></g>
+<g id="village">
+  <g transform="translate(110,1700)"><use href="#house"/></g>
+  <g transform="translate(250,1720) scale(.85)"><use href="#house"/></g>
+  <!-- klinik -->
+  <g id="clinic" transform="translate(410,1730)"><rect x="-70" y="-90" width="140" height="90" fill="#163B31"/><rect x="-80" y="-104" width="160" height="18" fill="#1F5A48"/><rect x="-14" y="-78" width="28" height="56" rx="4" fill="#FF5A5F"/><rect x="-28" y="-64" width="56" height="28" rx="4" fill="#FF5A5F"/></g>
+  <!-- sekolah -->
+  <g id="school" transform="translate(800,1720)"><rect x="-130" y="-100" width="260" height="100" fill="#163B31"/><path d="M-150,-98 L0,-160 L150,-98Z" fill="#1F5A48"/><g fill="#FFF9EF" opacity=".55"><rect x="-100" y="-76" width="34" height="28"/><rect x="-46" y="-76" width="34" height="28"/><rect x="12" y="-76" width="34" height="28"/><rect x="66" y="-76" width="34" height="28"/></g><rect x="150" y="-210" width="6" height="210" fill="#8FB5A8"/><rect x="156" y="-210" width="54" height="18" fill="#FF5A5F"/><rect x="156" y="-192" width="54" height="18" fill="#FFF9EF"/></g>
+  <g transform="translate(990,1700) scale(.9)"><use href="#house"/></g>
+</g>
+<g id="crowd"></g>
+<g id="embers" fill="#FF5A5F"></g>
+
+<!-- ASAP (di depan kubah) -->
+<g id="smoke" fill="#8FB5A8"></g>
+</g>
+</svg>
+
+<div id="ui">
+  <div id="progbg"><div id="prog"></div></div>
+  <div class="el" id="wm"><img src="logo.png" alt="">Muslim Leveling</div>
+</div>
+</div></div></div>
+
+<div id="ctl"><button id="play">Play</button><input id="seek" type="range" min="0" max="61.5" step="0.01" value="0"><span id="time">0,00 dtk</span><label>Pilih audio <input id="file" type="file" accept="audio/*"></label></div>
+<audio id="vo" src="voice/narasi.wav" preload="auto"></audio>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+const CUES={"w":1080,"h":1920,"fps":30,"duration":61.5,"estimated":false,"audio":"voice/narasi.wav","scenes":[
+{"id":1,"start":0,"end":6.0,"keywords":[{"word":"333","t":0.3},{"word":"VIRUS","t":4.2},{"word":"ASAP","t":5.4}]},
+{"id":2,"start":6.0,"end":13.7,"keywords":[{"word":"KEMENKES","t":7.1},{"word":"KEBAKARAN","t":9.4},{"word":"BALITA","t":12.8}]},
+{"id":3,"start":13.7,"end":20.1,"keywords":[{"word":"UJIAN","t":14.5},{"word":"MALAYSIA","t":17.3}]},
+{"id":4,"start":20.1,"end":25.7,"keywords":[{"word":"PERTAMA","t":21.1},{"word":"LAGI","t":22.4},{"word":"DIBAKAR","t":24.8}]},
+{"id":5,"start":25.7,"end":31.9,"keywords":[{"word":"ALLAH","t":26.6},{"word":"KERUSAKAN","t":28.7},{"word":"MANUSIA","t":31.2}]},
+{"id":6,"start":31.9,"end":38.1,"keywords":[{"word":"NABI","t":32.6},{"word":"DIRI","t":35.3},{"word":"LAIN","t":37.4}]},
+{"id":7,"start":38.1,"end":44.3,"keywords":[{"word":"MEMBAKAR","t":39.3},{"word":"ASAPNYA","t":42.0},{"word":"KEZALIMAN","t":43.4}]},
+{"id":8,"start":44.3,"end":53.3,"keywords":[{"word":"BENCANA","t":47.6},{"word":"ADILI","t":48.8},{"word":"PULIHKAN","t":51.6}]},
+{"id":9,"start":53.3,"end":58.6,"keywords":[{"word":"DOAKAN","t":53.9},{"word":"BAGIKAN","t":55.7},{"word":"BIRU","t":57.9}]},
+{"id":10,"start":58.6,"end":61.5,"keywords":[]}]};
+const DURATION=window.DURATION=CUES.duration;
+const S=i=>CUES.scenes[i-1], K=(i,w)=>S(i).keywords.find(k=>k.word==w).t;
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const ui=$('#ui'), tl=gsap.timeline({paused:true});
+const fmt=(v,d)=>v.toFixed(d).replace('.',',');
+const rnd=(a=>()=>{a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296})(2026);
+const NS='http://www.w3.org/2000/svg';
+const add=(par,tag,attrs)=>{const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);$(par).appendChild(e);return e};
+
+function mk(cls,html,x,y){const e=document.createElement('div');e.className='el '+cls;e.innerHTML=html;e.style.left=x+'px';e.style.top=y+'px';ui.appendChild(e);gsap.set(e,{xPercent:-50,yPercent:-50});return e}
+function pop(el,t,o={}){tl.fromTo(el,{autoAlpha:0,scale:o.s0??.4,x:o.x0??0,y:o.y0??0,rotation:o.r0??0},{autoAlpha:1,scale:o.s??1,x:0,y:0,rotation:o.r??0,duration:o.d??.5,ease:o.ease??'back.out(1.8)',immediateRender:o.ir??true},t)}
+function out(el,t,o={}){tl.to(el,{autoAlpha:0,scale:o.s??.7,x:o.x??0,y:o.y??0,duration:.3,ease:'power2.in'},t-.3)}
+function headline(text,t0,t1,y=450){
+  const html=text.split('/').map(line=>line.trim().split(' ').map(w=>{const c={'*':'r','_':'g','~':'c'}[w[0]]||'';return `<span class="m"><span class="w ${c}">${w.replace(/[*_~]/g,'')}</span></span>`}).join(' ')).join('<br>');
+  const e=mk('head',html,540,y);tl.set(e,{autoAlpha:1},t0);
+  tl.fromTo(e.querySelectorAll('.w'),{yPercent:115},{yPercent:0,duration:.45,stagger:.08,ease:'back.out(2)',immediateRender:true},t0);
+  if(t1)tl.to(e,{autoAlpha:0,y:-40,duration:.25,ease:'power2.in'},t1-.25);
+  return e}
+function shake(t,a=1){tl.to('#shk',{keyframes:[{x:18*a,y:-10*a},{x:-16*a,y:8*a},{x:12*a,y:-6*a},{x:-6*a,y:4*a},{x:0,y:0}],duration:.33,ease:'power2.out'},t)}
+function slam(el,t,r=-8){tl.fromTo(el,{autoAlpha:0,scale:2.4,rotation:r-6},{autoAlpha:1,scale:1,rotation:r,duration:.28,ease:'power4.in',immediateRender:true},t-.28);tl.to(el,{keyframes:[{scale:1.06},{scale:1}],duration:.25,ease:'power2.out'},t);shake(t)}
+function stagIn(els,t,st=.08){tl.fromTo(els,{autoAlpha:0,scale:.3,y:30},{autoAlpha:1,scale:1,y:0,duration:.4,stagger:st,ease:'back.out(2.2)'},t)}
+function arWords(s){return s.split(' ').map(w=>`<span class="m"><span class="w">${w}</span></span>`).join(' ')}
+function card(ar,tr,ref,t0,t1,tAr){
+  const c=mk('card',`<div class="ar">${arWords(ar)}</div><div class="tr">${tr}</div><div class="ref">${ref}</div><div class="brand"><img src="logo.png" alt="">Muslim Leveling</div>`,540,1060);
+  pop(c,t0,{s0:.85,y0:120,d:.6,ease:'back.out(1.4)'});
+  tl.fromTo(c.querySelectorAll('.ar .w'),{yPercent:110},{yPercent:0,duration:.4,stagger:.4,ease:'back.out(2)',immediateRender:true},tAr);
+  stagIn(c.querySelectorAll('.tr,.ref,.brand'),t0+.4,.2);out(c,t1,{y:-60,s:.9});return c}
+
+// ===== ENVIRONMENT (deterministik) =====
+for(let i=0;i<20;i++){const x=-20+i*58+rnd()*20;const s=.45+rnd()*.25;add('#Lfar','use',{href:'#tree',transform:`translate(${x.toFixed(0)},${1478}) scale(${s.toFixed(2)})`})}
+const nearX=[30,140,250,360,700,810,920,1040],burning=[1,2,5,6];const fires=[];
+nearX.forEach((x,i)=>{const s=.9+rnd()*.35;add('#Lnear','use',{href:'#tree',transform:`translate(${x},1600) scale(${s.toFixed(2)})`});
+  if(burning.includes(i)){const g=add('#fires','g',{transform:`translate(${x},${1600-150*s+30})`});const f=document.createElementNS(NS,'use');f.setAttribute('href','#flame');g.appendChild(f);fires.push(f)}});
+const clouds=[];[[160,820,1.2,.55],[880,880,1.3,.5],[520,640,1.0,.4],[300,1180,1.5,.6],[820,1250,1.4,.55],[60,1420,1.2,.5],[1020,1450,1.3,.5],[560,1380,1.6,.45]].forEach(([x,y,s,o])=>{
+  const g=add('#smoke','g',{transform:`translate(${x},${y})`});const u=document.createElementNS(NS,'use');u.setAttribute('href','#cloud');u.setAttribute('transform',`scale(${s})`);u.setAttribute('opacity',o);g.appendChild(u);clouds.push(g)});
+const embers=[];for(let i=0;i<28;i++)embers.push(add('#embers','circle',{cx:(80+rnd()*920).toFixed(0),cy:(1500+rnd()*140).toFixed(0),r:(3+rnd()*4).toFixed(1),opacity:(.5+rnd()*.5).toFixed(2)}));
+const people=[];for(let r=0;r<3;r++)for(let c=0;c<11;c++){const g=add('#crowd','g',{transform:`translate(${200+c*68+(r%2)*22-10},${1300+r*62})`});const u=document.createElementNS(NS,'use');u.setAttribute('href','#person');u.setAttribute('fill','#34D399');g.appendChild(u);people.push(u)}
+const babies=[people[3],people[9],people[14],people[20],people[27]];
+
+gsap.set('#art g[id], use',{transformOrigin:'50% 50%'});
+gsap.set(fires,{transformOrigin:'50% 100%'});
+gsap.set('#cam',{transformOrigin:'540px 960px'});gsap.set('#dome',{transformOrigin:'0px 0px'});
+gsap.set(['#crowd','#birds'],{autoAlpha:0});gsap.set('#cracks path',{autoAlpha:0});
+gsap.set('#domeBody',{opacity:.3});gsap.set('#smoke',{opacity:.55});
+
+// gerak latar terus-menerus
+tl.fromTo('#L2',{x:0,y:0},{x:-70,y:-140,duration:DURATION,ease:'none'},0);
+tl.fromTo('#Lmount',{x:0},{x:-30,duration:DURATION,ease:'sine.inOut'},0);
+tl.fromTo('#Lfar',{x:0},{x:-50,duration:DURATION,ease:'sine.inOut'},0);
+tl.fromTo('#Lnear',{x:0},{x:-90,duration:DURATION,ease:'sine.inOut'},0);
+tl.fromTo('#fires',{x:0},{x:-90,duration:DURATION,ease:'sine.inOut'},0);
+fires.forEach((f,i)=>tl.fromTo(f,{scaleY:.85,scaleX:1},{scaleY:1.18,scaleX:.9,duration:.22+i*.03,repeat:Math.floor(44/(.22+i*.03)),yoyo:true,ease:'sine.inOut',immediateRender:true},0));
+clouds.forEach((c,i)=>tl.fromTo(c,{x:0},{x:(i%2?1:-1)*(60+i*8),duration:30,repeat:1,yoyo:true,ease:'sine.inOut',immediateRender:true},0));
+embers.forEach((e,i)=>tl.fromTo(e,{y:0,autoAlpha:1},{y:-500-rnd()*400,x:(rnd()-.5)*160,autoAlpha:0,duration:3+rnd()*2,repeat:Math.floor(44/4),ease:'power1.out',immediateRender:true},rnd()*3));
+CUES.scenes.forEach((s,i)=>tl.fromTo('#cam',{scale:1,rotation:0},{scale:1.05,rotation:i%2?-.8:.8,duration:s.end-s.start,ease:'sine.inOut',immediateRender:i==0},s.start));
+tl.fromTo('#dome',{scale:1},{scale:1.02,duration:1.6,repeat:Math.floor(DURATION/1.6),yoyo:true,ease:'sine.inOut'},0);
+tl.fromTo('#prog',{scaleX:0},{scaleX:1,duration:DURATION,ease:'none'},0);
+pop('#wm',2,{s0:.8,x0:-40});out('#wm',S(10).start);
+
+// S1 hook: 333.470 sesak napas karena asap
+headline('Sesak napas/karena *asap*',0,S(1).end);
+const big=mk('big','<div class="n">0</div><div class="t">kasus ISPA</div>',540,760);pop(big,0,{s0:.7,d:.4});
+const o={v:0};tl.fromTo(o,{v:0},{v:333470,duration:2.4,ease:'power2.out',onUpdate:()=>big.querySelector('.n').textContent=Math.round(o.v).toLocaleString('id-ID'),immediateRender:true},.2);
+tl.to(big,{keyframes:[{scale:1.08},{scale:1}],duration:.3},2.7);shake(2.7,.5);
+tl.to('#smoke',{opacity:.7,duration:2},K(1,'ASAP')-1);
+out(big,S(1).end);
+
+// S2 data Kemenkes, puluhan ribu balita
+headline('Puluhan ribu/_balita_',S(2).start,S(2).end);
+const s2=mk('src','Kemenkes · per 21 Oktober 2026 · akibat karhutla',540,600);pop(s2,K(2,'KEMENKES')-.2,{s0:.9});
+tl.set('#crowd',{autoAlpha:1},S(2).start);
+tl.fromTo(people,{autoAlpha:0,y:60},{autoAlpha:1,y:0,duration:.45,stagger:{each:.02,from:'random'},ease:'back.out(2)',immediateRender:true},S(2).start+.2);
+tl.to(people,{y:-4,duration:.25,repeat:20,yoyo:true,stagger:{each:.05,from:'random'},ease:'sine.inOut'},S(2).start+1.2);
+tl.to(babies,{fill:'#00E1EF',scale:.75,duration:.35,stagger:.06,ease:'back.out(3)'},K(2,'BALITA')-.3);
+out(s2,S(2).end);
+
+// S3 ujian ditunda, sekolah Malaysia tutup
+headline('Ujian/*ditunda*',S(3).start,S(3).end);
+tl.to('#crowd',{autoAlpha:0,duration:.3},S(3).start);
+tl.to('#school',{keyframes:[{scale:1.12},{scale:1}],transformOrigin:'50% 100%',duration:.5},K(3,'UJIAN'));
+const f1=mk('fact','<b>Kalteng</b> · ujian siswa ditunda',540,660),f2=mk('fact','<b>Malaysia</b> · sekolah tutup',540,780);
+pop(f1,K(3,'UJIAN')-.1,{x0:-100,s0:.8});pop(f2,K(3,'MALAYSIA')-.2,{x0:100,s0:.8});
+tl.to('#smoke',{opacity:.8,x:-20,duration:3},S(3).start);
+[f1,f2].forEach(e=>out(e,S(3).end));
+
+// S4 lagi dan lagi — kubah retak, asap memekat
+headline('Lagi &amp;/*dibakar lagi*',S(4).start,S(4).end);
+tl.to('#smoke',{opacity:.95,duration:2},K(4,'LAGI'));
+tl.to('#sun',{opacity:.25,duration:2},K(4,'LAGI'));
+$$('#cracks path').forEach((p,i)=>{const L=p.getTotalLength();gsap.set(p,{strokeDasharray:L,strokeDashoffset:L});tl.set(p,{autoAlpha:1},K(4,'DIBAKAR')-.1);tl.to(p,{strokeDashoffset:0,duration:.3,ease:'power4.out'},K(4,'DIBAKAR')-.1+i*.07)});
+shake(K(4,'DIBAKAR'),1.2);
+
+// S5–S6 ayat & hadis — asap mulai tersibak
+tl.to('#dome',{opacity:.3,duration:.4},S(5).start);
+headline('Ulah tangan/_manusia_',S(5).start,S(5).end,420);
+card('ظَهَرَ الْفَسَادُ فِي الْبَرِّ وَالْبَحْرِ بِمَا كَسَبَتْ أَيْدِي النَّاسِ','“Telah tampak kerusakan di darat dan di laut <b id="k5" class="g">karena ulah tangan manusia</b>.”','QS. Ar-Rum: 41',S(5).start+.2,S(5).end,S(5).start+.45);
+tl.to('#k5',{color:'#FF5A5F',duration:.2},K(5,'MANUSIA'));
+tl.to(clouds,{x:(i)=>(i%2?1:-1)*260,opacity:.6,duration:5,ease:'power1.inOut'},S(5).start);
+
+headline('Jangan/_membahayakan_',S(6).start,S(6).end,420);
+card('لَا ضَرَرَ وَلَا ضِرَارَ','“Tidak boleh membahayakan diri sendiri, <b id="k6" class="g">dan tidak boleh membahayakan orang lain</b>.”','HR. Ibnu Majah no. 2341 · hasan (An-Nawawi), kuat dengan jalur-jalurnya (Al-Albani)',S(6).start+.2,S(6).end,S(6).start+.45);
+tl.to('#k6',{color:'#00E1EF',duration:.2},K(6,'LAIN'));
+tl.to('#smoke',{opacity:.6,duration:3},S(6).start);
+
+// S7 klimaks: kezaliman — asap terhempas
+headline('Membakar/demi untung',S(7).start,K(7,'KEZALIMAN')-.3);
+tl.to('#dome',{opacity:1,duration:.4},S(7).start);
+tl.to(fires,{scaleY:1.5,scaleX:1.2,duration:.4,ease:'power2.out'},K(7,'MEMBAKAR'));
+const st=mk('stamp','KEZALIMAN',540,700);slam(st,K(7,'KEZALIMAN'),-6);
+tl.to(clouds,{x:(i)=>(i%2?1:-1)*900,duration:.9,ease:'power3.in'},K(7,'KEZALIMAN')+.1);
+tl.to(fires,{scale:0,autoAlpha:0,duration:.5,stagger:.08,ease:'back.in(2)'},K(7,'KEZALIMAN')+.2);
+tl.to('#embers',{autoAlpha:0,duration:.5},K(7,'KEZALIMAN')+.2);
+tl.to('#smoke',{opacity:0,duration:.8},K(7,'KEZALIMAN')+.3);
+out(st,S(7).end,{s:1.2});
+
+// S8 tiga tuntutan — retak pulih, kubah menyala
+headline('Tuntutannya/_jelas_',S(8).start,S(8).end);
+$$('#cracks path').forEach((p,i)=>{tl.to(p,{strokeDashoffset:p.getTotalLength(),duration:.5,ease:'power2.in'},S(8).start+.3+i*.2);tl.set(p,{autoAlpha:0},S(8).start+.85+i*.2)});
+tl.to('#domeBody',{opacity:1,duration:1},S(8).start+.5);
+tl.to('#halo',{opacity:.12,duration:.8},K(8,'PULIHKAN'));
+const D=[mk('dem','BENCANA NASIONAL',540,960),mk('dem','ADILI PEMBAKAR',540,1090),mk('dem','PULIHKAN KORBAN',540,1220)];
+D.forEach((e,i)=>pop(e,[K(8,'BENCANA'),K(8,'ADILI'),K(8,'PULIHKAN')][i]-.2,{s0:.3,y0:40,ease:'back.out(2.5)'}));
+D.forEach(e=>out(e,S(8).end));
+
+// S9 doakan & bagikan — langit kembali biru
+tl.to('#skyBlue',{opacity:1,duration:2.5,ease:'power1.inOut'},S(9).start);
+tl.to('#sun',{attr:{fill:'#FFF9EF'},opacity:.9,duration:2},S(9).start);
+tl.set('#birds',{autoAlpha:1},S(9).start);
+tl.fromTo('#birds',{x:0},{x:1400,duration:6,ease:'none',immediateRender:false},S(9).start);
+const cta=mk('cta','DOAKAN &amp; BAGIKAN',540,470);pop(cta,K(9,'DOAKAN')-.15,{s0:.3,ease:'back.out(2.6)'});
+tl.to(cta,{scale:1.05,duration:.5,repeat:3,yoyo:true,ease:'sine.inOut'},K(9,'BAGIKAN'));
+const s9=mk('lbl','biar langit kita <span class="c">kembali biru</span>',540,590);pop(s9,K(9,'BIRU')-.6,{y0:30,s0:.9});
+tl.set(people,{fill:'#34D399',scale:1,y:0},S(9).start);
+tl.fromTo('#crowd',{autoAlpha:0},{autoAlpha:1,duration:.4,immediateRender:false},S(9).start);
+tl.to(people,{fill:'#00E1EF',scale:1.12,duration:.3,stagger:{each:.02,from:'center'},ease:'back.out(3)'},K(9,'BAGIKAN'));
+[cta,s9].forEach(e=>out(e,S(10).start));out('#crowd',S(10).start);
+
+// S10 end card
+tl.to('#dome',{scale:.55,y:-160,autoAlpha:0,duration:.4,ease:'power2.in'},S(10).start-.1);
+const lg=mk('','<img id="logoBig" src="logo.png" alt="Muslim Leveling">',540,900);pop(lg,S(10).start+.15,{s0:.4,d:.6,ease:'back.out(1.7)'});
+tl.to(lg,{y:-14,duration:.9,yoyo:true,repeat:1,ease:'sine.inOut'},S(10).start+.8);
+const bn=mk('brandname','Muslim Leveling',540,1220);pop(bn,S(10).start+.4,{y0:40,s0:.9});
+const dl=mk('dl','Download sekarang',540,1360);pop(dl,S(10).start+.65,{y0:50,s0:.8});
+
+// pemutar
+const vo=$('#vo'),sk=$('#seek'),tm=$('#time');let playing=false,t0=0,c0=0;
+window.seek=t=>{tl.seek(Math.max(0,Math.min(DURATION,t)),false);sk.value=t;tm.textContent=fmt(t,2)+' dtk'};
+function loop(){if(!playing)return;const t=c0+(performance.now()-t0)/1000;if(t>=DURATION){playing=false;$('#play').textContent='Play';vo.pause();return}seek(t);requestAnimationFrame(loop)}
+$('#play').onclick=()=>{playing=!playing;$('#play').textContent=playing?'Pause':'Play';if(playing){c0=+sk.value>=DURATION?0:+sk.value;t0=performance.now();vo.currentTime=c0;vo.play().catch(()=>{});loop()}else vo.pause()};
+sk.oninput=()=>{seek(+sk.value);if(playing){c0=+sk.value;t0=performance.now();vo.currentTime=c0}};
+$('#file').onchange=e=>{vo.src=URL.createObjectURL(e.target.files[0])};
+function fit(){const s=Math.min((innerHeight-(document.body.classList.contains('render')?0:56))/1920,innerWidth/1080);$('#wrap').style.transform=`translateX(-50%) scale(${s})`}
+addEventListener('resize',fit);
+if(location.hash=='#render')document.body.classList.add('render');
+// ponytail: adaptor untuk gorengan/tools/record.mjs (render headless)
+window.__film={duration:DURATION,seek:t=>{if(!document.body.classList.contains('render')){document.body.classList.add('render');fit()}seek(t);return{t}}};
+fit();document.fonts.ready.then(()=>{seek(0);window.READY=true;document.documentElement.dataset.ready='1'});
+</script>
+</body>
+</html>
