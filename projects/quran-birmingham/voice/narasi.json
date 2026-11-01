@@ -1,0 +1,720 @@
+{
+ "text": "Tahun 2015, sebuah laboratorium di Inggris menguji dua lembar Alquran tua. Hasilnya membuat dunia terdiam. Hampir 100 tahun ia tersimpan di perpustakaan Universitas Birmingham, terselip di antara naskah lain. Tak ada yang sadar betapa tuanya. Sampai seorang peneliti curiga. Kulit lembaran itu pun diuji karbon di Oxford. Hasilnya kulit itu berasal dari tahun 568 sampai 645 Masehi. Padahal Nabi Muhammad hidup tahun 570 sampai 632. Kata peneliti, penulisnya mungkin pernah melihat Nabi sendiri. Isinya potongan surah Al Kahfi, Maryam, dan Taha dan teksnya sama dengan mushaf yang kita baca hari ini. Dulu Zaid bin Tsabit mengumpulkan Alquran dari pelepah kurma, lempengan batu, dan hafalan para sahabat. 14 abad berlalu, isinya tetap terjaga. Karena Allah sendiri yang berjanji. Sesungguhnya kami yang menurunkan Alquran dan kami pula yang menjaganya. Kitab yang ada di rumahmu hari ini adalah kitab yang sama. Sudahkah kamu membacanya hari ini?",
+ "words": [
+  {
+   "word": "Tahun",
+   "start": 0.189,
+   "end": 0.566
+  },
+  {
+   "word": "2015,",
+   "start": 0.566,
+   "end": 1.604
+  },
+  {
+   "word": "sebuah",
+   "start": 1.792,
+   "end": 2.264
+  },
+  {
+   "word": "laboratorium",
+   "start": 2.264,
+   "end": 2.736
+  },
+  {
+   "word": "di",
+   "start": 2.736,
+   "end": 2.83
+  },
+  {
+   "word": "Inggris",
+   "start": 2.83,
+   "end": 3.208
+  },
+  {
+   "word": "menguji",
+   "start": 3.208,
+   "end": 3.679
+  },
+  {
+   "word": "dua",
+   "start": 3.679,
+   "end": 4.057
+  },
+  {
+   "word": "lembar",
+   "start": 4.057,
+   "end": 4.34
+  },
+  {
+   "word": "Alquran",
+   "start": 4.34,
+   "end": 4.717
+  },
+  {
+   "word": "tua.",
+   "start": 4.717,
+   "end": 5.0
+  },
+  {
+   "word": "Hasilnya",
+   "start": 5.566,
+   "end": 6.038
+  },
+  {
+   "word": "membuat",
+   "start": 6.321,
+   "end": 6.698
+  },
+  {
+   "word": "dunia",
+   "start": 6.698,
+   "end": 7.17
+  },
+  {
+   "word": "terdiam.",
+   "start": 7.17,
+   "end": 7.547
+  },
+  {
+   "word": "Hampir",
+   "start": 8.302,
+   "end": 8.679
+  },
+  {
+   "word": "100",
+   "start": 8.679,
+   "end": 9.34
+  },
+  {
+   "word": "tahun",
+   "start": 9.34,
+   "end": 9.717
+  },
+  {
+   "word": "ia",
+   "start": 10.0,
+   "end": 10.189
+  },
+  {
+   "word": "tersimpan",
+   "start": 10.189,
+   "end": 10.755
+  },
+  {
+   "word": "di",
+   "start": 10.755,
+   "end": 10.849
+  },
+  {
+   "word": "perpustakaan",
+   "start": 10.849,
+   "end": 11.415
+  },
+  {
+   "word": "Universitas",
+   "start": 11.415,
+   "end": 11.981
+  },
+  {
+   "word": "Birmingham,",
+   "start": 11.981,
+   "end": 12.453
+  },
+  {
+   "word": "terselip",
+   "start": 12.83,
+   "end": 13.208
+  },
+  {
+   "word": "di",
+   "start": 13.208,
+   "end": 13.302
+  },
+  {
+   "word": "antara",
+   "start": 13.302,
+   "end": 13.585
+  },
+  {
+   "word": "naskah",
+   "start": 13.585,
+   "end": 13.774
+  },
+  {
+   "word": "lain.",
+   "start": 13.774,
+   "end": 14.057
+  },
+  {
+   "word": "Tak",
+   "start": 14.528,
+   "end": 14.717
+  },
+  {
+   "word": "ada",
+   "start": 14.717,
+   "end": 14.906
+  },
+  {
+   "word": "yang",
+   "start": 14.906,
+   "end": 15.0
+  },
+  {
+   "word": "sadar",
+   "start": 15.0,
+   "end": 15.566
+  },
+  {
+   "word": "betapa",
+   "start": 15.566,
+   "end": 15.849
+  },
+  {
+   "word": "tuanya.",
+   "start": 15.849,
+   "end": 16.226
+  },
+  {
+   "word": "Sampai",
+   "start": 16.792,
+   "end": 17.17
+  },
+  {
+   "word": "seorang",
+   "start": 17.17,
+   "end": 17.453
+  },
+  {
+   "word": "peneliti",
+   "start": 17.453,
+   "end": 17.736
+  },
+  {
+   "word": "curiga.",
+   "start": 17.736,
+   "end": 18.208
+  },
+  {
+   "word": "Kulit",
+   "start": 18.868,
+   "end": 19.151
+  },
+  {
+   "word": "lembaran",
+   "start": 19.151,
+   "end": 19.528
+  },
+  {
+   "word": "itu",
+   "start": 19.528,
+   "end": 19.623
+  },
+  {
+   "word": "pun",
+   "start": 19.623,
+   "end": 19.811
+  },
+  {
+   "word": "diuji",
+   "start": 19.811,
+   "end": 20.377
+  },
+  {
+   "word": "karbon",
+   "start": 20.377,
+   "end": 20.755
+  },
+  {
+   "word": "di",
+   "start": 20.755,
+   "end": 20.849
+  },
+  {
+   "word": "Oxford.",
+   "start": 20.849,
+   "end": 21.226
+  },
+  {
+   "word": "Hasilnya",
+   "start": 21.981,
+   "end": 22.453
+  },
+  {
+   "word": "kulit",
+   "start": 23.113,
+   "end": 23.302
+  },
+  {
+   "word": "itu",
+   "start": 23.302,
+   "end": 23.396
+  },
+  {
+   "word": "berasal",
+   "start": 23.396,
+   "end": 23.679
+  },
+  {
+   "word": "dari",
+   "start": 23.679,
+   "end": 23.868
+  },
+  {
+   "word": "tahun",
+   "start": 23.868,
+   "end": 24.057
+  },
+  {
+   "word": "568",
+   "start": 24.057,
+   "end": 25.283
+  },
+  {
+   "word": "sampai",
+   "start": 25.283,
+   "end": 25.66
+  },
+  {
+   "word": "645",
+   "start": 25.66,
+   "end": 27.075
+  },
+  {
+   "word": "Masehi.",
+   "start": 27.075,
+   "end": 27.453
+  },
+  {
+   "word": "Padahal",
+   "start": 28.208,
+   "end": 28.585
+  },
+  {
+   "word": "Nabi",
+   "start": 28.774,
+   "end": 29.057
+  },
+  {
+   "word": "Muhammad",
+   "start": 29.057,
+   "end": 29.434
+  },
+  {
+   "word": "hidup",
+   "start": 29.434,
+   "end": 29.623
+  },
+  {
+   "word": "tahun",
+   "start": 29.623,
+   "end": 29.906
+  },
+  {
+   "word": "570",
+   "start": 29.906,
+   "end": 30.755
+  },
+  {
+   "word": "sampai",
+   "start": 30.755,
+   "end": 31.038
+  },
+  {
+   "word": "632.",
+   "start": 31.038,
+   "end": 32.075
+  },
+  {
+   "word": "Kata",
+   "start": 32.642,
+   "end": 32.83
+  },
+  {
+   "word": "peneliti,",
+   "start": 32.83,
+   "end": 33.208
+  },
+  {
+   "word": "penulisnya",
+   "start": 33.491,
+   "end": 33.962
+  },
+  {
+   "word": "mungkin",
+   "start": 33.962,
+   "end": 34.245
+  },
+  {
+   "word": "pernah",
+   "start": 34.245,
+   "end": 34.717
+  },
+  {
+   "word": "melihat",
+   "start": 34.717,
+   "end": 35.0
+  },
+  {
+   "word": "Nabi",
+   "start": 35.0,
+   "end": 35.189
+  },
+  {
+   "word": "sendiri.",
+   "start": 35.189,
+   "end": 35.472
+  },
+  {
+   "word": "Isinya",
+   "start": 36.415,
+   "end": 36.698
+  },
+  {
+   "word": "potongan",
+   "start": 37.17,
+   "end": 37.547
+  },
+  {
+   "word": "surah",
+   "start": 37.547,
+   "end": 37.83
+  },
+  {
+   "word": "Al",
+   "start": 37.83,
+   "end": 37.925
+  },
+  {
+   "word": "Kahfi,",
+   "start": 37.925,
+   "end": 38.491
+  },
+  {
+   "word": "Maryam,",
+   "start": 38.585,
+   "end": 39.057
+  },
+  {
+   "word": "dan",
+   "start": 39.057,
+   "end": 39.34
+  },
+  {
+   "word": "Taha",
+   "start": 39.34,
+   "end": 39.717
+  },
+  {
+   "word": "dan",
+   "start": 40.0,
+   "end": 40.189
+  },
+  {
+   "word": "teksnya",
+   "start": 40.189,
+   "end": 40.66
+  },
+  {
+   "word": "sama",
+   "start": 40.66,
+   "end": 41.038
+  },
+  {
+   "word": "dengan",
+   "start": 41.038,
+   "end": 41.321
+  },
+  {
+   "word": "mushaf",
+   "start": 41.321,
+   "end": 41.698
+  },
+  {
+   "word": "yang",
+   "start": 41.698,
+   "end": 41.792
+  },
+  {
+   "word": "kita",
+   "start": 41.792,
+   "end": 41.981
+  },
+  {
+   "word": "baca",
+   "start": 41.981,
+   "end": 42.264
+  },
+  {
+   "word": "hari",
+   "start": 42.264,
+   "end": 42.453
+  },
+  {
+   "word": "ini.",
+   "start": 42.453,
+   "end": 42.642
+  },
+  {
+   "word": "Dulu",
+   "start": 43.396,
+   "end": 43.868
+  },
+  {
+   "word": "Zaid",
+   "start": 43.962,
+   "end": 44.34
+  },
+  {
+   "word": "bin",
+   "start": 44.34,
+   "end": 44.434
+  },
+  {
+   "word": "Tsabit",
+   "start": 44.434,
+   "end": 44.811
+  },
+  {
+   "word": "mengumpulkan",
+   "start": 44.811,
+   "end": 45.189
+  },
+  {
+   "word": "Alquran",
+   "start": 45.189,
+   "end": 45.66
+  },
+  {
+   "word": "dari",
+   "start": 45.66,
+   "end": 45.755
+  },
+  {
+   "word": "pelepah",
+   "start": 45.755,
+   "end": 46.038
+  },
+  {
+   "word": "kurma,",
+   "start": 46.038,
+   "end": 46.604
+  },
+  {
+   "word": "lempengan",
+   "start": 46.604,
+   "end": 46.981
+  },
+  {
+   "word": "batu,",
+   "start": 46.981,
+   "end": 47.358
+  },
+  {
+   "word": "dan",
+   "start": 47.358,
+   "end": 47.547
+  },
+  {
+   "word": "hafalan",
+   "start": 47.547,
+   "end": 47.925
+  },
+  {
+   "word": "para",
+   "start": 47.925,
+   "end": 48.113
+  },
+  {
+   "word": "sahabat.",
+   "start": 48.113,
+   "end": 48.396
+  },
+  {
+   "word": "14",
+   "start": 49.151,
+   "end": 49.811
+  },
+  {
+   "word": "abad",
+   "start": 49.811,
+   "end": 50.0
+  },
+  {
+   "word": "berlalu,",
+   "start": 50.0,
+   "end": 50.377
+  },
+  {
+   "word": "isinya",
+   "start": 50.755,
+   "end": 51.226
+  },
+  {
+   "word": "tetap",
+   "start": 51.226,
+   "end": 51.698
+  },
+  {
+   "word": "terjaga.",
+   "start": 51.698,
+   "end": 52.075
+  },
+  {
+   "word": "Karena",
+   "start": 52.83,
+   "end": 53.019
+  },
+  {
+   "word": "Allah",
+   "start": 53.019,
+   "end": 53.491
+  },
+  {
+   "word": "sendiri",
+   "start": 53.491,
+   "end": 53.774
+  },
+  {
+   "word": "yang",
+   "start": 53.774,
+   "end": 53.868
+  },
+  {
+   "word": "berjanji.",
+   "start": 53.868,
+   "end": 54.245
+  },
+  {
+   "word": "Sesungguhnya",
+   "start": 59.623,
+   "end": 60.094
+  },
+  {
+   "word": "kami",
+   "start": 60.094,
+   "end": 60.377
+  },
+  {
+   "word": "yang",
+   "start": 60.377,
+   "end": 60.472
+  },
+  {
+   "word": "menurunkan",
+   "start": 60.472,
+   "end": 60.849
+  },
+  {
+   "word": "Alquran",
+   "start": 60.849,
+   "end": 61.415
+  },
+  {
+   "word": "dan",
+   "start": 61.604,
+   "end": 61.792
+  },
+  {
+   "word": "kami",
+   "start": 61.792,
+   "end": 62.075
+  },
+  {
+   "word": "pula",
+   "start": 62.075,
+   "end": 62.358
+  },
+  {
+   "word": "yang",
+   "start": 62.358,
+   "end": 62.453
+  },
+  {
+   "word": "menjaganya.",
+   "start": 62.453,
+   "end": 63.019
+  },
+  {
+   "word": "Kitab",
+   "start": 63.868,
+   "end": 64.245
+  },
+  {
+   "word": "yang",
+   "start": 64.245,
+   "end": 64.34
+  },
+  {
+   "word": "ada",
+   "start": 64.34,
+   "end": 64.528
+  },
+  {
+   "word": "di",
+   "start": 64.528,
+   "end": 64.623
+  },
+  {
+   "word": "rumahmu",
+   "start": 64.623,
+   "end": 64.906
+  },
+  {
+   "word": "hari",
+   "start": 64.906,
+   "end": 65.094
+  },
+  {
+   "word": "ini",
+   "start": 65.094,
+   "end": 65.377
+  },
+  {
+   "word": "adalah",
+   "start": 65.755,
+   "end": 66.038
+  },
+  {
+   "word": "kitab",
+   "start": 66.038,
+   "end": 66.415
+  },
+  {
+   "word": "yang",
+   "start": 66.415,
+   "end": 66.604
+  },
+  {
+   "word": "sama.",
+   "start": 66.604,
+   "end": 66.887
+  },
+  {
+   "word": "Sudahkah",
+   "start": 67.547,
+   "end": 67.925
+  },
+  {
+   "word": "kamu",
+   "start": 67.925,
+   "end": 68.302
+  },
+  {
+   "word": "membacanya",
+   "start": 68.302,
+   "end": 68.774
+  },
+  {
+   "word": "hari",
+   "start": 68.774,
+   "end": 68.962
+  },
+  {
+   "word": "ini?",
+   "start": 68.962,
+   "end": 69.151
+  }
+ ]
+}

@@ -15,6 +15,10 @@ Contoh hasil: "Rakyat Diperas" (pajak), "Dua Tahun Berkuasa" (demo 5 tuntutan), 
 | `templates/timeline.example.json` | Contoh daftar SFX untuk mix audio |
 | `templates/caption.example.md` | Contoh caption TikTok / Instagram Reels / YouTube Shorts |
 | `templates/logo.png` | Logo Muslim Leveling (latar transparan) |
+| `tools/` | `vertex.py` (Gemini TTS + transkrip), `record.mjs` (render headless Chrome), `mix.py` (SFX + mix): dari anatomy-studio, MIT. Di SKILL.md disebut `gorengan/tools` |
+| `projects/` | Proyek jadi seri Mukjizat Quran: `romawi-akan-menang`, `quran-birmingham` (naskah, caption, preview.html, narasi, timeline SFX, MP4 versi HP) |
+| `REQUIREMENTS.md` | Semua kebutuhan software, akun, cara pasang, spesifikasi VPS (hasil ukur) |
+| `setup-ubuntu.sh` | Pasang semua kebutuhan di Ubuntu 24.04 (VPS/WSL) sekali jalan |
 
 ## Pasang skill
 
@@ -30,10 +34,13 @@ Pakai dengan menyebut "pakai gaya-muslim-leveling" saat membuat video, bersama s
 
 ## Kebutuhan
 
-- Skill `start-motion` (plugin anthropic-skills) untuk alur 6 tahap. Tidak disertakan di repo ini.
-- Python 3.11, Node.js, ffmpeg, Google Chrome.
-- Google Cloud SDK yang sudah login (`gcloud auth login`, `gcloud config set project …`) untuk Gemini TTS.
-- `vertex.py`, `record.mjs`, `mix.py`: skrip render/TTS/mix dari skill anatomy-film (plugin anatomy-studio). Tidak disertakan di repo ini; `gen.py` dan workflow di SKILL.md mengharapkannya di folder `gorengan/tools/`.
+Lihat [REQUIREMENTS.md](REQUIREMENTS.md). Ringkasnya: Ubuntu 24.04 (atau WSL), Node.js 22, Python 3 + numpy, ffmpeg, Google Chrome, gcloud yang login ke project Vertex AI, dan Claude Code. VPS minimal 2 vCPU / 4 GB RAM / 25 GB SSD, disarankan 4 vCPU / 8 GB.
+
+```bash
+bash setup-ubuntu.sh
+```
+
+Skill `start-motion` (dari claude.ai) opsional. Workflow di SKILL.md sudah cukup untuk produksi.
 
 ## Prinsip konten
 

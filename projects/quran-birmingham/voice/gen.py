@@ -1,0 +1,28 @@
+"""Generate narration takes with Gemini TTS, then transcribe with word timestamps.
+Run from quran-birmingham/: python -I voice/gen.py"""
+import json, os, subprocess, sys
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "..", "tools"))
+import vertex
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+TEXT = open(os.path.join(HERE, "script.txt"), encoding="utf-8").read().strip()
+STYLE = ("Pria Indonesia, suara dalam dan tegas seperti pengkhotbah muda yang bercerita penemuan misterius untuk video pendek TikTok. "
+         "Tempo CEPAT dan bertenaga, hampir tanpa jeda antar kalimat; jeda sangat singkat di tanda elipsis. "
+         "Misterius dan penasaran di awal, tegang saat hasil uji karbon diumumkan, "
+         "melambat dan khidmat hanya saat membaca ayat Al-Quran berbahasa Arab, lalu hangat dan mengajak di akhir.")
+
+bearer = vertex.token()
+for take in sys.argv[1:] or ["1", "2"]:
+    raw = os.path.join(HERE, f"take{take}.raw")
+    vertex.speak(TEXT, raw, bearer, voice="Sadachbia", style=STYLE)
+    wav = os.path.join(HERE, f"take{take}.wav")
+    head = open(raw, "rb").read(4)
+    if head == b"RIFF":
+        os.replace(raw, wav)
+    else:  # ponytail: Gemini TTS returns raw 24 kHz 16-bit mono PCM
+        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "s16le", "-ar", "24000", "-ac", "1", "-i", raw, wav], check=True)
+        os.remove(raw)
+    text, words = vertex.transcribe(wav, bearer, vocabulary=["Birmingham", "Oxford", "Al-Kahfi", "Maryam", "Thaha", "mushaf", "Zaid bin Tsabit", "Bukhari", "nazzalnadz-dzikra", "lahaafizhuun"])
+    json.dump({"text": text, "words": words}, open(os.path.join(HERE, f"take{take}.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    dur = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", wav], capture_output=True, text=True).stdout.strip()
+    print(f"take{take}: {dur}s, {len(words)} words\n{text}\n")

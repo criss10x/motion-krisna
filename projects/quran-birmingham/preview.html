@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quran Birmingham</title>
+<link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@700&family=Readex+Pro:wght@500;700&family=Amiri:wght@700&display=block" rel="stylesheet">
+<style>
+:root{--bg:#06110E;--pri:#34D399;--sec:#FFF9EF;--ter:#00E1EF;--red:#FF5A5F;--card:#0B1F19;--mut:#8FB5A8}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#020605;color:var(--sec);font-family:'Readex Pro',sans-serif;overflow:hidden}
+#wrap{position:absolute;left:50%;top:0;width:1080px;height:1920px;transform-origin:50% 0}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:var(--bg)}
+#shk,#art,#ui{position:absolute;inset:0}
+.el{position:absolute;left:0;top:0;visibility:hidden}
+.prop{line-height:0}
+.head{width:960px;text-align:center;font:700 96px/1.08 'Reem Kufi';color:var(--sec);text-transform:uppercase;letter-spacing:-1px;text-shadow:0 6px 0 #06110E}
+.m{display:inline-block;overflow:hidden;vertical-align:top;padding:0 4px 8px}
+.w{display:inline-block}
+.r{color:var(--red)}.g{color:var(--pri)}.c{color:var(--ter)}
+.lbl{font:700 44px/1.25 'Readex Pro';color:var(--sec);text-align:center;white-space:nowrap;background:#06110Ecc;padding:14px 30px;border-radius:24px}
+.src{font:500 28px/1.2 'Readex Pro';color:var(--mut);text-align:center;white-space:nowrap;background:#06110Ecc;padding:6px 16px;border-radius:14px}
+.big{text-align:center;background:#0B1F19e6;border:3px solid var(--ter);border-radius:32px;padding:16px 44px}
+.big .n{font:700 140px/1 'Reem Kufi';color:var(--sec);white-space:nowrap}.big .t{font:700 34px/1 'Readex Pro';color:var(--ter);margin-top:8px}
+.fact{font:700 40px/1.2 'Readex Pro';color:var(--sec);background:var(--card);border:3px solid var(--ter);padding:16px 30px;border-radius:30px;white-space:nowrap}
+.fact b{color:var(--ter)}
+.chip{font:700 44px/1 'Reem Kufi';color:var(--sec);background:var(--card);border:4px solid var(--pri);padding:18px 30px;border-radius:40px;white-space:nowrap}
+.eq{font:700 150px/1 'Reem Kufi';color:var(--pri);text-shadow:0 6px 0 #06110E}
+.card{width:920px;background:var(--card);border:2px solid #34D39980;border-radius:40px;padding:46px 50px 38px;text-align:center}
+.card .ar{font:700 70px/1.75 Amiri;direction:rtl;color:var(--sec)}
+.card .tr{font:500 40px/1.4 'Readex Pro';color:var(--sec);margin-top:18px}
+.card .ref{font:700 30px/1.3 'Readex Pro';color:var(--ter);margin-top:24px}
+.card .brand{display:flex;gap:10px;align-items:center;justify-content:center;font:700 24px/1 'Readex Pro';color:var(--mut);margin-top:20px}
+.card .brand img{width:34px;height:34px}
+.tlbar{width:900px;height:300px;position:relative}
+.cta{font:700 56px/1.1 'Reem Kufi';color:var(--bg);background:var(--pri);padding:26px 50px;border-radius:70px;white-space:nowrap}
+.brandname{font:700 92px/1 'Reem Kufi';color:var(--sec);white-space:nowrap}
+.dl{font:700 48px/1 'Reem Kufi';color:var(--bg);background:var(--ter);padding:24px 48px;border-radius:60px;white-space:nowrap}
+#logoBig{width:460px;height:460px}
+#wm{left:80px;top:262px;display:flex;gap:12px;align-items:center;font:700 30px/1 'Reem Kufi';color:var(--sec)}
+#wm img{width:52px;height:52px}
+#progbg{position:absolute;left:80px;top:236px;width:920px;height:6px;background:#ffffff1c;border-radius:3px}
+#prog{width:100%;height:100%;background:var(--pri);border-radius:3px;transform-origin:0 50%}
+#ctl{position:fixed;left:0;right:0;bottom:0;height:56px;display:flex;gap:12px;align-items:center;padding:0 16px;background:#0B1F19;font:500 14px 'Readex Pro'}
+#ctl input[type=range]{flex:1}
+#ctl button{font:700 14px 'Readex Pro';background:#34D399;color:#06110E;border:0;border-radius:8px;padding:8px 16px;cursor:pointer}
+body.render #ctl{display:none}
+</style>
+</head>
+<body>
+<div id="wrap"><div id="stage"><div id="shk">
+<svg id="art" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="gBand" x1="0" y1="-560" x2="0" y2="420" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#A7F3D0"/><stop offset=".45" stop-color="#34D399"/><stop offset="1" stop-color="#00E1EF"/></linearGradient>
+  <linearGradient id="gNight" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#06110E"/><stop offset=".7" stop-color="#10241D"/><stop offset="1" stop-color="#173029"/></linearGradient>
+  <linearGradient id="gBlue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#062A33"/><stop offset=".65" stop-color="#0C6B70"/><stop offset="1" stop-color="#1FB8A8"/></linearGradient>
+  <linearGradient id="gDusk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0B1F19"/><stop offset=".6" stop-color="#2A2420"/><stop offset="1" stop-color="#6B3A2E"/></linearGradient>
+  <pattern id="geo" width="140" height="140" patternUnits="userSpaceOnUse">
+    <g fill="none" stroke="#34D399" stroke-width="2" opacity=".07" transform="translate(70 70)">
+      <rect x="-34" y="-34" width="68" height="68"/><rect x="-34" y="-34" width="68" height="68" transform="rotate(45)"/><circle r="14"/>
+    </g>
+  </pattern>
+  <symbol id="tree" overflow="visible"><rect x="-6" y="-60" width="12" height="62" fill="#0A1C17"/><circle cy="-100" r="56"/><circle cx="-36" cy="-70" r="38"/><circle cx="36" cy="-72" r="40"/></symbol>
+  <symbol id="palm" overflow="visible"><path d="M-6,0 C-8,-60 -2,-120 8,-170 L16,-168 C8,-120 4,-60 8,0Z" fill="#0A1C17"/><g transform="translate(12,-170)"><path d="M0,0 C-40,-30 -80,-20 -100,10 C-70,-10 -40,-8 0,0Z"/><path d="M0,0 C40,-30 80,-20 100,10 C70,-10 40,-8 0,0Z"/><path d="M0,0 C-20,-45 -55,-60 -80,-50 C-50,-40 -25,-25 0,0Z"/><path d="M0,0 C20,-45 55,-60 80,-50 C50,-40 25,-25 0,0Z"/></g></symbol>
+  <symbol id="hut" overflow="visible"><rect x="-60" y="-80" width="120" height="80" fill="#163B31"/><rect x="-66" y="-88" width="132" height="12" fill="#1F5A48"/><rect x="12" y="-52" width="26" height="52" rx="13" fill="#0A1C17"/></symbol>
+  <symbol id="home" overflow="visible"><rect x="-70" y="-90" width="140" height="90" fill="#163B31"/><path d="M-84,-88 L0,-150 L84,-88Z" fill="#1F5A48"/><rect x="-46" y="-66" width="30" height="28" fill="#FFB38A" opacity=".75"/><rect x="16" y="-66" width="30" height="28" fill="#FFB38A" opacity=".75"/></symbol>
+  <symbol id="bird" overflow="visible"><path d="M-22,0 C-12,-12 -4,-10 0,0 C4,-10 12,-12 22,0" fill="none" stroke="#FFF9EF" stroke-width="5" stroke-linecap="round"/></symbol>
+</defs>
+
+<g id="cam">
+<rect width="1080" height="1920" fill="url(#gNight)"/>
+<rect id="skyDusk" width="1080" height="1920" fill="url(#gDusk)" opacity="0"/>
+<rect id="skyBlue" width="1080" height="1920" fill="url(#gBlue)" opacity="0"/>
+<g id="L2"><rect x="-280" y="-280" width="1640" height="2480" fill="url(#geo)"/></g>
+<circle id="moon" cx="830" cy="690" r="80" fill="#FFF9EF" opacity=".16"/>
+<g id="birds" opacity="0"><use href="#bird" x="-120" y="800"/><use href="#bird" x="-60" y="960" transform="scale(.8)"/><use href="#bird" x="-200" y="860" transform="scale(.9)"/><use href="#bird" x="-260" y="1080" transform="scale(.7)"/></g>
+<g id="Lmount"><path d="M-100,1480 C80,1420 220,1430 360,1450 C520,1410 680,1415 820,1445 C940,1420 1060,1415 1180,1435 L1180,1520 L-100,1520Z" fill="#0E241D"/></g>
+<g id="cityFar" fill="#123A2E"></g>
+<g id="oldFar" fill="#123A2E" opacity="0"></g>
+
+<!-- OBJEK UTAMA: kubah -->
+<g transform="translate(540,1080)"><g id="dome">
+  <path id="halo" d="M-280,420 L-280,40 C-280,-120 -170,-200 -90,-270 C-40,-315 -10,-360 0,-430 C10,-360 40,-315 90,-270 C170,-200 280,-120 280,40 L280,420" fill="none" stroke="#34D399" stroke-width="130" stroke-linejoin="round" opacity="0"/>
+  <g id="domeBody">
+    <path d="M-280,420 L-280,40 C-280,-120 -170,-200 -90,-270 C-40,-315 -10,-360 0,-430 C10,-360 40,-315 90,-270 C170,-200 280,-120 280,40 L280,420" fill="none" stroke="url(#gBand)" stroke-width="56" stroke-linejoin="round"/>
+    <path d="M-200,420 L-200,70 C-200,-50 -120,-120 -60,-175 C-30,-200 -10,-230 0,-270 C10,-230 30,-200 60,-175 C120,-120 200,-50 200,70 L200,420" fill="none" stroke="url(#gBand)" stroke-width="10" opacity=".55"/>
+  </g>
+  <g id="cracks" fill="none" stroke="#FF5A5F" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M-250,-150 L-215,-110 L-240,-70 L-200,-30 L-225,20 L-190,60"/><path d="M300,-40 L265,0 L292,40 L255,90 L280,140"/><path d="M-28,-385 L12,-345 L-16,-305 L18,-262"/>
+  </g>
+</g></g>
+
+<rect x="0" y="1560" width="1080" height="360" fill="#0A1C17"/>
+<g id="nearNew" fill="#174A3A"></g>
+<g id="nearOld" fill="#174A3A" opacity="0"></g>
+<g id="homes"></g>
+<g id="dust" fill="#FFF9EF"></g>
+</g>
+</svg>
+
+<div id="ui">
+  <div id="progbg"><div id="prog"></div></div>
+  <div class="el" id="wm"><img src="logo.png" alt="">Muslim Leveling</div>
+</div>
+</div></div></div>
+
+<div id="ctl"><button id="play">Play</button><input id="seek" type="range" min="0" max="72.8" step="0.01" value="0"><span id="time">0,00 dtk</span><label>Pilih audio <input id="file" type="file" accept="audio/*"></label></div>
+<audio id="vo" src="voice/narasi.wav" preload="auto"></audio>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+// CUES dari voice/narasi.json (take1, atempo 1.06); batas adegan = tengah jeda sebelum kalimat baru
+const CUES={"w":1080,"h":1920,"fps":30,"duration":72.8,"estimated":false,"audio":"voice/narasi.wav","scenes":[
+{"id":1,"start":0,"end":7.8,"keywords":[{"word":"LAB","t":1.79},{"word":"LEMBAR","t":3.68},{"word":"TERDIAM","t":7.17}]},
+{"id":2,"start":7.8,"end":16.3,"keywords":[{"word":"100","t":8.68},{"word":"BIRMINGHAM","t":10.85},{"word":"TERSELIP","t":12.83},{"word":"TAK","t":14.53}]},
+{"id":3,"start":16.3,"end":21.5,"keywords":[{"word":"CURIGA","t":17.45},{"word":"KULIT","t":18.87},{"word":"OXFORD","t":20.38}]},
+{"id":4,"start":21.5,"end":27.7,"keywords":[{"word":"HASIL","t":21.98},{"word":"568","t":24.06},{"word":"645","t":25.66},{"word":"MASEHI","t":27.07}]},
+{"id":5,"start":27.7,"end":35.9,"keywords":[{"word":"NABI","t":28.77},{"word":"570","t":29.91},{"word":"632","t":31.04},{"word":"KATA","t":32.64},{"word":"MELIHAT","t":34.72}]},
+{"id":6,"start":35.9,"end":42.9,"keywords":[{"word":"KAHFI","t":37.83},{"word":"MARYAM","t":38.59},{"word":"THAHA","t":39.34},{"word":"SAMA","t":40.66}]},
+{"id":7,"start":42.9,"end":48.6,"keywords":[{"word":"ZAID","t":43.96},{"word":"PELEPAH","t":45.76},{"word":"BATU","t":46.6},{"word":"HAFALAN","t":47.55}]},
+{"id":8,"start":48.6,"end":63.2,"keywords":[{"word":"ABAD","t":49.15},{"word":"TERJAGA","t":51.23},{"word":"ALLAH","t":53.02},{"word":"ARAB","t":54.4},{"word":"SESUNGGUHNYA","t":59.62},{"word":"MENJAGANYA","t":62.36}]},
+{"id":9,"start":63.2,"end":69.5,"keywords":[{"word":"KITAB","t":63.87},{"word":"SAMA","t":66.42},{"word":"SUDAHKAH","t":67.55}]},
+{"id":10,"start":69.5,"end":72.8,"keywords":[]}]};
+const DURATION=window.DURATION=CUES.duration;
+const S=i=>CUES.scenes[i-1], K=(i,w)=>S(i).keywords.find(k=>k.word==w).t;
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const ui=$('#ui'), tl=gsap.timeline({paused:true});
+const fmt=(v,d)=>v.toFixed(d).replace('.',',');
+const rnd=(a=>()=>{a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296})(1572);
+const NS='http://www.w3.org/2000/svg';
+const add=(par,tag,attrs)=>{const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);$(par).appendChild(e);return e};
+
+function mk(cls,html,x,y){const e=document.createElement('div');e.className='el '+cls;e.innerHTML=html;e.style.left=x+'px';e.style.top=y+'px';ui.appendChild(e);gsap.set(e,{xPercent:-50,yPercent:-50});return e}
+function pop(el,t,o={}){tl.fromTo(el,{autoAlpha:0,scale:o.s0??.4,x:o.x0??0,y:o.y0??0,rotation:o.r0??0},{autoAlpha:1,scale:o.s??1,x:0,y:0,rotation:o.r??0,duration:o.d??.5,ease:o.ease??'back.out(1.8)',immediateRender:o.ir??true},t)}
+function out(el,t,o={}){tl.to(el,{autoAlpha:0,scale:o.s??.7,x:o.x??0,y:o.y??0,duration:.3,ease:'power2.in'},t-.3)}
+function headline(text,t0,t1,y=450){
+  const html=text.split('/').map(line=>line.trim().split(' ').map(w=>{const c={'*':'r','_':'g','~':'c'}[w[0]]||'';return `<span class="m"><span class="w ${c}">${w.replace(/[*_~]/g,'')}</span></span>`}).join(' ')).join('<br>');
+  const e=mk('head',html,540,y);tl.set(e,{autoAlpha:1},t0);
+  tl.fromTo(e.querySelectorAll('.w'),{yPercent:115},{yPercent:0,duration:.45,stagger:.08,ease:'back.out(2)',immediateRender:true},t0);
+  if(t1)tl.to(e,{autoAlpha:0,y:-40,duration:.25,ease:'power2.in'},t1-.25);
+  return e}
+function shake(t,a=1){tl.to('#shk',{keyframes:[{x:18*a,y:-10*a},{x:-16*a,y:8*a},{x:12*a,y:-6*a},{x:-6*a,y:4*a},{x:0,y:0}],duration:.33,ease:'power2.out'},t)}
+function stagIn(els,t,st=.08){tl.fromTo(els,{autoAlpha:0,scale:.3,y:30},{autoAlpha:1,scale:1,y:0,duration:.4,stagger:st,ease:'back.out(2.2)'},t)}
+function arWords(s){return s.split(' ').map(w=>`<span class="m"><span class="w">${w}</span></span>`).join(' ')}
+function card(ar,tr,ref,t0,arT=[],y=1060){
+  const c=mk('card',`${ar?`<div class="ar">${arWords(ar)}</div>`:''}<div class="tr">${tr}</div><div class="ref">${ref}</div><div class="brand"><img src="logo.png" alt="">Muslim Leveling</div>`,540,y);
+  pop(c,t0,{s0:.85,y0:120,d:.6,ease:'back.out(1.4)'});
+  const ws=[...c.querySelectorAll('.ar .w')];let i=0;
+  arT.forEach(([t,n,st])=>{tl.fromTo(ws.slice(i,i+n),{yPercent:110},{yPercent:0,duration:.4,stagger:st,ease:'back.out(2)',immediateRender:true},t);i+=n});
+  return c}
+function trIn(c,t){tl.set(c.querySelectorAll('.tr,.ref,.brand'),{autoAlpha:0},0);stagIn(c.querySelectorAll('.tr,.ref,.brand'),t,.2)}
+
+// ===== ILUSTRASI (SVG inline, ditempatkan di dalam bingkai kubah) =====
+function leafSVG(w,h,seed){let r=seed,R=()=>{r=(r*9301+49297)%233280;return r/233280};let lines='';
+  for(let y=30;y<h-24;y+=24){let x=w-22;while(x>24){const L=14+R()*42;lines+=`<rect x="${(x-L).toFixed(0)}" y="${y}" width="${L.toFixed(0)}" height="6" rx="3"/>`;if(R()<.35)lines+=`<rect x="${(x-L+R()*L).toFixed(0)}" y="${y-10}" width="6" height="10" rx="2"/>`;x-=L+8+R()*10}}
+  return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><rect x="3" y="3" width="${w-6}" height="${h-6}" rx="8" fill="#EADBB8" stroke="#C9B48A" stroke-width="4"/><g fill="#5A3E2B" transform="skewX(-8) translate(${h*.07},0)">${lines}</g></svg>`}
+const SVG={
+ scanner:`<svg width="520" height="420" viewBox="0 0 520 420"><rect x="20" y="330" width="480" height="26" rx="8" fill="#1F5A48"/><rect x="60" y="356" width="20" height="60" fill="#163B31"/><rect x="440" y="356" width="20" height="60" fill="#163B31"/><rect x="236" y="20" width="48" height="60" rx="10" fill="#2C7A63"/><rect x="200" y="70" width="120" height="30" rx="10" fill="#34D399"/><path id="beam" d="M215,100 L305,100 L440,330 L80,330Z" fill="#00E1EF" opacity=".22"/><rect x="250" y="0" width="20" height="24" fill="#2C7A63"/></svg>`,
+ shelf:`<svg width="460" height="500" viewBox="0 0 460 500"><rect x="10" y="10" width="440" height="480" rx="10" fill="#163B31"/><g fill="#0A1C17"><rect x="30" y="30" width="400" height="130"/><rect x="30" y="180" width="400" height="130"/><rect x="30" y="330" width="400" height="140"/></g>${(()=>{let s='',r=7;const R=()=>{r=(r*9301+49297)%233280;return r/233280};const col=['#1F5A48','#2C7A63','#0C6B70','#174A3A','#8FB5A8'];[[30,160],[30,310],[30,470]].forEach(([x0,yb],row)=>{let x=x0+4;while(x<420){const w=20+R()*20,h=80+R()*44;if(row==1&&x>200&&x<260){x+=48;continue}s+=`<rect x="${x.toFixed(0)}" y="${(yb-h).toFixed(0)}" width="${w.toFixed(0)}" height="${h.toFixed(0)}" rx="3" fill="${col[Math.floor(R()*5)]}"/>`;x+=w+3}});return s})()}<g id="peek"><rect x="212" y="200" width="40" height="110" rx="3" fill="#EADBB8" stroke="#FFB38A" stroke-width="4"/><g fill="#5A3E2B"><rect x="220" y="216" width="24" height="5"/><rect x="220" y="232" width="18" height="5"/><rect x="220" y="248" width="24" height="5"/></g></g></svg>`,
+ mag:`<svg width="240" height="240" viewBox="0 0 240 240"><circle cx="96" cy="96" r="70" fill="#00E1EF" fill-opacity=".12" stroke="#FFF9EF" stroke-width="16"/><path d="M146,146 L222,222" stroke="#FFF9EF" stroke-width="26" stroke-linecap="round"/><path d="M60,70 C70,52 88,44 104,44" stroke="#FFF9EF" stroke-width="8" fill="none" stroke-linecap="round" opacity=".6"/></svg>`,
+ machine:`<svg width="440" height="320" viewBox="0 0 440 320"><rect x="10" y="40" width="420" height="250" rx="22" fill="#0B1F19" stroke="#00E1EF" stroke-width="5"/><rect x="40" y="70" width="230" height="150" rx="10" fill="#062A33"/><path id="graph" d="M52,190 L90,186 L120,170 L150,120 L170,90 L190,128 L215,176 L258,190" fill="none" stroke="#34D399" stroke-width="6" stroke-linejoin="round"/><g transform="translate(350,140)" fill="none" stroke="#00E1EF" stroke-width="5"><ellipse rx="56" ry="20"/><ellipse rx="56" ry="20" transform="rotate(60)"/><ellipse rx="56" ry="20" transform="rotate(-60)"/><circle r="10" fill="#00E1EF"/></g><text x="350" y="250" text-anchor="middle" font-family="Reem Kufi" font-weight="700" font-size="44" fill="#FFF9EF">C-14</text><rect x="40" y="240" width="230" height="22" rx="11" fill="#163B31"/><rect id="bar" x="40" y="240" width="230" height="22" rx="11" fill="#00E1EF"/></svg>`,
+ mushaf:`<svg width="210" height="270" viewBox="0 0 210 270"><rect x="8" y="8" width="194" height="254" rx="14" fill="#1F5A48" stroke="#34D399" stroke-width="6"/><rect x="30" y="30" width="150" height="210" rx="8" fill="none" stroke="#FFB38A" stroke-width="4"/><path d="M105,80 L140,135 L105,190 L70,135Z" fill="none" stroke="#FFB38A" stroke-width="6"/><circle cx="105" cy="135" r="12" fill="#FFB38A"/></svg>`,
+ frond:`<svg width="220" height="220" viewBox="0 0 220 220"><path d="M20,200 C70,150 120,90 200,20" stroke="#8FB5A8" stroke-width="10" fill="none" stroke-linecap="round"/>${[0,1,2,3,4,5,6].map(i=>{const t=.15+i*.12,x=20+180*t,y=200-180*t;return `<path d="M${x},${y} l-46,-8" stroke="#34D399" stroke-width="8" stroke-linecap="round"/><path d="M${x},${y} l10,42" stroke="#34D399" stroke-width="8" stroke-linecap="round"/>`}).join('')}<g fill="#5A3E2B"><rect x="96" y="104" width="34" height="6" rx="3" transform="rotate(-42 113 107)"/></g></svg>`,
+ stone:`<svg width="220" height="200" viewBox="0 0 220 200"><path d="M30,40 C60,14 170,10 196,46 C214,90 204,160 176,182 C120,196 60,192 28,168 C10,128 12,72 30,40Z" fill="#56706A" stroke="#8FB5A8" stroke-width="5"/><g fill="#0A1C17"><rect x="60" y="70" width="100" height="8" rx="4"/><rect x="74" y="96" width="86" height="8" rx="4"/><rect x="56" y="122" width="104" height="8" rx="4"/><rect x="88" y="148" width="60" height="8" rx="4"/></g></svg>`,
+ hafiz:`<svg width="220" height="220" viewBox="0 0 220 220"><circle cx="110" cy="70" r="40" fill="#34D399"/><path d="M40,210 C40,140 70,120 110,120 C150,120 180,140 180,210Z" fill="#34D399"/><g fill="none" stroke="#A7F3D0" stroke-width="6" stroke-linecap="round"><path d="M50,40 C40,60 40,84 50,104"/><path d="M170,40 C180,60 180,84 170,104"/><path d="M30,24 C14,56 14,90 30,122"/><path d="M190,24 C206,56 206,90 190,122"/></g></svg>`,
+ shield:`<svg width="440" height="500" viewBox="0 0 440 500"><path d="M220,16 L410,80 C410,260 340,400 220,484 C100,400 30,260 30,80Z" fill="#34D399" fill-opacity=".12" stroke="#34D399" stroke-width="14" stroke-linejoin="round"/></svg>`,
+ reader:`<svg width="420" height="380" viewBox="0 0 420 380"><rect x="40" y="320" width="340" height="40" rx="12" fill="#1F5A48"/><circle cx="210" cy="96" r="44" fill="#34D399"/><path d="M110,320 C110,210 150,160 210,160 C270,160 310,210 310,320Z" fill="#34D399"/><path d="M120,250 L210,226 L300,250 L300,300 L210,276 L120,300Z" fill="#EADBB8" stroke="#C9B48A" stroke-width="4"/><path d="M210,226 L210,276" stroke="#C9B48A" stroke-width="4"/><g fill="#5A3E2B"><rect x="140" y="252" width="56" height="5" rx="2"/><rect x="146" y="266" width="50" height="5" rx="2"/><rect x="226" y="252" width="56" height="5" rx="2"/><rect x="226" y="266" width="46" height="5" rx="2"/></g><g fill="none" stroke="#FFB38A" stroke-width="6" stroke-linecap="round" opacity=".8"><path d="M130,200 L100,170"/><path d="M290,200 L320,170"/><path d="M210,40 L210,6"/></g></svg>`
+};
+const prop=(k,x,y,html)=>mk('prop',html||SVG[k],x,y);
+
+// ===== ENVIRONMENT (deterministik) =====
+// kota modern (Birmingham) di kejauhan
+for(let x=-20;x<1100;){const w=60+rnd()*70,h=80+rnd()*220;add('#cityFar','rect',{x:x.toFixed(0),y:(1470-h).toFixed(0),width:w.toFixed(0),height:(h+40).toFixed(0)});
+  for(let wy=1470-h+18;wy<1450;wy+=34)for(let wx=x+12;wx<x+w-14;wx+=24)if(rnd()<.45)add('#cityFar','rect',{x:wx.toFixed(0),y:wy.toFixed(0),width:10,height:14,fill:'#FFB38A',opacity:.35});x+=w+6+rnd()*20}
+// Madinah kuno: rumah datar & palem
+for(let x=0;x<1100;x+=150){add('#oldFar','use',{href:'#hut',transform:`translate(${x+rnd()*40},1475) scale(${(.6+rnd()*.3).toFixed(2)})`})}
+for(let x=60;x<1100;x+=210){add('#oldFar','use',{href:'#palm',transform:`translate(${x},1478) scale(.55)`})}
+[40,170,330,750,900,1040].forEach(x=>add('#nearNew','use',{href:'#tree',transform:`translate(${x},1600) scale(${(.8+rnd()*.4).toFixed(2)})`}));
+[40,190,350,730,900,1050].forEach(x=>add('#nearOld','use',{href:'#palm',transform:`translate(${x},1600) scale(${(.85+rnd()*.3).toFixed(2)})`}));
+[[130,1720,1],[330,1735,.85],[760,1730,.9],[950,1720,1]].forEach(([x,y,s])=>add('#homes','use',{href:'#home',transform:`translate(${x},${y}) scale(${s})`}));
+const dust=[];for(let i=0;i<26;i++)dust.push(add('#dust','circle',{cx:(60+rnd()*960).toFixed(0),cy:(700+rnd()*1100).toFixed(0),r:(2+rnd()*4).toFixed(1),opacity:(.15+rnd()*.25).toFixed(2)}));
+
+gsap.set('#art g[id], use',{transformOrigin:'50% 50%'});
+gsap.set('#cam',{transformOrigin:'540px 960px'});gsap.set('#dome',{transformOrigin:'0px 0px'});
+gsap.set('#cracks path',{autoAlpha:0});gsap.set('#domeBody',{opacity:.3});
+
+// gerak latar terus-menerus
+tl.fromTo('#L2',{x:0,y:0},{x:-70,y:-140,duration:DURATION,ease:'none'},0);
+tl.fromTo('#Lmount',{x:0},{x:-30,duration:DURATION,ease:'sine.inOut'},0);
+tl.fromTo(['#cityFar','#oldFar'],{x:0},{x:-50,duration:DURATION,ease:'sine.inOut'},0);
+tl.fromTo(['#nearNew','#nearOld','#homes'],{x:0},{x:-90,duration:DURATION,ease:'sine.inOut'},0);
+dust.forEach(d=>tl.fromTo(d,{y:0},{y:-300-rnd()*300,x:(rnd()-.5)*120,duration:8+rnd()*6,repeat:Math.floor(DURATION/8),ease:'none',immediateRender:true},0));
+CUES.scenes.forEach((s,i)=>tl.fromTo('#cam',{scale:1,rotation:0},{scale:1.05,rotation:i%2?-.8:.8,duration:s.end-s.start,ease:'sine.inOut',immediateRender:i==0},s.start));
+tl.fromTo('#dome',{scale:1},{scale:1.02,duration:1.6,repeat:Math.floor(DURATION/1.6),yoyo:true,ease:'sine.inOut'},0);
+tl.fromTo('#prog',{scaleX:0},{scaleX:1,duration:DURATION,ease:'none'},0);
+pop('#wm',2,{s0:.8,x0:-40});out('#wm',S(10).start);
+function era(old,t){tl.to(old?'#oldFar':'#cityFar',{opacity:1,duration:.6},t);tl.to(old?'#cityFar':'#oldFar',{opacity:0,duration:.6},t);
+  tl.to(old?'#nearOld':'#nearNew',{opacity:1,duration:.6},t);tl.to(old?'#nearNew':'#nearOld',{opacity:0,duration:.6},t)}
+
+// S1 hook: lab di Inggris menguji dua lembar Al-Quran tua
+headline('Dua lembar/_Al-Quran tua_',0,S(1).end);
+const sc=prop('scanner',540,1180);pop(sc,.1,{s0:.7,y0:60});
+const L1=prop('',470,1250,leafSVG(150,200,3)),L2=prop('',610,1250,leafSVG(150,200,9));
+pop(L1,K(1,'LEMBAR')-.3,{r0:-20,y0:-80,s0:.6});pop(L2,K(1,'LEMBAR')-.1,{r0:20,y0:-80,s0:.6});
+tl.set(L1,{rotation:-4},K(1,'LEMBAR')+.3);tl.set(L2,{rotation:5},K(1,'LEMBAR')+.4);
+tl.fromTo(sc.querySelector('#beam'),{opacity:.12},{opacity:.4,duration:.5,repeat:9,yoyo:true,ease:'sine.inOut'},.4);
+const s1=mk('src','Inggris · 2015',540,620);pop(s1,K(1,'LAB')-.1,{s0:.9});
+tl.to(sc.querySelector('#beam'),{opacity:.9,duration:.12,yoyo:true,repeat:1},K(1,'TERDIAM'));shake(K(1,'TERDIAM'),.6);
+[sc,L1,L2,s1].forEach(e=>out(e,S(1).end));
+
+// S2 terlupakan hampir 100 tahun di perpustakaan
+headline('Terlupakan/*±100 tahun*',S(2).start,S(2).end);
+const sh=prop('shelf',540,1200);pop(sh,S(2).start+.1,{s0:.8,y0:80});
+const s2=mk('src','Koleksi Mingana · Universitas Birmingham',540,620);pop(s2,K(2,'BIRMINGHAM')-.2,{s0:.9});
+tl.fromTo(sh.querySelector('#peek'),{y:0},{y:-46,duration:.5,ease:'back.out(2)',immediateRender:true},K(2,'TERSELIP'));
+tl.fromTo(sh.querySelector('#peek'),{opacity:1},{opacity:.55,duration:.4,repeat:5,yoyo:true},K(2,'TERSELIP')+.5);
+tl.to('#dust',{opacity:1.6,duration:1},S(2).start);
+$$('#cracks path').forEach((p,i)=>{const L=p.getTotalLength();gsap.set(p,{strokeDasharray:L,strokeDashoffset:L});tl.set(p,{autoAlpha:1},K(2,'TAK')-.1);tl.to(p,{strokeDashoffset:0,duration:.3,ease:'power4.out'},K(2,'TAK')-.1+i*.07)});
+shake(K(2,'TAK'),.8);
+[sh,s2].forEach(e=>out(e,S(2).end));
+
+// S3 peneliti curiga, kulit diuji karbon di Oxford
+headline('Diuji/_karbon_',S(3).start,S(3).end);
+const L3=prop('',540,1180,leafSVG(240,320,5));pop(L3,S(3).start+.1,{s0:.7});
+const mg=prop('mag',600,1120);pop(mg,K(3,'CURIGA')-.3,{s0:.4,x0:120});
+tl.to(mg,{x:-90,y:80,duration:.6,yoyo:true,repeat:1,ease:'sine.inOut'},K(3,'CURIGA')+.2);
+tl.to([L3,mg],{autoAlpha:0,scale:.6,duration:.3},K(3,'KULIT')-.1);
+const mc=prop('machine',540,1200);pop(mc,K(3,'KULIT'),{s0:.6,y0:60});
+const gp=mc.querySelector('#graph'),gl=gp.getTotalLength();gsap.set(gp,{strokeDasharray:gl,strokeDashoffset:gl});
+tl.to(gp,{strokeDashoffset:0,duration:1.6,ease:'none'},K(3,'KULIT')+.3);
+tl.fromTo(mc.querySelector('#bar'),{attr:{width:0}},{attr:{width:230},duration:2.2,ease:'power1.inOut',immediateRender:true},K(3,'KULIT')+.3);
+const s3=mk('src','Oxford Radiocarbon Accelerator Unit',540,620);pop(s3,K(3,'OXFORD')-.2,{s0:.9});
+[mc,s3].forEach(e=>out(e,S(3).end));
+
+// S4 hasil: 568–645 M
+headline('Hasilnya…',S(4).start,S(4).end);
+const big=mk('big','<div class="n"><span id="y1">500</span>–<span id="y2">600</span></div><div class="t">MASEHI · keyakinan 95,4%</div>',540,1150);
+pop(big,K(4,'HASIL')-.1,{s0:.7,d:.4});
+const o1={v:500},o2={v:600};
+tl.fromTo(o1,{v:500},{v:568,duration:1.1,ease:'power2.out',onUpdate:()=>$('#y1').textContent=Math.round(o1.v),immediateRender:true},K(4,'568')-.4);
+tl.fromTo(o2,{v:600},{v:645,duration:1.1,ease:'power2.out',onUpdate:()=>$('#y2').textContent=Math.round(o2.v),immediateRender:true},K(4,'645')-.4);
+tl.to(big,{keyframes:[{scale:1.1},{scale:1}],duration:.35},K(4,'MASEHI'));shake(K(4,'MASEHI'),.8);
+const s4=mk('src','Uji karbon kulit (perkamen), bukan tinta',540,620);pop(s4,K(4,'568')-.2,{s0:.9});
+$$('#cracks path').forEach((p,i)=>{tl.to(p,{strokeDashoffset:p.getTotalLength(),duration:.5,ease:'power2.in'},K(4,'MASEHI')+.2+i*.15);tl.set(p,{autoAlpha:0},K(4,'MASEHI')+.75+i*.15)});
+tl.to('#domeBody',{opacity:.65,duration:.8},K(4,'MASEHI')+.2);
+tl.to('#dust',{opacity:1,duration:1},S(4).start);
+[big,s4].forEach(e=>out(e,S(4).end));
+
+// S5 garis waktu: semasa hidup Nabi
+headline('Semasa/_hidup Nabi_',S(5).start,S(5).end);
+const X=y=>60+(y-550)*(780/110);   // 550..660 M -> x 60..840 (di dalam .tlbar 900px)
+const tb=mk('tlbar',`<svg width="900" height="300" viewBox="0 0 900 300">
+ <rect x="20" y="0" width="860" height="300" rx="30" fill="#0B1F19" fill-opacity=".92"/>
+ <path d="M60,240 L840,240" stroke="#8FB5A8" stroke-width="4"/>${[560,580,600,620,640,660].map(y=>`<path d="M${X(y)},232 L${X(y)},248" stroke="#8FB5A8" stroke-width="4"/><text x="${X(y)}" y="282" text-anchor="middle" font-family="Readex Pro" font-weight="700" font-size="24" fill="#8FB5A8">${y}</text>`).join('')}
+ <rect id="ov" x="${X(570)}" y="40" width="${X(632)-X(570)}" height="180" rx="12" fill="#34D399" opacity="0"/>
+ <g id="bN"><rect x="${X(568)}" y="70" width="${X(645)-X(568)}" height="46" rx="23" fill="#00E1EF"/><text x="${X(568)+16}" y="102" font-family="Readex Pro" font-weight="700" font-size="26" fill="#06110E">Naskah 568–645</text></g>
+ <g id="bP"><rect x="${X(570)}" y="140" width="${X(632)-X(570)}" height="46" rx="23" fill="#34D399"/><text x="${X(570)+16}" y="172" font-family="Readex Pro" font-weight="700" font-size="26" fill="#06110E">Nabi Muhammad 570–632</text></g>
+</svg>`,540,1160);
+pop(tb,S(5).start+.1,{s0:.85,y0:60});
+const bN=tb.querySelector('#bN'),bP=tb.querySelector('#bP'),ov=tb.querySelector('#ov');
+tl.fromTo(bN,{scaleX:0,transformOrigin:'0% 50%'},{scaleX:1,duration:.6,ease:'power2.out',immediateRender:true},S(5).start+.3);
+tl.fromTo(bP,{scaleX:0,transformOrigin:'0% 50%'},{scaleX:1,duration:.8,ease:'power2.out',immediateRender:true},K(5,'570')-.2);
+tl.to(ov,{opacity:.22,duration:.3,yoyo:true,repeat:3},K(5,'632'));
+const q5=mk('lbl','“Penulisnya mungkin pernah <span class="g">melihat Nabi</span>”',540,640);pop(q5,K(5,'KATA')-.1,{y0:30,s0:.9});
+const s5=mk('src','Prof. David Thomas, Universitas Birmingham (2015)',540,730);pop(s5,K(5,'KATA')+.3,{s0:.9});
+tl.to('#halo',{opacity:.08,duration:.6},K(5,'MELIHAT'));
+[tb,q5,s5].forEach(e=>out(e,S(5).end));
+
+// S6 isinya sama dengan mushaf hari ini
+headline('Isinya/_sama_',S(6).start,S(6).end);
+const L6=prop('',330,1140,leafSVG(210,270,11));pop(L6,S(6).start+.1,{x0:-120,s0:.7});
+const M6=prop('mushaf',750,1140);
+const eq=mk('eq','=',540,1140);
+const C6=[mk('chip','Al-Kahfi',540,1440),mk('chip','Maryam',540,1440),mk('chip','Thaha',540,1440)];
+C6.forEach((c,i)=>{pop(c,[K(6,'KAHFI'),K(6,'MARYAM'),K(6,'THAHA')][i]-.15,{s0:.5,y0:30});if(i<2)out(c,[K(6,'MARYAM'),K(6,'THAHA')][i]-.1,{y:-20})});
+pop(M6,K(6,'SAMA')-.5,{x0:120,s0:.7});pop(eq,K(6,'SAMA')-.05,{s0:2,ease:'power4.out',d:.3});
+const s6=mk('src','QS. Al-Kahfi, Maryam, Thaha (sebagian ayat) · aksara Hijazi',540,620);pop(s6,K(6,'KAHFI')-.3,{s0:.9});
+[L6,M6,eq,C6[2],s6].forEach(e=>out(e,S(6).end));
+
+// S7 Zaid bin Tsabit mengumpulkan Al-Quran — era Madinah
+era(true,S(7).start-.3);
+tl.to('#skyDusk',{opacity:1,duration:.8},S(7).start-.3);
+headline('Dikumpulkan/_para sahabat_',S(7).start,S(7).end,420);
+const c7=card('','“Aku telusuri Al-Qur’an dan aku kumpulkan dari <b class="g">pelepah kurma, lempengan batu, dan hafalan</b> para sahabat.”','HR. Bukhari no. 4986 · Zaid bin Tsabit',K(7,'ZAID')-.3,[],930);
+trIn(c7,K(7,'ZAID'));
+const I7=[prop('frond',220,1400),prop('stone',540,1400),prop('hafiz',860,1400)];
+I7.forEach((e,i)=>pop(e,[K(7,'PELEPAH'),K(7,'BATU'),K(7,'HAFALAN')][i]-.2,{s0:.4,y0:60,ease:'back.out(2.2)'}));
+tl.to(I7,{x:i=>[320,0,-320][i],y:-60,scale:.3,autoAlpha:0,duration:.45,ease:'power2.in'},S(7).end-.5);
+out(c7,S(7).end,{y:-60,s:.9});
+
+// S8 14 abad terjaga — QS Al-Hijr 9 (klimaks)
+headline('14 abad/_terjaga_',S(8).start,K(8,'ALLAH')+.2);
+tl.to('#skyDusk',{opacity:0,duration:2},K(8,'TERJAGA')-.5);tl.to('#skyBlue',{opacity:.8,duration:2},K(8,'TERJAGA')-.5);
+const sd=prop('shield',540,1150);const M8=prop('mushaf',540,1150);
+pop(M8,S(8).start+.2,{s0:.3,ease:'back.out(2.5)'});pop(sd,K(8,'TERJAGA')-.2,{s0:1.6,ease:'power3.out',d:.5});
+tl.to('#domeBody',{opacity:1,duration:.8},K(8,'TERJAGA'));
+const s8=mk('src','632 M → 2026 M',540,620);pop(s8,K(8,'ABAD')-.1,{s0:.9});
+[sd,M8,s8].forEach(e=>out(e,K(8,'ALLAH')+.4));
+const c8=card('إِنَّا نَحْنُ نَزَّلْنَا الذِّكْرَ وَإِنَّا لَهُ لَحَافِظُونَ','“Sesungguhnya Kamilah yang menurunkan Al-Qur’an, <b id="k8" class="g">dan pasti Kami pula yang memeliharanya</b>.”','QS. Al-Hijr: 9',K(8,'ALLAH')+.4,[[K(8,'ARAB'),7,.7]],1080);
+trIn(c8,K(8,'SESUNGGUHNYA')-.1);
+tl.to('#k8',{color:'#00E1EF',duration:.2},K(8,'MENJAGANYA')-.3);
+tl.to(c8,{keyframes:[{scale:1.06},{scale:1},{scale:1.04},{scale:1}],duration:.8,ease:'sine.inOut'},K(8,'MENJAGANYA'));
+shake(K(8,'MENJAGANYA'),1.3);tl.to('#halo',{opacity:.16,duration:.5},K(8,'MENJAGANYA'));
+out(c8,S(8).end,{y:-60,s:.9});
+
+// S9 kitab yang sama di rumahmu — ajakan membaca
+era(false,S(9).start-.3);
+tl.to('#skyBlue',{opacity:1,duration:1.5},S(9).start);
+tl.fromTo('#homes',{y:300},{y:0,duration:.8,ease:'power3.out',immediateRender:true},S(9).start);
+tl.set('#birds',{opacity:1},S(9).start);tl.fromTo('#birds',{x:0},{x:1400,duration:7,ease:'none',immediateRender:false},S(9).start);
+headline('Kitab yang/_sama_',S(9).start,K(9,'SUDAHKAH')-.1);
+const rd=prop('reader',540,1180);pop(rd,K(9,'KITAB')-.3,{s0:.6,y0:60});
+const cta=mk('cta','Sudahkah kamu<br>membacanya hari ini?',540,470);gsap.set(cta,{textAlign:'center'});
+pop(cta,K(9,'SUDAHKAH')-.1,{s0:.3,ease:'back.out(2.6)'});tl.to(cta,{scale:1.05,duration:.4,repeat:3,yoyo:true,ease:'sine.inOut'},K(9,'SUDAHKAH')+.5);
+[rd,cta].forEach(e=>out(e,S(10).start));
+
+// S10 end card
+tl.to('#dome',{scale:.55,y:-160,autoAlpha:0,duration:.4,ease:'power2.in'},S(10).start-.1);
+const lg=mk('','<img id="logoBig" src="logo.png" alt="Muslim Leveling">',540,900);pop(lg,S(10).start+.15,{s0:.4,d:.6,ease:'back.out(1.7)'});
+tl.to(lg,{y:-14,duration:.9,yoyo:true,repeat:1,ease:'sine.inOut'},S(10).start+.8);
+const bn=mk('brandname','Muslim Leveling',540,1220);pop(bn,S(10).start+.4,{y0:40,s0:.9});
+const dl=mk('dl','Download sekarang',540,1360);pop(dl,S(10).start+.65,{y0:50,s0:.8});
+
+// pemutar
+const vo=$('#vo'),sk=$('#seek'),tm=$('#time');let playing=false,t0=0,c0=0;
+window.seek=t=>{tl.seek(Math.max(0,Math.min(DURATION,t)),false);sk.value=t;tm.textContent=fmt(t,2)+' dtk'};
+function loop(){if(!playing)return;const t=c0+(performance.now()-t0)/1000;if(t>=DURATION){playing=false;$('#play').textContent='Play';vo.pause();return}seek(t);requestAnimationFrame(loop)}
+$('#play').onclick=()=>{playing=!playing;$('#play').textContent=playing?'Pause':'Play';if(playing){c0=+sk.value>=DURATION?0:+sk.value;t0=performance.now();vo.currentTime=c0;vo.play().catch(()=>{});loop()}else vo.pause()};
+sk.oninput=()=>{seek(+sk.value);if(playing){c0=+sk.value;t0=performance.now();vo.currentTime=c0}};
+$('#file').onchange=e=>{vo.src=URL.createObjectURL(e.target.files[0])};
+function fit(){const s=Math.min((innerHeight-(document.body.classList.contains('render')?0:56))/1920,innerWidth/1080);$('#wrap').style.transform=`translateX(-50%) scale(${s})`}
+addEventListener('resize',fit);
+if(location.hash=='#render')document.body.classList.add('render');
+// adaptor untuk gorengan/tools/record.mjs (render headless)
+window.__film={duration:DURATION,seek:t=>{if(!document.body.classList.contains('render')){document.body.classList.add('render');fit()}seek(t);return{t}}};
+fit();document.fonts.ready.then(()=>{seek(0);window.READY=true;document.documentElement.dataset.ready='1'});
+</script>
+</body>
+</html>

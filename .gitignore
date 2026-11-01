@@ -1,0 +1,8 @@
+# hasil kerja yang bisa dibuat ulang
+voice/take*
+**/voice/take*
+**/shots/
+**/film/video*.mp4
+**/film/audio*.wav
+**/contact*.jpg
+__pycache__/

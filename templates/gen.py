@@ -1,7 +1,7 @@
 """Generate narration takes with Gemini TTS, then transcribe with word timestamps.
 Run from pajak-zalim/: python -I voice/gen.py"""
 import json, os, subprocess, sys
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "gorengan", "tools"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "..", "tools"))
 import vertex
 
 HERE = os.path.dirname(os.path.abspath(__file__))
