@@ -6,3 +6,9 @@ voice/take*
 **/film/audio*.wav
 **/contact*.jpg
 __pycache__/
+
+# Remotion
+node_modules/
+**/film-remotion/build/
+**/film-remotion/out/
+**/film-remotion/public/narasi.wav
