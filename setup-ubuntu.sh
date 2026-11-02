@@ -42,4 +42,4 @@ google-chrome --version
 gcloud --version | head -1
 echo
 echo "Selesai. Berikutnya: claude (login), gcloud auth login --no-launch-browser, gcloud config set project <PROJECT_ID>"
-echo "Proyek Remotion: cd projects/<topik>/film-remotion && npm i && npx remotion browser ensure (render pakai --gl=swangle)"
+echo "Proyek Remotion: salin templates/remotion ke projects/<topik>/film-remotion, lalu cd ke sana && npm i && npx remotion browser ensure (render pakai --gl=swangle)"

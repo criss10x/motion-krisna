@@ -61,7 +61,7 @@ git clone https://github.com/criss10x/motion-krisna && cd motion-krisna && bash 
 | swap 2 GB | – | pengaman RAM saat render |
 | skill `gaya-muslim-leveling` | dari repo | disalin ke `~/.claude/skills/` |
 
-Per proyek Remotion (`projects/<topik>/film-remotion/`): jalankan `npm i`, lalu `npx remotion browser ensure` (mengunduh Chrome headless untuk Remotion).
+Per proyek Remotion (`projects/<topik>/film-remotion/`, disalin dari `templates/remotion/`): jalankan `npm i`, lalu `npx remotion browser ensure` (mengunduh Chrome headless untuk Remotion).
 
 Login sekali setelah setup:
 
@@ -81,7 +81,7 @@ gcloud config set project <PROJECT_ID>
 | Lokasi | `global` (default `VERTEX_LOCATION`) |
 | Model TTS | `gemini-3.8-flash-tts` (env `TTS_MODEL`) |
 | Model transkrip | `gemini-3.5-transcribe-preview` (env `TRANSCRIBE_MODEL`) |
-| Suara | Sadachbia (pria, default), Sulafat (perempuan, dipakai di al-ikhlas) |
+| Suara | Sadachbia (pria, default), Sulafat (perempuan, untuk gaya neon) |
 | Opsional | Budget alert di Billing supaya biaya tidak kebablasan |
 
 Otentikasi memakai `gcloud auth print-access-token`, jadi tidak perlu file service account. Project bisa ditentukan lewat `gcloud config set project` atau env `VERTEX_PROJECT`. Cek koneksi:
@@ -90,18 +90,21 @@ Otentikasi memakai `gcloud auth print-access-token`, jadi tidak perlu file servi
 gcloud auth print-access-token >/dev/null && echo TOKEN_OK
 ```
 
-## 4. Workflow 1 video (Remotion, contoh `projects/al-ikhlas`)
+## 4. Workflow 1 video (Remotion, template `templates/remotion/`)
+
+Langkah lengkapnya ada di `templates/remotion/README.md`. Ringkasnya:
+
 
 1. Riset dan naskah (dalil shahih bernomor) → `naskah.md`
-2. `voice/script.txt` (versi TTS) → `python3 -I voice/gen.py` (2 take) → pilih take
+2. Salin template: `cp -r templates/remotion projects/<topik>/film-remotion`, `cp templates/cues.py templates/gen.py projects/<topik>/voice/`. Tulis `voice/script.txt` (versi TTS), jalankan `python3 -I voice/gen.py` (2 take), lalu pilih take.
 3. Percepat bila perlu: `ffmpeg -i voice/take2.wav -af atempo=1.12 voice/narasi.wav`. Salin take terpilih: `cp voice/take2.json voice/narasi.json`.
-4. `python3 -I voice/cues.py` → `film-remotion/public/cues.json`
+4. Isi `OPENERS` dan `FIX` di `voice/cues.py`, lalu `python3 -I voice/cues.py` → `film-remotion/public/cues.json`
 5. Edit `film-remotion/src/Video.tsx` (adegan dan waktu kata kunci `K`)
 6. QA: `npx remotion still AlIkhlas shots/x.jpg --frame=N --gl=swangle`, gabungkan jadi contact sheet
 7. SFX: `film/timeline.json` → `python3 -I ../../tools/mix.py --project .` → `cp film/audio-nomusic.wav film-remotion/public/narasi.wav`
 8. Render (di dalam tmux): `npx remotion render AlIkhlas ../<topik>_9x16_v1.mp4 --gl=swangle --codec=h264 --crf=18 --audio-codec=aac`
 9. Versi HP (<30 MB): `ffmpeg -i <topik>_9x16_v1.mp4 -c:v libx264 -crf 25 -preset slow -pix_fmt yuv420p -c:a copy -movflags +faststart <topik>_9x16_v1-hp.mp4`
-10. `caption.md` (TikTok, IG, Shorts), lalu commit proyek ke `projects/<topik>/`
+10. `caption.md` (TikTok, IG, Shorts). Hasil video dan folder proyek **tidak** di-commit; yang di-commit hanya perubahan workflow (tools, templates, skill, panduan).
 
 ## 5. Aturan penting
 
