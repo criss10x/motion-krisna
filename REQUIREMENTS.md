@@ -36,7 +36,7 @@ gcloud services enable aiplatform.googleapis.com
 | Path | Peran |
 |---|---|
 | `skills/gaya-muslim-leveling/` | skill gaya + workflow 12 langkah (salin ke `~/.claude/skills/`) |
-| `tools/vertex.py`, `tools/record.mjs`, `tools/mix.py` | skrip TTS, render, dan mix (dari anatomy-studio, MIT, lihat `tools/LICENSE-anatomy-studio`). Di SKILL.md folder ini disebut `gorengan/tools`. |
+| `tools/vertex.py`, `tools/record.mjs`, `tools/mix.py` | skrip TTS, render, dan mix (dari anatomy-studio, MIT, lihat `tools/LICENSE-anatomy-studio`). |
 | `templates/` | titik awal: `preview.html`, `gen.py`, contoh timeline SFX & caption, logo |
 | `projects/<topik>/` | proyek jadi: naskah, caption, `preview.html`, `voice/` (script, gen.py, narasi.wav, narasi.json), `film/timeline.json`, MP4 versi HP |
 
