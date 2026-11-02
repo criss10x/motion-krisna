@@ -8,6 +8,25 @@ Panduan untuk agent (Claude Code) dan manusia yang menjalankan workflow video **
 - **Spesifikasi:** minimal 4 vCPU / 8 GB RAM / 40 GB SSD; disarankan 8 vCPU / 16 GB / 80 GB. GPU tidak perlu.
 - **Akses:** SSH dengan kunci, bukan password. Tidak perlu control panel (cPanel/aaPanel), karena semua kerja lewat Claude desktop app.
 
+### Pasang & login Claude
+**Di PC (Windows/Mac): Claude desktop app**
+1. Download dari https://claude.ai/download, lalu install.
+2. Buka aplikasinya, lalu login dengan akun Claude (Google atau email). Claude Code butuh paket **Pro atau Max** (atau Team/Enterprise).
+3. Buka tab **Code**. Dari sini kamu ngobrol dengan Claude dan memberi perintah ke VPS.
+
+**Di VPS: Claude Code (CLI)**, dipakai oleh sesi SSH dari desktop app
+1. Pasang. `setup-ubuntu.sh` sudah memasangnya; kalau mau manual, pilih salah satu:
+   ```bash
+   curl -fsSL https://claude.ai/install.sh | bash      # installer resmi
+   sudo npm install -g @anthropic-ai/claude-code       # atau lewat npm (Node 22)
+   ```
+2. Login sekali. VPS tidak punya browser, jadi caranya:
+   ```bash
+   claude
+   ```
+   Pilih login dengan akun Claude (langganan). CLI menampilkan sebuah URL; buka URL itu di browser PC, login, lalu salin kode yang muncul dan tempel di terminal VPS. Ketik `/status` untuk memastikan akun sudah benar, lalu `/exit`.
+3. Cek: `claude --version`.
+
 ### Hubungkan Claude desktop app ke VPS
 1. Di PC, buat kunci SSH: `ssh-keygen -t ed25519`, lalu `ssh-copy-id user@IP_VPS`.
 2. Tambahkan host di `~/.ssh/config` PC:
@@ -47,7 +66,7 @@ Per proyek Remotion (`projects/<topik>/film-remotion/`): jalankan `npm i`, lalu 
 Login sekali setelah setup:
 
 ```bash
-claude                                  # ikuti login Claude
+claude                                  # login Claude (lihat bagian 1)
 gcloud auth login --no-launch-browser   # buka link-nya di browser PC, tempel kodenya
 gcloud config set project <PROJECT_ID>
 ```
