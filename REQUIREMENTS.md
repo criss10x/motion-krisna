@@ -1,5 +1,7 @@
 # Requirements: semua yang dibutuhkan untuk membuat 1 video
 
+Panduan VPS lengkap (Claude desktop app via SSH, Google Cloud, workflow Remotion) ada di [AGENTS.md](AGENTS.md).
+
 Workflow `gaya-muslim-leveling` berjalan di Linux. Di Windows pakai WSL Ubuntu, di VPS pakai Ubuntu 24.04. Yang sudah diuji: WSL Ubuntu 24.04, i5-12400F, 1 November 2026.
 
 ## 1. Software
@@ -11,6 +13,8 @@ Workflow `gaya-muslim-leveling` berjalan di Linux. Di Windows pakai WSL Ubuntu, 
 | Python | 3.12 (≥ 3.10) + **numpy** 1.26 | `tools/vertex.py` (TTS + transkrip), `tools/mix.py` (SFX sintetis + mix) |
 | ffmpeg | 6.1 dengan libx264 | encode video, atempo narasi, versi HP, cek loudness |
 | Google Chrome | 156 | render frame headless (tanpa GPU) |
+| Remotion | 4.0.539 (per proyek, `npm i` di `film-remotion/`) | render proyek bergaya neon (contoh `projects/al-ikhlas`); di VPS pakai `--gl=swangle` |
+| tmux | – | render panjang tetap jalan saat SSH putus |
 | Google Cloud CLI (`gcloud`) | 590 | token untuk Vertex AI (Gemini TTS + transkripsi) |
 | Internet | – | Google Fonts (Reem Kufi, Readex Pro, Amiri) dan GSAP 3.12.5 dari cdnjs dimuat saat render |
 
