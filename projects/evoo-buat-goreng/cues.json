@@ -1,0 +1,89 @@
+{
+ "w": 1080,
+ "h": 1920,
+ "fps": 30,
+ "duration": 16.87,
+ "estimated": false,
+ "music": false,
+ "sfx": "halus",
+ "scenes": [
+  {
+   "id": 1,
+   "start": 0,
+   "end": 3.59,
+   "voice": 0.1,
+   "keywords": [
+    {
+     "word": "goreng",
+     "t": 1.5,
+     "est": false
+    },
+    {
+     "word": "salah",
+     "t": 2.7,
+     "est": false
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "start": 3.59,
+   "end": 9.07,
+   "voice": 3.59,
+   "keywords": [
+    {
+     "word": "dipanaskan",
+     "t": 5.63,
+     "est": false
+    },
+    {
+     "word": "stabil",
+     "t": 8.23,
+     "est": false
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "start": 9.07,
+   "end": 11.99,
+   "voice": 9.07,
+   "keywords": [
+    {
+     "word": "sedang",
+     "t": 9.71,
+     "est": false
+    },
+    {
+     "word": "berasap",
+     "t": 11.17,
+     "est": false
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "start": 11.99,
+   "end": 15.67,
+   "voice": 11.99,
+   "keywords": [
+    {
+     "word": "boleh",
+     "t": 12.93,
+     "est": false
+    },
+    {
+     "word": "simpan",
+     "t": 13.21,
+     "est": false
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "start": 15.67,
+   "end": 16.87,
+   "keywords": []
+  }
+ ]
+}

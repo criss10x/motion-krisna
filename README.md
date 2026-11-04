@@ -10,6 +10,8 @@ Contoh hasil: "Rakyat Diperas" (pajak), "Dua Tahun Berkuasa" (demo 5 tuntutan), 
 | --- | --- |
 | `skills/gaya-muslim-leveling/SKILL.md` | Skill gaya + workflow: palet, font (Reem Kufi / Readex Pro / Amiri), kubah logo sebagai objek utama, environment flat ramai, aturan fakta & dalil, TTS, render, caption 3 platform |
 | `skills/gaya-muslim-leveling/assets/` | Contact sheet frame kunci (gaya dasar + latar ramai) |
+| `skills/gaya-mindset-sehat/SKILL.md` | Skill gaya + workflow **Mindset.sehat8** (seri "Viral? Cek Dulu", konten kesehatan & affiliate): kertas krem, Fraunces + Plus Jakarta Sans, karakter produk (Si Chia, Si Zaitun), timbangan MASUK/KELUAR, stempel verdict, CTA keranjang kuning, narasi edge-tts |
+| `skills/gaya-mindset-sehat/assets/` | Contact sheet frame kunci + `template/` (preview.html, `tts.py`, `build_cues.py`, `render.py`, `mix.py`, `shots.py`) |
 | `templates/preview.html` | Template animasi HTML + GSAP (satu timeline, `window.seek`, adaptor `window.__film` untuk render headless). Salin, ganti `CUES` dan adegan |
 | `templates/gen.py` | Narasi Gemini TTS (Vertex AI) + transkrip timestamp per kata |
 | `templates/timeline.example.json` | Contoh daftar SFX untuk mix audio |
@@ -17,6 +19,7 @@ Contoh hasil: "Rakyat Diperas" (pajak), "Dua Tahun Berkuasa" (demo 5 tuntutan), 
 | `templates/logo.png` | Logo Muslim Leveling (latar transparan) |
 | `tools/` | `vertex.py` (Gemini TTS + transkrip), `record.mjs` (render headless Chrome), `mix.py` (SFX + mix): dari anatomy-studio, MIT. Di SKILL.md disebut `gorengan/tools` |
 | `projects/` | Proyek jadi seri Mukjizat Quran: `romawi-akan-menang`, `quran-birmingham` (naskah, caption, preview.html, narasi, timeline SFX, MP4 versi HP) |
+| `projects/chia-bukan-obat-kurus`, `projects/evoo-buat-goreng` | Proyek Mindset.sehat8 (naskah, caption, preview.html, CUES, SFX, narasi, skrip, MP4 versi HP) |
 | `REQUIREMENTS.md` | Semua kebutuhan software, akun, cara pasang, spesifikasi VPS (hasil ukur) |
 | `setup-ubuntu.sh` | Pasang semua kebutuhan di Ubuntu 24.04 (VPS/WSL) sekali jalan |
 

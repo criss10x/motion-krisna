@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chia Cek Dulu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,800;1,9..144,900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=block" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<style>
+:root{--bg:#F5F1E6;--g:#1E4D3A;--k:#E9A23B;--r:#E25C3B}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#111}
+body{display:flex;flex-direction:column;align-items:center;font-family:'Plus Jakarta Sans',sans-serif;overflow:hidden}
+#wrap{flex:1;width:100%;display:flex;align-items:center;justify-content:center;min-height:0}
+#holder{position:relative;overflow:hidden}
+#stage{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:hidden;background:var(--bg);transform-origin:0 0;color:var(--g)}
+.L{position:absolute;inset:0}
+.a{position:absolute}
+#ctl{display:flex;gap:12px;align-items:center;padding:10px 16px;color:#ddd;font:14px system-ui;width:min(720px,100%)}
+#ctl input[type=range]{flex:1}
+#ctl button,#ctl label{background:#2a2a2a;color:#eee;border:1px solid #444;border-radius:6px;padding:6px 12px;cursor:pointer;font:inherit}
+body.render{background:var(--bg)} body.render #ctl{display:none} body.render #wrap{display:block}
+.title{position:absolute;left:80px;right:80px;text-align:center;font-family:Fraunces,serif;font-style:italic;font-weight:800;line-height:1.04;letter-spacing:-.01em;color:var(--g)}
+.ln{display:block;white-space:nowrap}
+.w{display:inline-block;overflow:hidden;vertical-align:bottom;padding:0 .14em .12em .04em;margin:0 -.1em -.12em 0}
+.i{display:inline-block;position:relative;z-index:0}
+.w.r .i{color:var(--r)}
+.mk{position:absolute;left:-.04em;right:.04em;bottom:.12em;height:.38em;background:var(--k);z-index:-1;transform-origin:0 50%;border-radius:.06em}
+.card{background:#fff;border-radius:28px;box-shadow:0 22px 44px rgba(30,77,58,.16),0 3px 0 rgba(30,77,58,.06)}
+.pill{position:absolute;white-space:nowrap;border-radius:999px;font-weight:800;letter-spacing:.06em}
+.src{position:absolute;left:50%;top:1452px;font:600 24px 'Plus Jakarta Sans';letter-spacing:.02em;color:var(--g);background:rgba(30,77,58,.08);padding:8px 22px;border-radius:999px;white-space:nowrap}
+.hl{position:absolute;right:0;top:50%;transform:translateY(-50%);white-space:nowrap}
+.trk{position:absolute;top:1370px;width:290px;height:68px;border-radius:999px;background:#fff;border:3px solid rgba(30,77,58,.15);display:flex;align-items:center;gap:12px;padding:0 18px;font:800 25px 'Plus Jakarta Sans';letter-spacing:.03em}
+.trk .n{width:42px;height:42px;border-radius:50%;background:rgba(30,77,58,.1);display:flex;align-items:center;justify-content:center;position:relative;flex:none}
+.trk .n b{position:absolute}
+.trk .n svg{position:absolute;inset:0}
+.chip{position:absolute;left:700px;padding:16px 30px;border-radius:999px;font:800 40px 'Plus Jakarta Sans';letter-spacing:.04em;white-space:nowrap;box-shadow:0 12px 24px rgba(30,77,58,.18)}
+</style>
+</head>
+<body>
+<div id="wrap"><div id="holder"><div id="stage">
+  <svg width="0" height="0" style="position:absolute"><defs>
+    <radialGradient id="cb" cx=".38" cy=".3" r=".78"><stop offset="0" stop-color="#5f5b52"/><stop offset=".55" stop-color="#36332d"/><stop offset="1" stop-color="#1c1b18"/></radialGradient>
+    <linearGradient id="gk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6c977"/><stop offset="1" stop-color="#E9A23B"/></linearGradient>
+    <linearGradient id="gb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2d6b51"/><stop offset="1" stop-color="#1E4D3A"/></linearGradient>
+    <filter id="nz"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="4"/><feColorMatrix values="0 0 0 0 .12  0 0 0 0 .2  0 0 0 0 .15  0 0 0 .9 0"/></filter>
+  </defs></svg>
+
+  <!-- latar: 3 layer parallax -->
+  <div id="bg" class="L">
+    <div class="a blob" style="left:620px;top:120px;width:760px;height:760px;border-radius:50%;background:#E9A23B;opacity:.13"></div>
+    <div class="a blob" style="left:-360px;top:1150px;width:920px;height:920px;border-radius:50%;background:#1E4D3A;opacity:.07"></div>
+    <div class="a blob" style="left:-120px;top:120px;width:380px;height:380px;border-radius:50%;background:#E9A23B;opacity:.08"></div>
+  </div>
+  <div id="leaves" class="L"></div>
+  <div id="seeds" class="L"></div>
+  <svg class="L" width="1080" height="1920" style="opacity:.06"><rect width="1080" height="1920" filter="url(#nz)"/></svg>
+
+  <div id="cam" class="L">
+    <!-- S1 hook -->
+    <div id="s1" class="L sc">
+      <div class="title" id="t1a" data-fs="160" style="top:360px"><span class="ln" data-t="CHIA *≠ KURUS"></span></div>
+      <div class="title" id="t1b" data-fs="104" style="top:552px"><span class="ln" data-t="_KECUALI _INI"></span></div>
+      <div class="a" id="qb" style="left:780px;top:790px;width:120px;height:120px;border-radius:50%;background:var(--k);color:var(--g);font:italic 900 92px Fraunces;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 24px rgba(30,77,58,.2)">?</div>
+    </div>
+    <!-- S2 masalah -->
+    <div id="s2" class="L sc">
+      <div class="pill" id="p2" style="left:50%;top:400px;background:var(--g);color:var(--bg);font-size:44px;padding:18px 40px">PENELITIAN · 2009</div>
+      <div class="title" id="t2a" data-fs="150" style="top:360px"><span class="ln" data-t="12 MINGGU"></span></div>
+      <div class="title" id="t2b" data-fs="150" style="top:520px"><span class="ln" data-t="BERAT *TETAP"></span></div>
+      <div class="a card" id="cal" style="left:560px;top:730px;width:330px;height:350px">
+        <div style="height:84px;background:var(--r);border-radius:28px 28px 0 0;color:#fff;font:800 30px 'Plus Jakarta Sans';letter-spacing:.2em;display:flex;align-items:center;justify-content:center">MINGGU KE</div>
+        <div id="calN" style="font:italic 900 200px Fraunces;text-align:center;line-height:250px;color:var(--g)">1</div>
+        <div class="a" style="left:80px;top:-18px;width:22px;height:48px;border-radius:11px;background:var(--g)"></div>
+        <div class="a" style="right:80px;top:-18px;width:22px;height:48px;border-radius:11px;background:var(--g)"></div>
+      </div>
+      <div class="a" id="bscale" style="left:565px;top:1120px;width:320px;height:240px"></div>
+      <div class="src" id="src2">Nieman dkk., Nutrition Research (2009)</div>
+    </div>
+    <!-- S3 kenapa -->
+    <div id="s3" class="L sc">
+      <div class="title" id="t3a" data-fs="170" style="top:380px"><span class="ln" data-t="KENAPA?"></span></div>
+      <div class="title" id="t3b" data-fs="128" style="top:350px"><span class="ln" data-t="KALORI _MASUK"></span></div>
+      <div class="title" id="t3c" data-fs="128" style="top:488px"><span class="ln" data-t="*&gt; KELUAR"></span></div>
+      <div class="src" id="src3">28 g chia ≈ 140 kkal · USDA</div>
+    </div>
+    <!-- S4 jembatan -->
+    <div id="s4" class="L sc">
+      <div class="title" id="t4a" data-fs="140" style="top:360px"><span class="ln" data-t="CHIA BANTU"></span><span class="ln" data-t="_KENYANG"></span></div>
+      <div class="title" id="t4b" data-fs="140" style="top:360px"><span class="ln" data-t="_3 CARA"></span><span class="ln" data-t="KURANGI MAKAN"></span></div>
+      <div class="a" id="b3" style="left:790px;top:700px;width:130px;height:130px;border-radius:50%;background:var(--k);color:var(--g);font:italic 900 100px Fraunces;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 24px rgba(30,77,58,.2)">3</div>
+    </div>
+    <!-- S5 cara 1 -->
+    <div id="s5" class="L sc">
+      <div class="title" id="t5a" data-fs="150" style="top:360px"><span class="ln" data-t="GANTI"></span><span class="ln" data-t="_CAMILAN"></span></div>
+      <div class="a" id="donut" style="left:170px;top:770px;width:260px;height:260px"></div>
+      <div class="a" id="pud" style="left:590px;top:760px;width:300px;height:440px"></div>
+    </div>
+    <!-- S6 cara 2 -->
+    <div id="s6" class="L sc">
+      <div class="title" id="t6a" data-fs="130" style="top:360px"><span class="ln" data-t="PUASA ATAU"></span><span class="ln" data-t="_KURANGI PORSI"></span></div>
+      <div class="title" id="t6b" data-fs="130" style="top:360px"><span class="ln" data-t="BUKA PUASA?"></span><span class="ln" data-t="_CHIA DULU"></span></div>
+      <div class="a" id="clock" style="left:100px;top:720px;width:380px;height:380px"></div>
+      <div class="a" id="plate" style="left:620px;top:740px;width:340px;height:340px"></div>
+      <div class="a" id="apx" style="left:478px;top:848px;width:124px;height:124px;border-radius:50%;background:var(--g);color:var(--bg);font:italic 900 96px Fraunces;display:flex;align-items:center;justify-content:center">≈</div>
+      <div class="src" id="src6">BMJ 2025 · 99 uji klinis</div>
+      <div class="a" id="moon" style="left:800px;top:690px;width:150px;height:150px"></div>
+      <div class="a" id="mg" style="left:180px;top:800px;width:240px;height:340px"></div>
+      <div class="a" id="mp" style="left:640px;top:880px;width:260px;height:260px"></div>
+      <svg class="a" id="marr" style="left:420px;top:920px" width="220" height="120" viewBox="0 0 220 120"><path d="M10 80 Q110 -10 200 70" stroke="#1E4D3A" stroke-width="8" fill="none" stroke-linecap="round" stroke-dasharray="260" stroke-dashoffset="260"/><path d="M178 50 L204 74 L172 84" stroke="#1E4D3A" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0"/></svg>
+      <div class="a" id="n1" style="left:150px;top:770px;width:76px;height:76px;border-radius:50%;background:var(--k);font:italic 900 52px Fraunces;display:flex;align-items:center;justify-content:center">1</div>
+      <div class="a" id="n2" style="left:620px;top:850px;width:76px;height:76px;border-radius:50%;background:var(--k);font:italic 900 52px Fraunces;display:flex;align-items:center;justify-content:center">2</div>
+    </div>
+    <!-- S7 cara 3 -->
+    <div id="s7" class="L sc">
+      <div class="title" id="t7a" data-fs="130" style="top:360px"><span class="ln" data-t="SETENGAH PIRING"></span><span class="ln" data-t="_SAYUR &amp; BUAH"></span></div>
+      <div class="a" id="pis" style="left:210px;top:690px;width:620px;height:620px"></div>
+      <div class="pill" id="lb1" style="left:170px;top:1150px;background:var(--g);color:var(--bg);font-size:30px;padding:12px 26px">½ SAYUR &amp; BUAH</div>
+      <div class="pill" id="lb2" style="left:690px;top:740px;background:var(--k);color:var(--g);font-size:30px;padding:12px 26px">LAUK</div>
+      <div class="pill" id="lb3" style="left:700px;top:1180px;background:#fff;color:var(--g);font-size:30px;padding:12px 26px;border:3px solid var(--g)">NASI ↓</div>
+      <div class="src" id="src7">Pedoman Isi Piringku · Kemenkes</div>
+    </div>
+    <!-- S8 aturan -->
+    <div id="s8" class="L sc">
+      <div class="title" id="t8a" data-fs="120" style="top:380px"><span class="ln" data-t="_RENDAM · 1 SDM · AIR"></span></div>
+      <div class="a" id="wg" style="left:380px;top:770px;width:320px;height:460px"></div>
+      <div class="a" id="spoon" style="left:90px;top:860px;width:240px;height:240px"></div>
+      <div class="pill" id="lsp" style="left:120px;top:1110px;background:var(--g);color:var(--bg);font-size:32px;padding:12px 28px">1 SDM</div>
+      <div class="a" id="bot" style="left:770px;top:830px;width:200px;height:320px"></div>
+      <div class="pill" id="lbt" style="left:770px;top:1170px;background:var(--g);color:var(--bg);font-size:32px;padding:12px 28px">+ AIR</div>
+      <div class="pill" id="warn" style="left:50%;top:1300px;background:var(--r);color:#fff;font-size:40px;padding:20px 40px">SUSAH MENELAN? TANYA DOKTER</div>
+    </div>
+    <!-- S9 verdict -->
+    <div id="s9" class="L sc">
+      <div class="title" id="t9a" data-fs="140" style="top:380px"><span class="ln" data-t="CHIA + _DIET?"></span></div>
+    </div>
+    <!-- S10–11 CTA -->
+    <div id="s10" class="L sc">
+      <div class="title" id="t10a" data-fs="118" style="top:360px"><span class="ln" data-t="SAFIYA _CHIA _SEED"></span></div>
+      <div class="a" id="t11" style="left:80px;right:80px;top:350px;text-align:center">
+        <div style="font:800 92px 'Plus Jakarta Sans';letter-spacing:-.01em;color:var(--g)">@mindset.sehat8</div>
+        <div style="font:italic 800 64px Fraunces;color:var(--g);margin-top:2px">Viral? <span style="background:linear-gradient(transparent 58%,#E9A23B 58%,#E9A23B 92%,transparent 92%)">Cek dulu.</span></div>
+      </div>
+      <div class="a card" id="prod" style="left:250px;top:560px;width:470px;height:690px;padding:15px"><img id="pimg" src="produk.png" style="width:440px;height:660px;display:block;border-radius:18px"></div>
+      <div class="pill" id="aff" style="left:270px;top:576px;background:rgba(30,77,58,.88);color:var(--bg);font-size:22px;padding:8px 18px;letter-spacing:.08em">LINK AFFILIATE</div>
+      <div class="chip" id="c1" style="top:720px;background:var(--k);color:var(--g)">500 G</div>
+      <div class="chip" id="c2" style="top:830px;background:var(--g);color:var(--bg)">100% ALAMI</div>
+      <div class="chip" id="c3" style="top:940px;background:#fff;color:var(--g);border:4px solid var(--g)">HALAL</div>
+      <div class="pill" id="cart" style="left:240px;top:1310px;background:var(--k);color:var(--g);font-size:42px;padding:20px 40px 20px 100px;box-shadow:0 14px 28px rgba(30,77,58,.2)">
+        <svg class="a" style="left:30px;top:50%;transform:translateY(-50%)" width="56" height="50" viewBox="0 0 56 50"><path d="M3 6 H12 L18 32 H46 L52 12 H15" stroke="#1E4D3A" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="42" r="5" fill="#1E4D3A"/><circle cx="43" cy="42" r="5" fill="#1E4D3A"/></svg>CEK KERANJANG KUNING</div>
+      <svg class="a" id="carr" style="left:150px;top:1400px" width="90" height="90" viewBox="0 0 90 90"><path d="M70 10 L24 62 M20 30 L20 68 L58 68" stroke="#E25C3B" stroke-width="10" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+
+    <!-- timbangan dua sisi (S3 & S9) -->
+    <div id="balL" class="a" style="left:90px;top:640px;width:900px;height:640px"></div>
+    <!-- tracker 3 cara -->
+    <div id="trkL" class="L"></div>
+    <!-- stempel -->
+    <div class="a" id="stamp" style="left:50%;top:930px;transform:translate(-50%,0) rotate(-8deg);background:var(--k);border:12px solid var(--g);border-radius:28px;padding:10px 54px;font:italic 900 168px Fraunces;color:var(--g);white-space:nowrap;box-shadow:0 24px 40px rgba(30,77,58,.25)">WORTH IT</div>
+    <!-- objek utama -->
+    <div id="chia" class="a" style="left:0;top:0;width:340px;height:430px"><div id="chiaSq" style="width:100%;height:100%"></div></div>
+    <div id="sparks" class="L"></div>
+  </div>
+
+  <!-- transisi wipe -->
+  <div class="a" id="wK" style="left:-310px;top:-340px;width:1700px;height:2600px;background:var(--k);transform:rotate(-12deg)"></div>
+  <div class="a" id="wG" style="left:-310px;top:-340px;width:1700px;height:2600px;background:var(--g);transform:rotate(-12deg)"></div>
+
+  <!-- header + progress -->
+  <div id="hdr" class="a" style="left:80px;right:80px;top:250px;height:56px;border-bottom:2px solid rgba(30,77,58,.22);font:800 24px 'Plus Jakarta Sans';letter-spacing:.2em;color:var(--g)">
+    <span style="position:absolute;left:0;top:50%;transform:translateY(-50%)">VIRAL? CEK DULU · NO. 01</span>
+    <span id="hls"></span>
+  </div>
+  <div id="prog" class="a" style="left:80px;top:314px;width:920px;height:6px;border-radius:3px;background:var(--k);transform-origin:0 50%"></div>
+</div></div></div>
+<div id="ctl"><button id="pp">Play</button><input id="sl" type="range" min="0" step="0.01" value="0"><span id="tm">0.00</span><label>Pilih audio<input id="fi" type="file" accept="audio/*" hidden></label></div>
+<audio id="au" src="narasi.mp3" preload="auto"></audio>
+
+<script>
+const CUES = {"w":1080,"h":1920,"fps":30,"duration":73.72,"estimated":false,"music":false,"sfx":"halus","scenes":[{"id":1,"start":0,"end":4.93,"keywords":[{"word":"kurus","t":1.6},{"word":"kecuali","t":2.84}]},{"id":2,"start":4.93,"end":9.81,"keywords":[{"word":"dua","t":7.45},{"word":"turun","t":9.01}]},{"id":3,"start":9.81,"end":17.6,"keywords":[{"word":"masuk","t":14.13},{"word":"kepakai","t":15.35},{"word":"turun","t":16.81}]},{"id":4,"start":17.6,"end":23.24,"keywords":[{"word":"kenyang","t":18.08},{"word":"tiga","t":21.86}]},{"id":5,"start":23.24,"end":31.42,"keywords":[{"word":"camilan","t":24.68},{"word":"puding","t":26.02},{"word":"buah","t":30.68}]},{"id":6,"start":31.42,"end":43.62,"keywords":[{"word":"puasa","t":35.22},{"word":"mirip","t":39.12},{"word":"buka","t":40.4},{"word":"kalap","t":42.94}]},{"id":7,"start":43.62,"end":49.08,"keywords":[{"word":"setengah","t":44.76},{"word":"nasinya","t":47.32}]},{"id":8,"start":49.08,"end":58.08,"keywords":[{"word":"direndam","t":50.36},{"word":"satu","t":51.54},{"word":"air","t":53.04},{"word":"dokter","t":56.9}]},{"id":9,"start":58.08,"end":60.48,"keywords":[{"word":"plus","t":58.24},{"word":"worth","t":59.48}]},{"id":10,"start":60.48,"end":70.72,"keywords":[{"word":"safiya","t":61.96},{"word":"lima","t":64.36},{"word":"seratus","t":65.66},{"word":"halal","t":67.94},{"word":"keranjang","t":69.7}]},{"id":11,"start":70.72,"end":73.72,"keywords":[]}]};
+
+const RENDER = location.search.includes('render');
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const D = CUES.duration, S = i => CUES.scenes[i - 1], K = (i, w) => S(i).keywords.find(k => k.word === w).t;
+function rng(s) { return () => { s |= 0; s = s + 0x6D2B79F5 | 0; let t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const f1 = n => n.toFixed(1);
+
+/* ---------- ilustrasi ---------- */
+function chiaInner(seed) {
+  const R = rng(seed); let sp = '';
+  for (let k = 0; k < 40; k++) {
+    const a = R() * 6.283, rr = Math.sqrt(R()) * .86, x = Math.cos(a) * 108 * rr, y = Math.sin(a) * 140 * rr;
+    sp += `<ellipse cx="${f1(x)}" cy="${f1(y)}" rx="${f1(3 + R() * 4)}" ry="${f1(2 + R() * 2)}" transform="rotate(${R() * 180 | 0} ${f1(x)} ${f1(y)})" fill="${R() < .6 ? '#8d887c' : '#141310'}" opacity="${(.35 + R() * .4).toFixed(2)}"/>`;
+  }
+  const arm = (s) => `<g class="arm${s > 0 ? 'R' : 'L'}"><path d="M${98 * s} 10 Q${140 * s} 50 ${150 * s} 95" stroke="#24221e" stroke-width="15" fill="none" stroke-linecap="round"/><circle cx="${150 * s}" cy="97" r="13" fill="#24221e"/></g>`;
+  return `<g class="breath">
+  <ellipse cx="0" cy="168" rx="100" ry="15" fill="#1E4D3A" opacity=".16"/>
+  <ellipse cx="-42" cy="150" rx="30" ry="14" fill="#24221e"/><ellipse cx="42" cy="150" rx="30" ry="14" fill="#24221e"/>
+  ${arm(-1)}${arm(1)}
+  <ellipse class="gel" rx="152" ry="184" fill="#ffffff" opacity=".5" stroke="#ffffff" stroke-width="5"/>
+  <ellipse rx="112" ry="145" fill="url(#cb)"/>${sp}
+  <ellipse cx="-48" cy="-82" rx="26" ry="46" fill="#fff" opacity=".16" transform="rotate(-22 -48 -82)"/>
+  <circle class="belly" cx="0" cy="78" r="44" fill="#E9A23B" opacity="0"/>
+  <g class="eyes"><circle cx="-38" cy="-28" r="27" fill="#fff"/><circle cx="38" cy="-28" r="27" fill="#fff"/>
+   <g class="pup"><circle cx="-36" cy="-25" r="14" fill="#141310"/><circle cx="40" cy="-25" r="14" fill="#141310"/><circle cx="-31" cy="-31" r="5" fill="#fff"/><circle cx="45" cy="-31" r="5" fill="#fff"/></g></g>
+  <ellipse cx="-68" cy="14" rx="16" ry="9" fill="#E25C3B" opacity=".45"/><ellipse cx="68" cy="14" rx="16" ry="9" fill="#E25C3B" opacity=".45"/>
+  <path class="mS" d="M-28 26 Q0 56 28 26" stroke="#F5F1E6" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <ellipse class="mO" cx="0" cy="40" rx="13" ry="17" fill="#141310" stroke="#F5F1E6" stroke-width="5" opacity="0"/>
+  <path class="mF" d="M-20 38 L20 34" stroke="#F5F1E6" stroke-width="7" stroke-linecap="round" opacity="0"/></g>`;
+}
+$('#chiaSq').innerHTML = `<svg viewBox="-170 -240 340 430" width="340" height="430" style="overflow:visible">${chiaInner(7)}
+ <g class="crown"><path d="M-70 -130 L-82 -202 L-40 -166 L0 -218 L40 -166 L82 -202 L70 -130 Z" fill="url(#gk)" stroke="#1E4D3A" stroke-width="5" stroke-linejoin="round"/>
+ <text x="0" y="-142" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="800" font-size="26" fill="#1E4D3A" letter-spacing="2">VIRAL</text>
+ <g class="nocap"><circle cx="0" cy="-170" r="66" fill="none" stroke="#E25C3B" stroke-width="13"/><line x1="-46" y1="-124" x2="46" y2="-216" stroke="#E25C3B" stroke-width="13" stroke-linecap="round"/></g></g></svg>`;
+
+$('#bscale').innerHTML = `<svg viewBox="0 0 320 240" width="320" height="240"><ellipse cx="160" cy="228" rx="140" ry="10" fill="#1E4D3A" opacity=".15"/>
+ <rect x="10" y="18" width="300" height="200" rx="46" fill="#fff" stroke="#1E4D3A" stroke-width="6"/>
+ <rect x="92" y="42" width="136" height="76" rx="16" fill="#1E4D3A"/>
+ <path d="M112 106 A48 48 0 0 1 208 106" stroke="#F5F1E6" stroke-width="4" fill="none" stroke-dasharray="4 10" opacity=".7"/>
+ <g id="needle"><line x1="160" y1="106" x2="160" y2="62" stroke="#E9A23B" stroke-width="6" stroke-linecap="round"/></g><circle cx="160" cy="106" r="7" fill="#E9A23B"/>
+ <rect x="70" y="148" width="70" height="46" rx="14" fill="#1E4D3A" opacity=".1"/><rect x="180" y="148" width="70" height="46" rx="14" fill="#1E4D3A" opacity=".1"/></svg>`;
+
+const rice = (x, y, s = 1) => `<g transform="translate(${x} ${y}) scale(${s})"><path d="M-40 -4 Q-34 -46 0 -48 Q34 -46 40 -4 Z" fill="#fffdf7" stroke="#e2dccb" stroke-width="3"/><path d="M-48 -6 L48 -6 Q42 34 0 36 Q-42 34 -48 -6 Z" fill="#fff" stroke="#1E4D3A" stroke-width="4"/><path d="M-30 6 L30 6" stroke="#E9A23B" stroke-width="5" opacity=".7"/></g>`;
+const gor = (x, y) => `<g transform="translate(${x} ${y})"><path d="M-38 10 L-6 -40 Q4 -46 10 -36 L36 8 Q38 16 28 16 L-30 18 Q-42 18 -38 10 Z" fill="url(#gk)" stroke="#b97a1e" stroke-width="4"/><circle cx="-6" cy="-6" r="4" fill="#b97a1e"/><circle cx="10" cy="2" r="3" fill="#b97a1e"/><circle cx="-16" cy="6" r="3" fill="#b97a1e"/></g>`;
+const boba = (x, y) => `<g transform="translate(${x} ${y})"><path d="M-28 -60 L28 -60 L22 20 Q20 28 12 28 L-12 28 Q-20 28 -22 20 Z" fill="#f1dcb4" stroke="#1E4D3A" stroke-width="4"/><rect x="-32" y="-68" width="64" height="12" rx="6" fill="#1E4D3A"/><line x1="8" y1="-68" x2="20" y2="-102" stroke="#E25C3B" stroke-width="8" stroke-linecap="round"/>${[[-12, 10], [0, 16], [12, 10], [-6, 2], [8, 0]].map(([a, b]) => `<circle cx="${a}" cy="${b}" r="6" fill="#2b2926"/>`).join('')}</g>`;
+const spoonMini = (x, y) => `<g transform="translate(${x} ${y}) rotate(-20)"><rect x="18" y="-5" width="54" height="10" rx="5" fill="#c98a2a"/><ellipse cx="0" cy="0" rx="24" ry="16" fill="url(#gk)" stroke="#b97a1e" stroke-width="3"/>${[[-8, -3], [2, 4], [8, -5], [-2, -7], [-12, 4], [10, 3]].map(([a, b]) => `<circle cx="${a}" cy="${b}" r="2.6" fill="#2b2926"/>`).join('')}</g>`;
+const shoe = (x, y) => `<g transform="translate(${x} ${y})"><path d="M-50 10 L-46 -34 Q-44 -42 -34 -40 L-12 -34 Q0 -14 30 -8 Q52 -4 52 10 Z" fill="#fff" stroke="#1E4D3A" stroke-width="5" stroke-linejoin="round"/><rect x="-54" y="8" width="110" height="14" rx="7" fill="#E9A23B" stroke="#1E4D3A" stroke-width="4"/><path d="M-30 -30 L-20 -20 M-22 -32 L-12 -22" stroke="#1E4D3A" stroke-width="4" stroke-linecap="round"/></g>`;
+const flame = (x, y) => `<g transform="translate(${x} ${y})"><path d="M0 22 C-34 22 -40 -10 -18 -32 C-14 -14 -4 -16 -6 -30 C-4 -48 10 -58 14 -70 C20 -44 40 -30 34 -4 C30 14 18 22 0 22 Z" fill="#E25C3B"/><path d="M0 18 C-16 18 -18 2 -8 -10 C-4 -2 2 -4 2 -14 C10 -6 18 2 14 10 C12 16 6 18 0 18 Z" fill="#f6c977"/></g>`;
+const pudMini = (x, y) => `<g transform="translate(${x} ${y})"><path d="M-30 -56 L30 -56 L26 24 Q24 30 18 30 L-18 30 Q-24 30 -26 24 Z" fill="#fffdf7" stroke="#1E4D3A" stroke-width="4"/><path d="M-27 -2 L27 -2 L26 24 Q24 30 18 30 L-18 30 Q-24 30 -26 24 Z" fill="#33312c"/><circle cx="-10" cy="-50" r="9" fill="#E25C3B"/><circle cx="10" cy="-48" r="9" fill="#6f9a52"/></g>`;
+const plateMini = (x, y) => `<g transform="translate(${x} ${y})"><ellipse rx="48" ry="16" cy="10" fill="#fff" stroke="#1E4D3A" stroke-width="4"/><ellipse cx="-8" cy="0" rx="20" ry="12" fill="#fffdf7" stroke="#e2dccb" stroke-width="3"/><ellipse cx="18" cy="2" rx="14" ry="8" fill="#5f8f5c"/></g>`;
+const pan = (cx, label, items, id) => `<g id="${id}"><path d="M${cx} 110 L${cx - 100} 360 M${cx} 110 L${cx + 100} 360" stroke="#1E4D3A" stroke-width="4" opacity=".55"/>
+  <g class="items">${items}</g>
+  <path d="M${cx - 120} 360 L${cx + 120} 360 Q${cx + 108} 424 ${cx} 428 Q${cx - 108} 424 ${cx - 120} 360 Z" fill="url(#gb)"/><rect x="${cx - 122}" y="353" width="244" height="12" rx="6" fill="url(#gk)"/>
+  <rect x="${cx - 78}" y="452" width="156" height="50" rx="25" fill="${label == 'MASUK' ? '#E25C3B' : '#1E4D3A'}"/><text x="${cx}" y="486" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="800" font-size="25" letter-spacing="3" fill="#F5F1E6">${label}</text></g>`;
+$('#balL').innerHTML = `<svg viewBox="0 0 900 640" width="900" height="640" style="overflow:visible">
+ <ellipse cx="450" cy="624" rx="220" ry="14" fill="#1E4D3A" opacity=".15"/>
+ <path d="M336 620 L378 572 L522 572 L564 620 Z" fill="url(#gb)"/><rect x="438" y="110" width="24" height="470" rx="10" fill="url(#gb)"/>
+ ${pan(120, 'MASUK', `<g class="A">${boba(150, 330)}</g><g class="A">${rice(80, 344)}</g><g class="A">${gor(178, 346)}</g><g class="A">${spoonMini(110, 296)}</g><g class="B">${pudMini(90, 330)}</g><g class="B">${plateMini(165, 344)}</g>`, 'panL')}
+ ${pan(780, 'KELUAR', `<g class="C">${shoe(740, 340)}</g><g class="C">${flame(840, 338)}</g>`, 'panR')}
+ <g id="beam"><rect x="108" y="98" width="684" height="24" rx="12" fill="url(#gb)"/><circle cx="120" cy="110" r="11" fill="url(#gk)"/><circle cx="780" cy="110" r="11" fill="url(#gk)"/></g>
+ <circle cx="450" cy="110" r="27" fill="url(#gk)" stroke="#1E4D3A" stroke-width="5"/></svg>`;
+
+(() => { // donat
+  const R = rng(3); let fr = '', sp = '';
+  for (let a = 0; a <= 360; a += 10) { const r = 86 + 7 * Math.sin(a * Math.PI / 22.5), q = a * Math.PI / 180; fr += (a ? 'L' : 'M') + f1(Math.cos(q) * r) + ' ' + f1(Math.sin(q) * r); }
+  for (let k = 0; k < 16; k++) { const q = R() * 6.283, r = 50 + R() * 28, x = Math.cos(q) * r, y = Math.sin(q) * r; sp += `<rect x="${f1(x - 7)}" y="${f1(y - 2.5)}" width="14" height="5" rx="2.5" transform="rotate(${R() * 180 | 0} ${f1(x)} ${f1(y)})" fill="${['#fff', '#1E4D3A', '#E9A23B'][k % 3]}"/>`; }
+  $('#donut').innerHTML = `<svg viewBox="-130 -130 260 260" width="260" height="260" style="overflow:visible"><ellipse cx="0" cy="122" rx="95" ry="10" fill="#1E4D3A" opacity=".15"/>
+  <g class="dn"><circle r="112" fill="url(#gk)" stroke="#c98a2a" stroke-width="5"/><path d="${fr}Z" fill="#ef9a86"/>${sp}<circle r="36" fill="#F5F1E6" stroke="#c98a2a" stroke-width="5"/><path d="M-70 -60 A92 92 0 0 1 -10 -96" stroke="#fff" stroke-width="10" fill="none" opacity=".45" stroke-linecap="round"/></g>
+  <g class="x"><line x1="-100" y1="-100" x2="100" y2="100" stroke="#E25C3B" stroke-width="20" stroke-linecap="round" stroke-dasharray="290" stroke-dashoffset="290"/><line x1="100" y1="-100" x2="-100" y2="100" stroke="#E25C3B" stroke-width="20" stroke-linecap="round" stroke-dasharray="290" stroke-dashoffset="290"/></g></svg>`;
+})();
+
+const glassPath = 'M48 60 L252 60 L234 396 Q232 414 214 414 L86 414 Q68 414 66 396 Z';
+(() => { // puding chia
+  const R = rng(9); let dots = '';
+  for (let k = 0; k < 60; k++) dots += `<circle cx="${f1(60 + R() * 180)}" cy="${f1(298 + R() * 110)}" r="${f1(1.5 + R() * 2)}" fill="#9d978a" opacity=".7"/>`;
+  $('#pud').innerHTML = `<svg viewBox="0 0 300 440" width="300" height="440" style="overflow:visible"><defs><clipPath id="gc"><path d="${glassPath}"/></clipPath></defs>
+  <ellipse cx="150" cy="428" rx="110" ry="10" fill="#1E4D3A" opacity=".15"/><path d="${glassPath}" fill="#fff" opacity=".6"/>
+  <g clip-path="url(#gc)"><g class="lc"><rect x="0" y="290" width="300" height="130" fill="#33312c"/>${dots}</g><rect class="ly" x="0" y="196" width="300" height="96" fill="#fffdf7"/></g>
+  <g class="lf"><path class="fr" d="M90 196 C70 176 84 150 104 160 C124 150 138 176 118 196 Z" fill="#E25C3B"/><circle class="fr" cx="160" cy="180" r="24" fill="#6f9a52" stroke="#d8e8c8" stroke-width="5"/><path class="fr" d="M186 196 C170 170 196 150 212 166 C228 150 238 180 214 196 Z" fill="#E25C3B"/><path class="fr" d="M140 150 Q160 122 182 140 Q160 156 140 150 Z" fill="#2f6a4c"/></g>
+  <path d="${glassPath}" fill="none" stroke="#1E4D3A" stroke-width="6" stroke-linejoin="round"/><path d="M74 84 L88 384" stroke="#fff" stroke-width="10" opacity=".7" stroke-linecap="round"/></svg>`;
+})();
+
+function arc(r, a0, a1) { const p = a => [f1(r * Math.sin(a * Math.PI / 180)), f1(-r * Math.cos(a * Math.PI / 180))]; const [x0, y0] = p(a0), [x1, y1] = p(a1); return `M${x0} ${y0} A${r} ${r} 0 ${a1 - a0 > 180 ? 1 : 0} 1 ${x1} ${y1}`; }
+$('#clock').innerHTML = `<svg viewBox="-190 -190 380 380" width="380" height="380"><ellipse cx="0" cy="182" rx="140" ry="10" fill="#1E4D3A" opacity=".15"/>
+ <circle r="176" fill="#fff" stroke="#1E4D3A" stroke-width="8"/>
+ <path d="${arc(136, 6, 234)}" stroke="#1E4D3A" stroke-width="36" fill="none" stroke-linecap="round"/><path d="${arc(136, 246, 354)}" stroke="#E9A23B" stroke-width="36" fill="none" stroke-linecap="round"/>
+ <g class="hand"><line x1="0" y1="0" x2="0" y2="-92" stroke="#E25C3B" stroke-width="9" stroke-linecap="round"/></g><circle r="12" fill="#E25C3B"/>
+ <text x="0" y="66" text-anchor="middle" font-family="Fraunces" font-style="italic" font-weight="900" font-size="64" fill="#1E4D3A">16:8</text></svg>`;
+const plateBig = `<svg viewBox="-170 -170 340 340" width="100%" height="100%"><ellipse cx="0" cy="164" rx="140" ry="10" fill="#1E4D3A" opacity=".15"/>
+ <circle r="160" fill="#fff" stroke="#1E4D3A" stroke-opacity=".3" stroke-width="6"/><circle r="122" fill="none" stroke="#1E4D3A" stroke-opacity=".12" stroke-width="4"/>
+ <g class="pile"><circle cx="-24" cy="12" r="78" fill="#fffdf7" stroke="#e2dccb" stroke-width="4"/>${[[-50, 0], [-20, -20], [0, 20], [-40, 40], [-10, 50]].map(([a, b]) => `<ellipse cx="${a}" cy="${b}" rx="7" ry="3.5" fill="#e2dccb"/>`).join('')}
+ <ellipse cx="54" cy="-34" rx="52" ry="32" transform="rotate(-30 54 -34)" fill="url(#gk)" stroke="#b97a1e" stroke-width="4"/>${gor(50, 60)}<circle cx="-70" cy="-70" r="18" fill="#E25C3B"/></g></svg>`;
+$('#plate').innerHTML = plateBig; $('#mp').innerHTML = plateBig;
+$('#moon').innerHTML = `<svg viewBox="0 0 150 150" width="150" height="150"><path d="M100 18 A62 62 0 1 0 128 112 A50 50 0 1 1 100 18 Z" fill="url(#gk)"/><circle cx="34" cy="30" r="5" fill="#E9A23B"/><circle cx="130" cy="40" r="4" fill="#E9A23B"/></svg>`;
+$('#mg').innerHTML = `<svg viewBox="0 0 300 440" width="240" height="352"><path d="${glassPath}" fill="#fff" opacity=".7"/><path d="M60 170 L240 170 L234 396 Q232 414 214 414 L86 414 Q68 414 66 396 Z" fill="#cfe3d8"/>${Array.from({ length: 40 }, (_, k) => { const R = rng(k + 50); return `<circle cx="${f1(80 + R() * 140)}" cy="${f1(200 + R() * 200)}" r="${f1(3 + R() * 3)}" fill="#33312c" opacity=".85"/>`; }).join('')}<path d="${glassPath}" fill="none" stroke="#1E4D3A" stroke-width="7"/><path d="M74 84 L88 384" stroke="#fff" stroke-width="10" opacity=".7" stroke-linecap="round"/></svg>`;
+
+(() => { // isi piringku
+  const R = rng(21); let veg = '';
+  for (let k = 0; k < 5; k++) { const x = -190 + R() * 140, y = -160 + k * 75; veg += `<g class="vg" transform="translate(${f1(x)} ${f1(y)})"><rect x="-6" y="0" width="12" height="34" rx="6" fill="#4f7a5c"/>${[[-18, -6], [0, -16], [18, -6], [-8, 4], [10, 4]].map(([a, b]) => `<circle cx="${a}" cy="${b}" r="15" fill="${k % 2 ? '#2f6a4c' : '#3f7a5c'}"/>`).join('')}</g>`; }
+  [[-80, -150, 'c'], [-70, 120, 't'], [-130, 30, 'o'], [-60, -40, 'c'], [-200, 110, 't'], [-40, 190, 'c']].forEach(([x, y, t]) => {
+    veg += `<g class="vg" transform="translate(${x} ${y})">` + (t == 'c' ? `<circle r="22" fill="#E9A23B"/><circle r="12" fill="none" stroke="#f6c977" stroke-width="4"/>` : t == 't' ? `<circle r="25" fill="#E25C3B"/><circle cx="-8" cy="-4" r="3" fill="#f6c977"/><circle cx="7" cy="5" r="3" fill="#f6c977"/>` : `<circle r="36" fill="#f6c977" stroke="#E9A23B" stroke-width="6"/>${[0, 60, 120].map(a => `<line x1="${f1(-28 * Math.cos(a * Math.PI / 180))}" y1="${f1(-28 * Math.sin(a * Math.PI / 180))}" x2="${f1(28 * Math.cos(a * Math.PI / 180))}" y2="${f1(28 * Math.sin(a * Math.PI / 180))}" stroke="#fff" stroke-width="3"/>`).join('')}`) + `</g>`;
+  });
+  $('#pis').innerHTML = `<svg viewBox="-310 -310 620 620" width="620" height="620" style="overflow:visible"><ellipse cx="0" cy="302" rx="250" ry="14" fill="#1E4D3A" opacity=".15"/>
+  <circle r="300" fill="#fff" stroke="#1E4D3A" stroke-opacity=".22" stroke-width="8"/><circle r="262" fill="none" stroke="#1E4D3A" stroke-opacity=".1" stroke-width="4"/>
+  <g class="half"><path d="M0 -245 A245 245 0 0 0 0 245 Z" fill="#e3ece2"/>${veg}</g>
+  <g class="prot"><path d="M0 0 L0 -245 A245 245 0 0 1 245 0 Z" fill="#f6ead2"/><g transform="translate(110 -110)"><rect x="-70" y="-28" width="84" height="54" rx="10" fill="#d9b16a" transform="rotate(-12)"/><rect x="-10" y="10" width="84" height="54" rx="10" fill="#cfa45c" transform="rotate(10)"/><ellipse cx="50" cy="-50" rx="40" ry="32" fill="#fff" stroke="#e2dccb" stroke-width="3"/><circle cx="54" cy="-48" r="15" fill="#E9A23B"/></g></g>
+  <g class="nasi"><path d="M0 0 L245 0 A245 245 0 0 1 0 245 Z" fill="#f4efe3"/><g class="mound"><path d="M30 190 Q20 60 110 40 Q200 50 196 140 Q190 196 120 200 Z" fill="#fffdf7" stroke="#e2dccb" stroke-width="4"/>${[[80, 90], [120, 70], [150, 120], [100, 150], [60, 160], [140, 170]].map(([a, b]) => `<ellipse cx="${a}" cy="${b}" rx="8" ry="4" fill="#e2dccb"/>`).join('')}</g></g>
+  <path d="M0 -245 L0 245 M0 0 L245 0" stroke="#1E4D3A" stroke-opacity=".25" stroke-width="5"/></svg>`;
+})();
+
+$('#wg').innerHTML = `<svg viewBox="0 0 320 460" width="320" height="460" style="overflow:visible"><defs><clipPath id="wc"><path d="M56 70 L264 70 L246 412 Q244 430 226 430 L94 430 Q76 430 74 412 Z"/></clipPath></defs>
+ <ellipse cx="160" cy="446" rx="115" ry="11" fill="#1E4D3A" opacity=".15"/>
+ <path d="M56 70 L264 70 L246 412 Q244 430 226 430 L94 430 Q76 430 74 412 Z" fill="#fff" opacity=".7"/>
+ <g clip-path="url(#wc)"><rect x="0" y="150" width="320" height="300" fill="#cfe3d8"/>
+  <g id="mini" transform="translate(160 300) scale(.5)"><g class="mi">${chiaInner(7)}</g></g>
+  <rect x="0" y="150" width="320" height="300" fill="#cfe3d8" opacity=".28"/>
+  <g class="bub">${[[110, 380, 8], [210, 350, 6], [130, 220, 5], [200, 240, 7], [96, 300, 5]].map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="none" stroke="#fff" stroke-width="3"/>`).join('')}</g></g>
+ <path d="M30 150 L290 150" stroke="#9fc9b4" stroke-width="5" opacity=".9"/>
+ <path d="M56 70 L264 70 L246 412 Q244 430 226 430 L94 430 Q76 430 74 412 Z" fill="none" stroke="#1E4D3A" stroke-width="7" stroke-linejoin="round"/><path d="M82 96 L96 400" stroke="#fff" stroke-width="10" opacity=".7" stroke-linecap="round"/>
+ <g class="spl">${[[-40, -60], [-20, -90], [10, -100], [36, -80], [56, -50], [-56, -30]].map(([x, y]) => `<circle class="dr" cx="160" cy="150" r="9" fill="#9fc9b4" data-x="${x}" data-y="${y}"/>`).join('')}</g></svg>`;
+$('#spoon').innerHTML = `<svg viewBox="-120 -120 240 240" width="240" height="240"><g transform="rotate(-28)"><rect x="40" y="-11" width="100" height="22" rx="11" fill="#c98a2a"/><ellipse rx="66" ry="46" fill="url(#gk)" stroke="#b97a1e" stroke-width="5"/>${Array.from({ length: 26 }, (_, k) => { const R = rng(k + 90), q = R() * 6.283, r = Math.sqrt(R()) * .8; return `<circle cx="${f1(Math.cos(q) * 54 * r)}" cy="${f1(Math.sin(q) * 36 * r)}" r="3.2" fill="#2b2926"/>`; }).join('')}</g></svg>`;
+$('#bot').innerHTML = `<svg viewBox="0 0 200 320" width="200" height="320"><defs><clipPath id="bc"><path d="M70 50 L130 50 L130 80 Q170 100 170 140 L170 290 Q170 308 152 308 L48 308 Q30 308 30 290 L30 140 Q30 100 70 80 Z"/></clipPath></defs>
+ <path d="M70 50 L130 50 L130 80 Q170 100 170 140 L170 290 Q170 308 152 308 L48 308 Q30 308 30 290 L30 140 Q30 100 70 80 Z" fill="#fff"/>
+ <g clip-path="url(#bc)"><rect class="wt" x="0" y="96" width="200" height="220" fill="#9fc9b4"/></g>
+ <path d="M70 50 L130 50 L130 80 Q170 100 170 140 L170 290 Q170 308 152 308 L48 308 Q30 308 30 290 L30 140 Q30 100 70 80 Z" fill="none" stroke="#1E4D3A" stroke-width="7" stroke-linejoin="round"/>
+ <rect x="64" y="22" width="72" height="34" rx="8" fill="#1E4D3A"/><rect x="30" y="170" width="140" height="56" fill="#E9A23B" opacity=".9"/><text x="100" y="208" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="800" font-size="28" fill="#1E4D3A" letter-spacing="3">AIR</text>
+ <path d="M52 120 L52 280" stroke="#fff" stroke-width="9" opacity=".7" stroke-linecap="round"/></svg>`;
+const checkSVG = (sz) => `<svg viewBox="-32 -32 64 64" width="${sz}" height="${sz}"><circle class="cc" r="30" fill="#1E4D3A"/><path class="ck" d="M-14 1 L-4 11 L15 -11" stroke="#F5F1E6" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="44" stroke-dashoffset="44"/></svg>`;
+['spoon', 'bot'].forEach(id => { const d = document.createElement('div'); d.className = 'a ckb'; d.id = 'ck_' + id; d.style.cssText = 'right:-6px;top:-6px'; d.innerHTML = checkSVG(76); $('#' + id).appendChild(d); });
+['CAMILAN', 'POLA MAKAN', 'PIRING'].forEach((t, k) => { $('#trkL').insertAdjacentHTML('beforeend', `<div class="trk" id="tk${k + 1}" style="left:${80 + k * 315}px"><div class="n"><b>${k + 1}</b>${checkSVG(42)}</div>${t}</div>`); });
+$$('.trk svg').forEach(s => s.style.opacity = 0);
+
+(() => { // motif latar
+  const R = rng(5); let lv = '', sd = '';
+  [[40, 560, 30], [-20, 980, -20], [1000, 640, 200], [1030, 1180, 150], [60, 1560, 10], [980, 1620, 190], [30, 200, 40]].forEach(([x, y, r], k) => {
+    lv += `<svg class="a lf" style="left:${x - 60}px;top:${y - 40}px" width="140" height="90" viewBox="-10 -45 140 90"><g transform="rotate(${r} 60 0)"><path d="M0 0 C30 -40 90 -40 120 0 C90 40 30 40 0 0 Z" fill="#1E4D3A" opacity="${k % 2 ? .1 : .16}"/><path d="M6 0 L112 0" stroke="#F5F1E6" stroke-width="3" opacity=".5"/></g></svg>`;
+  });
+  for (let k = 0; k < 22; k++) { const x = R() * 1080, y = 200 + R() * 1500; sd += `<div class="a sd" style="left:${f1(x)}px;top:${f1(y)}px;width:${f1(9 + R() * 6)}px;height:${f1(6 + R() * 4)}px;border-radius:50%;background:#2b2926;opacity:${(.12 + R() * .14).toFixed(2)};transform:rotate(${R() * 180 | 0}deg)"></div>`; }
+  $('#leaves').innerHTML = lv; $('#seeds').innerHTML = sd;
+  for (let k = 0; k < 4; k++) $('#sparks').insertAdjacentHTML('beforeend', `<svg class="a spk" style="left:${[230, 760, 700, 300][k]}px;top:${[560, 600, 1180, 1220][k]}px" width="60" height="60" viewBox="-30 -30 60 60"><path d="M0 -28 Q4 -4 28 0 Q4 4 0 28 Q-4 4 -28 0 Q-4 -4 0 -28 Z" fill="#E9A23B"/></svg>`);
+})();
+
+// teks per kata dengan mask
+$$('.ln[data-t]').forEach(el => {
+  el.innerHTML = el.dataset.t.split(' ').map(w => {
+    let c = ''; if (w[0] == '*') { c = 'r'; w = w.slice(1); } else if (w[0] == '_') { c = 'h'; w = w.slice(1); }
+    return `<span class="w ${c}"><span class="i">${c == 'h' ? '<i class="mk"></i>' : ''}${w}</span></span>`;
+  }).join(' ');
+});
+function fit() {
+  $$('.title[data-fs]').forEach(t => {
+    let fs = +t.dataset.fs; t.style.fontSize = fs + 'px';
+    while (fs > 40 && [...t.querySelectorAll('.ln')].some(l => l.scrollWidth > 920)) { fs -= 4; t.style.fontSize = fs + 'px'; }
+  });
+}
+
+/* ---------- timeline ---------- */
+window.SFX = [];
+const sfx = (type, t, vol = 1) => SFX.push({ type, t: +t.toFixed(3), vol });
+let tl;
+function build() {
+  tl = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } });
+  const at = (t, v) => tl.set({}, {}, t);
+  // reveal kata: masuk dari bawah mask + overshoot
+  const reveal = (sel, t, idx) => {
+    let ii = $$(sel + ' .i'); if (idx) ii = idx.map(k => ii[k]);
+    tl.fromTo(ii, { yPercent: 115, rotate: 5 }, { yPercent: 0, rotate: 0, duration: .55, ease: 'back.out(1.7)', stagger: .07 }, t);
+    const mk = ii.map(i => i.querySelector('.mk')).filter(Boolean);
+    if (mk.length) tl.fromTo(mk, { scaleX: 0 }, { scaleX: 1, duration: .4, ease: 'power2.out', stagger: .08 }, t + .3);
+    sfx('pop', t, .5);
+  };
+  const conceal = (sel, t) => tl.to($$(sel + ' .i'), { yPercent: -115, duration: .3, ease: 'power2.in', stagger: .03 }, t);
+  const pop = (sel, t, from = { scale: 0 }, d = .5) => { tl.fromTo(sel, { autoAlpha: 0, ...from }, { autoAlpha: 1, scale: 1, x: 0, y: 0, rotate: 0, duration: d, ease: 'back.out(1.8)' }, t); sfx('pop', t, .6); };
+  const out = (sel, t, d = .3) => tl.to(sel, { autoAlpha: 0, scale: .6, duration: d, ease: 'power2.in' }, t);
+  const show = (sel, t) => tl.set(sel, { autoAlpha: 1 }, t), hide = (sel, t) => tl.set(sel, { autoAlpha: 0 }, t);
+
+  // keadaan awal
+  gsap.set('.sc,#balL,#trkL,#stamp,#qb,#b3,.src,#p2,#cal,#bscale,#apx,#moon,#mg,#mp,#marr,#n1,#n2,#lb1,#lb2,#lb3,#lsp,#lbt,#warn,#spoon,#bot,#wg,#donut,#pud,#clock,#plate,#pis,#prod,#aff,#c1,#c2,#c3,#cart,#carr,#t11,.spk,.trk', { autoAlpha: 0 });
+  gsap.set('#s1', { autoAlpha: 1 });
+  gsap.set('.src,#p2,#warn', { xPercent: -50 });
+  gsap.set('.ckb', { autoAlpha: 0, scale: 0 });
+  gsap.set('#wG,#wK', { x: -2400 });
+  gsap.set('#chia', { xPercent: -50, yPercent: -50, x: 540, y: 1130, scale: 1.3 });
+  gsap.set('#chia .gel,#mini .gel', { scale: 0, transformOrigin: '50% 50%' });
+  gsap.set('#chia .nocap', { scale: 0, transformOrigin: '50% 50%' });
+  $$('.i').forEach(i => gsap.set(i, { yPercent: 115 }));
+  gsap.set('#t1a .i', { yPercent: 0 });
+  $('#stamp').style.transform = ''; gsap.set('#stamp', { xPercent: -50, x: 0, rotate: -8, left: '50%' });
+
+  // label header per bab
+  const HL = ['CHIA SEED', 'FAKTA', 'KENAPA?', 'KUNCINYA', 'CARA 1/3', 'CARA 2/3', 'CARA 3/3', 'ATURAN AMAN', 'VERDICT', 'REKOMENDASI', 'FOLLOW'];
+  $('#hls').innerHTML = HL.map(h => `<span class="hl">${h}</span>`).join('');
+  const hls = $$('.hl'); gsap.set(hls, { autoAlpha: 0 }); gsap.set(hls[0], { autoAlpha: 1 });
+  HL.forEach((_, k) => { if (k) { tl.set(hls[k - 1], { autoAlpha: 0 }, S(k + 1).start); tl.fromTo(hls[k], { autoAlpha: 0, x: 20 }, { autoAlpha: 1, x: 0, duration: .35 }, S(k + 1).start); } });
+  tl.fromTo('#prog', { scaleX: 0 }, { scaleX: 1, duration: D, ease: 'none' }, 0);
+
+  // gerak sekunder: kamera, latar, napas, kedip
+  CUES.scenes.forEach(s => tl.fromTo('#cam', { scale: 1 }, { scale: 1.035, duration: s.end - s.start, ease: 'none', transformOrigin: '50% 48%', immediateRender: false }, s.start));
+  $$('.blob').forEach((b, k) => tl.to(b, { x: [40, -50, 30][k], y: [60, -40, -50][k], duration: D, ease: 'sine.inOut' }, 0));
+  $$('.lf').forEach((l, k) => tl.to(l, { rotate: k % 2 ? 6 : -6, y: 10, duration: 2.6 + k * .3, ease: 'sine.inOut', yoyo: true, repeat: Math.ceil(D / (2.6 + k * .3)) }, 0));
+  $$('.sd').forEach((d, k) => tl.to(d, { y: -(30 + k % 5 * 12), x: (k % 3 - 1) * 14, duration: 3 + k % 4, ease: 'sine.inOut', yoyo: true, repeat: Math.ceil(D / 3) }, 0));
+  tl.to('#chia .breath', { scaleY: 1.025, scaleX: .99, svgOrigin: '0 165', duration: .9, ease: 'sine.inOut', yoyo: true, repeat: Math.ceil(D / .9) }, 0);
+  const BR = rng(77); for (let t = 1.2; t < D; t += 2.6 + BR() * 1.6) tl.to('#chia .eyes', { scaleY: .1, svgOrigin: '0 -28', duration: .07, yoyo: true, repeat: 1, ease: 'power1.in' }, t);
+  const mouth = (m, t) => { ['mS', 'mO', 'mF'].forEach(k => tl.set('#chia .' + k, { opacity: k == m ? 1 : 0 }, t)); };
+  const look = (x, y, t) => tl.to('#chia .pup', { x, y, duration: .25, ease: 'power2.out' }, t);
+  const go = (x, y, sc, t, d = .6) => tl.to('#chia', { x, y, scale: sc, duration: d, ease: 'power3.inOut' }, t);
+  const squash = t => tl.fromTo('#chiaSq', { scaleY: .82, scaleX: 1.14 }, { scaleY: 1, scaleX: 1, duration: .55, ease: 'elastic.out(1,.45)', transformOrigin: '50% 92%' }, t);
+  const armR = (r, t, d = .35) => tl.to('#chia .armR', { rotate: r, svgOrigin: '98 10', duration: d, ease: 'back.out(2)' }, t);
+  const armL = (r, t, d = .35) => tl.to('#chia .armL', { rotate: r, svgOrigin: '-98 10', duration: d, ease: 'back.out(2)' }, t);
+  const wipe = t => { tl.fromTo('#wG', { x: -2400 }, { x: 2400, duration: .75, ease: 'power2.inOut' }, t - .37); tl.fromTo('#wK', { x: -2400 }, { x: 2400, duration: .75, ease: 'power2.inOut' }, t - .3); sfx('whoosh', t - .4, .7); };
+  const shake = t => tl.to('#cam', { keyframes: { x: [0, -16, 13, -9, 6, -3, 0], y: [0, 9, -7, 5, -3, 1, 0] }, duration: .32, ease: 'none' }, t);
+  const tick = (sel, t) => { tl.to(sel + ' .cc', { fill: '#E9A23B', duration: .01 }, t - .01); tl.set(sel + ' svg', { opacity: 1 }, t); tl.fromTo(sel + ' .ck', { strokeDashoffset: 44 }, { strokeDashoffset: 0, duration: .3, ease: 'power2.out' }, t + .05); tl.fromTo(sel + ' svg', { scale: .3 }, { scale: 1, duration: .45, ease: 'back.out(3)', transformOrigin: '50% 50%' }, t); sfx('ding', t, .6); };
+  const ckb = (id, t) => { tl.to(id, { autoAlpha: 1, scale: 1, duration: .4, ease: 'back.out(3)' }, t); tl.fromTo(id + ' .ck', { strokeDashoffset: 44 }, { strokeDashoffset: 0, duration: .3 }, t + .1); sfx('ding', t, .6); };
+
+  /* S1 hook: teks hook sudah tampil di frame 0 */
+  tl.fromTo('#t1a', { scale: 1.16 }, { scale: 1, duration: .55, ease: 'back.out(1.6)' }, 0);
+  tl.fromTo('#chia', { y: 1900 }, { y: 1130, duration: .5, ease: 'back.out(1.3)' }, 0); sfx('whoosh', 0, .5);
+  squash(.48); sfx('pop', .5, .6);
+  tl.to('#chia .nocap', { scale: 1, duration: .28, ease: 'power4.in' }, K(1, 'kurus') - .2);
+  tl.to('#chia .crown', { rotate: -16, svgOrigin: '-70 -130', duration: .4, ease: 'back.out(3)' }, K(1, 'kurus') + .05);
+  mouth('mO', K(1, 'kurus')); sfx('stamp', K(1, 'kurus'), .55); shake(K(1, 'kurus') + .05);
+  reveal('#t1b', K(1, 'kecuali') - .1);
+  pop('#qb', K(1, 'kecuali') + .5, { scale: 0, rotate: -30 }); look(6, -6, K(1, 'kecuali') + .5); mouth('mF', K(1, 'kecuali') + .5);
+  tl.to('#qb', { y: -10, duration: .6, ease: 'sine.inOut', yoyo: true, repeat: 2 }, K(1, 'kecuali') + 1);
+
+  /* S1→S2 geser kiri */
+  const s2 = S(2).start;
+  tl.to('#s1', { x: -1080, duration: .5, ease: 'power3.inOut' }, s2 - .25); hide('#s1', s2 + .3);
+  tl.fromTo('#s2', { x: 1080, autoAlpha: 1 }, { x: 0, duration: .5, ease: 'power3.inOut' }, s2 - .25); sfx('whoosh', s2 - .3, .7);
+  tl.to('#chia .crown', { y: -260, x: 120, rotate: 50, autoAlpha: 0, duration: .5, ease: 'power2.in' }, s2 - .3);
+  go(270, 1150, .9, s2 - .25); mouth('mS', s2); look(10, 0, s2);
+  pop('#p2', s2 + .2, { scale: .6 }); pop('#cal', s2 + .45, { scale: .5, rotate: 8 }); pop('#bscale', s2 + .7, { scale: .5, y: 60 }); pop('#src2', s2 + .9, { y: 20 });
+  const cnt = { v: 1 }; tl.to(cnt, { v: 12, duration: K(2, 'dua') - (s2 + .9), ease: 'none', onUpdate: () => { $('#calN').textContent = Math.round(cnt.v); } }, s2 + .9);
+  for (let k = 2; k <= 12; k++) sfx('tick', s2 + .9 + (k - 1.5) / 11 * (K(2, 'dua') - s2 - .9), .35);
+  tl.fromTo('#cal', { rotate: 0 }, { rotate: -3, duration: .12, yoyo: true, repeat: 7, ease: 'sine.inOut' }, s2 + 1);
+  tl.to('#needle', { rotate: 9, svgOrigin: '160 106', duration: .18, yoyo: true, repeat: 9, ease: 'sine.inOut' }, s2 + 1);
+  out('#p2', K(2, 'dua') - .45, .25);
+  reveal('#t2a', K(2, 'dua') - .25); tl.fromTo('#calN', { scale: 1.4 }, { scale: 1, duration: .4, ease: 'back.out(3)' }, K(2, 'dua'));
+  reveal('#t2b', K(2, 'turun') - .2); mouth('mO', K(2, 'turun') - .1); look(8, 10, K(2, 'turun') - .1);
+  tl.fromTo('#bscale', { scale: 1 }, { scale: 1.08, duration: .15, yoyo: true, repeat: 1 }, K(2, 'turun'));
+
+  /* S2→S3 zoom keluar ke timbangan */
+  const s3 = S(3).start, bal = { a: 0 };
+  const applyBal = () => { const d = 330 * Math.sin(bal.a * Math.PI / 180); $('#beam').setAttribute('transform', `rotate(${bal.a.toFixed(2)} 450 110)`); $('#panL').setAttribute('transform', `translate(0 ${(-d).toFixed(2)})`); $('#panR').setAttribute('transform', `translate(0 ${d.toFixed(2)})`); };
+  const tilt = (a, t, d = .7) => tl.to(bal, { a, duration: d, ease: 'elastic.out(1,.4)', onUpdate: applyBal }, t);
+  tl.to('#s2', { scale: .7, autoAlpha: 0, duration: .45, ease: 'power2.in', transformOrigin: '50% 50%' }, s3 - .25);
+  tl.fromTo('#s3', { scale: 1.25, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: .55, transformOrigin: '50% 50%' }, s3 - .05);
+  tl.set('#balL svg .A,#balL svg .B,#balL svg .C', { autoAlpha: 0 }, 0);
+  tl.fromTo('#balL', { scale: 1.25, autoAlpha: 0, y: 0 }, { scale: 1, autoAlpha: 1, duration: .55, transformOrigin: '50% 50%' }, s3 - .05); sfx('whoosh', s3 - .3, .6);
+  go(935, 1360, .42, s3 - .25); mouth('mF', s3 + .2); look(-10, -8, s3 + .2);
+  reveal('#t3a', s3 + .1);
+  const As = $$('#balL .A'); [s3 + .9, s3 + 1.7, s3 + 2.5, s3 + 3.4].forEach((t, k) => {
+    tl.fromTo(As[k], { autoAlpha: 1, y: -420 }, { y: 0, duration: .45, ease: 'bounce.out' }, t); sfx('thud', t + .3, .5); tilt(-3.2 * (k + 1), t + .3);
+  });
+  armR(-140, s3 + 2.2); tl.to('#chia .armR', { rotate: -120, svgOrigin: '98 10', duration: .15, yoyo: true, repeat: 5, ease: 'sine.inOut' }, s3 + 2.6);
+  conceal('#t3a', K(3, 'masuk') - .55); reveal('#t3b', K(3, 'masuk') - .25); pop('#src3', K(3, 'masuk'), { y: 20 });
+  tl.fromTo('#balL .C', { autoAlpha: 0, scale: 0, transformOrigin: '50% 100%' }, { autoAlpha: 1, scale: 1, duration: .45, ease: 'back.out(2)', stagger: .15 }, K(3, 'kepakai') - .15); sfx('pop', K(3, 'kepakai'), .5);
+  reveal('#t3c', K(3, 'kepakai') - .2); tilt(-11, K(3, 'kepakai') + .3);
+  armR(0, K(3, 'turun') - .3); mouth('mO', K(3, 'turun')); tilt(-14, K(3, 'turun'), .5); sfx('thud', K(3, 'turun'), .4);
+
+  /* S3→S4 naik */
+  const s4 = S(4).start;
+  tl.to(['#s3', '#balL'], { y: -700, autoAlpha: 0, duration: .5, ease: 'power3.in' }, s4 - .3);
+  tl.fromTo('#s4', { y: 500, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .6 }, s4); sfx('whoosh', s4 - .35, .6);
+  go(540, 1050, 1.25, s4 - .2, .7); squash(s4 + .45); mouth('mS', s4); look(0, -6, s4);
+  reveal('#t4a', s4 + .15);
+  tl.to('#chia .belly', { opacity: .35, duration: .3 }, K(4, 'kenyang')); tl.to('#chia .belly', { opacity: 0, duration: .4 }, K(4, 'kenyang') + 1.8);
+  armL(-35, K(4, 'kenyang') - .1); tl.to('#chia .armL', { rotate: -20, svgOrigin: '-98 10', duration: .2, yoyo: true, repeat: 5, ease: 'sine.inOut' }, K(4, 'kenyang') + .25); armL(0, K(4, 'kenyang') + 1.6);
+  conceal('#t4a', K(4, 'tiga') - .6); reveal('#t4b', K(4, 'tiga') - .3);
+  armR(-150, K(4, 'tiga') - .2); pop('#b3', K(4, 'tiga'), { scale: 0, rotate: -40 });
+  show('#trkL', K(4, 'tiga') + .2); tl.fromTo('.trk', { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: .45, ease: 'back.out(2)', stagger: .1 }, K(4, 'tiga') + .2); sfx('pop', K(4, 'tiga') + .3, .5);
+
+  /* S5 cara 1 (wipe) */
+  const s5 = S(5).start; wipe(s5); hide('#s4', s5); show('#s5', s5);
+  tl.set('#chia', { x: 210, y: 1225, scale: .5 }, s5); armR(0, s5, .01); look(10, -4, s5);
+  tl.to('#tk1', { borderColor: '#E9A23B', duration: .01 }, s5);
+  reveal('#t5a', s5 + .25);
+  pop('#donut', K(5, 'camilan') - .2, { scale: .3, rotate: -40 });
+  tl.to('#donut .x line', { strokeDashoffset: 0, duration: .3, stagger: .15, ease: 'power2.out' }, K(5, 'camilan') + .45); sfx('stamp', K(5, 'camilan') + .5, .35); mouth('mO', K(5, 'camilan') + .5);
+  tl.to('#donut', { scale: .7, autoAlpha: .35, duration: .4, ease: 'power2.in' }, K(5, 'puding') - .1);
+  pop('#pud', K(5, 'puding') - .3, { scale: .5, y: 80 }); mouth('mS', K(5, 'puding'));
+  tl.fromTo('#pud .lc', { scaleY: 0 }, { scaleY: 1, transformOrigin: '50% 100%', duration: .6, ease: 'back.out(1.5)' }, K(5, 'puding'));
+  tl.fromTo('#pud .ly', { scaleY: 0 }, { scaleY: 1, transformOrigin: '50% 100%', duration: .6, ease: 'back.out(1.5)' }, K(5, 'buah') - 1.4); sfx('pop', K(5, 'buah') - 1.4, .4);
+  tl.fromTo('#pud .fr', { y: -260, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .5, ease: 'bounce.out', stagger: .08 }, K(5, 'buah') - .2); sfx('pop', K(5, 'buah'), .5);
+  tick('#tk1', S(5).end - .5);
+
+  /* S6 cara 2 */
+  const s6 = S(6).start; wipe(s6); hide('#s5', s6); show('#s6', s6);
+  tl.set('#chia', { x: 540, y: 1235, scale: .44 }, s6); look(0, -8, s6);
+  tl.to('#tk1', { borderColor: 'rgba(30,77,58,.15)', duration: .01 }, s6); tl.to('#tk2', { borderColor: '#E9A23B', duration: .01 }, s6);
+  reveal('#t6a', s6 + .25);
+  pop('#clock', s6 + .6, { scale: .4, rotate: -30 }); pop('#plate', s6 + .9, { scale: .4, rotate: 30 });
+  tl.to('#clock .hand', { rotate: 360, svgOrigin: '0 0', duration: 1.4, ease: 'power2.inOut' }, K(6, 'puasa')); sfx('tick', K(6, 'puasa'), .4); sfx('tick', K(6, 'puasa') + .5, .4); sfx('tick', K(6, 'puasa') + 1, .4);
+  look(-10, 0, K(6, 'puasa'));
+  tl.to('#plate .pile', { scale: .55, svgOrigin: '0 0', duration: .6, ease: 'back.out(2)' }, K(6, 'puasa') + 1.8); look(10, 0, K(6, 'puasa') + 1.8); sfx('pop', K(6, 'puasa') + 1.8, .4);
+  pop('#apx', K(6, 'mirip') - .15, { scale: 2.2 }); shake(K(6, 'mirip') + .1); pop('#src6', K(6, 'mirip') + .1, { y: 20 }); mouth('mS', K(6, 'mirip'));
+  const bk = K(6, 'buka');
+  tl.to('#clock', { x: -500, autoAlpha: 0, duration: .45, ease: 'power3.in' }, bk - .35); tl.to('#plate', { x: 500, autoAlpha: 0, duration: .45, ease: 'power3.in' }, bk - .35); out('#apx', bk - .35); out('#src6', bk - .35);
+  conceal('#t6a', bk - .4); reveal('#t6b', bk - .1); sfx('whoosh', bk - .4, .5);
+  pop('#moon', bk, { scale: 0, rotate: -60 }); pop('#mg', bk + .25, { scale: .5, y: 60 }); pop('#n1', bk + .45);
+  tl.to('#marr path:first-child', { strokeDashoffset: 0, duration: .5, ease: 'power2.out' }, bk + .9); tl.set('#marr', { autoAlpha: 1 }, bk + .9); tl.to('#marr path:last-child', { opacity: 1, duration: .1 }, bk + 1.35);
+  pop('#mp', bk + 1.3, { scale: .5, y: 60 }); tl.set('#mp .pile', { scale: .55, svgOrigin: '0 0' }, bk); pop('#n2', bk + 1.5);
+  tl.to('#moon', { rotate: 8, duration: 1.2, yoyo: true, repeat: 1, ease: 'sine.inOut' }, bk + .6);
+  tick('#tk2', S(6).end - .5);
+
+  /* S7 cara 3 */
+  const s7 = S(7).start; wipe(s7); hide('#s6', s7); show('#s7', s7);
+  tl.set('#chia', { x: 935, y: 1260, scale: .4 }, s7); look(-10, -6, s7);
+  tl.to('#tk2', { borderColor: 'rgba(30,77,58,.15)', duration: .01 }, s7); tl.to('#tk3', { borderColor: '#E9A23B', duration: .01 }, s7);
+  reveal('#t7a', s7 + .2);
+  pop('#pis', s7 + .3, { scale: .4, rotate: -60 });
+  tl.set('#pis .half,#pis .prot,#pis .nasi', { autoAlpha: 0 }, 0);
+  tl.set('#pis .half', { autoAlpha: 1 }, K(7, 'setengah') - .1);
+  tl.fromTo('#pis .half path', { opacity: 0 }, { opacity: 1, duration: .4, ease: 'power1.out' }, K(7, 'setengah') - .1);
+  tl.fromTo('#pis .vg', { scale: 0 }, { scale: 1, transformOrigin: '50% 50%', duration: .4, ease: 'back.out(2.5)', stagger: .06 }, K(7, 'setengah') + .15); sfx('pop', K(7, 'setengah'), .5);
+  pop('#lb1', K(7, 'setengah') + .5, { y: 20 });
+  tl.fromTo('#pis .prot', { autoAlpha: 0, y: -40 }, { autoAlpha: 1, y: 0, duration: .45, ease: 'back.out(2)' }, K(7, 'setengah') + 1.1); pop('#lb2', K(7, 'setengah') + 1.3);
+  tl.fromTo('#pis .nasi', { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: .45, ease: 'back.out(2)' }, K(7, 'setengah') + 1.5); pop('#lb3', K(7, 'setengah') + 1.7);
+  tl.to('#pis .mound', { scale: .55, transformOrigin: '50% 60%', duration: .55, ease: 'back.out(2)' }, K(7, 'nasinya')); sfx('pop', K(7, 'nasinya'), .5); mouth('mS', K(7, 'nasinya'));
+  tick('#tk3', S(7).end - .45);
+
+  /* S7→S8 geser atas */
+  const s8 = S(8).start;
+  tl.to(['#s7', '#trkL'], { y: -1920, duration: .55, ease: 'power3.inOut' }, s8 - .3); hide('#s7', s8 + .3); hide('#trkL', s8 + .3);
+  tl.fromTo('#s8', { y: 1920, autoAlpha: 1 }, { y: 0, duration: .55, ease: 'power3.inOut' }, s8 - .3); sfx('whoosh', s8 - .35, .6);
+  go(860, 1260, .5, s8 - .3); look(-8, -4, s8 + .3); mouth('mS', s8);
+  reveal('#t8a', K(8, 'direndam') - .15, [0]);
+  pop('#wg', s8 + .3, { scale: .5, y: 80 });
+  tl.set('#mini .mi', { autoAlpha: 0 }, 0);
+  const jt = K(8, 'direndam') - .55;
+  tl.to('#chia', { x: 540, duration: .55, ease: 'none' }, jt); tl.to('#chia', { keyframes: { y: [1260, 760, 1000] }, duration: .55, ease: 'power1.inOut' }, jt);
+  tl.to('#chia', { scale: .32, duration: .55, ease: 'none' }, jt); armL(60, jt, .2); armR(-60, jt, .2);
+  hide('#chia', jt + .55); tl.set('#mini .mi', { autoAlpha: 1 }, jt + .55); sfx('plung', jt + .55, .8);
+  $$('#wg .dr').forEach(d => tl.fromTo(d, { x: 0, y: 0, autoAlpha: 1 }, { x: +d.dataset.x * 1.4, y: +d.dataset.y * 1.4, autoAlpha: 0, duration: .6, ease: 'power2.out' }, jt + .55));
+  tl.fromTo('#mini .mi', { y: -200 }, { y: 0, duration: .6, ease: 'bounce.out' }, jt + .55);
+  tl.to('#mini .gel', { scale: 1, duration: .8, ease: 'elastic.out(1,.5)' }, jt + 1.1);
+  tl.to('#mini .bub circle', { y: -60, autoAlpha: 0, duration: 1.4, stagger: .2, ease: 'power1.in', repeat: 3 }, jt + 1);
+  reveal('#t8a', K(8, 'satu') - .2, [1, 2, 3]);
+  pop('#spoon', K(8, 'satu') - .2, { scale: .4, rotate: -40 }); pop('#lsp', K(8, 'satu') + .1, { y: 20 }); ckb('#ck_spoon', K(8, 'satu') + .55);
+  reveal('#t8a', K(8, 'air') - .2, [4, 5]);
+  pop('#bot', K(8, 'air') - .2, { scale: .4, y: 80 }); pop('#lbt', K(8, 'air') + .1, { y: 20 });
+  tl.fromTo('#bot .wt', { scaleY: 0 }, { scaleY: 1, transformOrigin: '50% 100%', duration: .9, ease: 'power2.out' }, K(8, 'air') + .1); ckb('#ck_bot', K(8, 'air') + 1);
+  pop('#warn', K(8, 'dokter') - 1.5, { scale: .6, y: 30 }); sfx('pop', K(8, 'dokter') - 1.5, .5);
+  tl.fromTo('#warn', { scale: 1 }, { scale: 1.07, duration: .18, yoyo: true, repeat: 1 }, K(8, 'dokter'));
+
+  /* S9 verdict: potong langsung */
+  const s9 = S(9).start;
+  hide('#s8', s9); show('#s9', s9);
+  tl.set('#balL', { autoAlpha: 1, y: 0, scale: 1 }, s9);
+  tl.set('#balL .A', { autoAlpha: 0 }, s9); tl.set('#balL .B,#balL .C', { autoAlpha: 1, scale: 1, y: 0 }, s9);
+  tl.set(bal, { a: -9, onUpdate: applyBal }, s9 - .001); tl.call(applyBal, null, s9);
+  tilt(0, s9 + .25, 1.1); sfx('thud', s9, .5);
+  tl.set('#chia', { autoAlpha: 1, x: 540, y: 668, scale: .4 }, s9); armL(0, s9, .01); armR(0, s9, .01); mouth('mS', s9); look(0, 0, s9);
+  tl.fromTo('#chia', { y: 560 }, { y: 668, duration: .35, ease: 'bounce.out' }, s9);
+  reveal('#t9a', s9 + .05);
+  tl.fromTo('#stamp', { autoAlpha: 0, scale: 2.6 }, { autoAlpha: 1, scale: 1, duration: .24, ease: 'power4.in' }, K(9, 'worth') - .24);
+  shake(K(9, 'worth')); sfx('stamp', K(9, 'worth'), 1); squash(K(9, 'worth') + .05); armL(130, K(9, 'worth') + .05); armR(-130, K(9, 'worth') + .05);
+
+  /* S9→S10 geser atas */
+  const s10 = S(10).start;
+  tl.to(['#s9', '#balL', '#stamp'], { y: '-=1920', duration: .55, ease: 'power3.inOut' }, s10 - .3); hide('#s9', s10 + .3); hide('#balL', s10 + .3); hide('#stamp', s10 + .3);
+  tl.fromTo('#s10', { y: 1920, autoAlpha: 1 }, { y: 0, duration: .55, ease: 'power3.inOut' }, s10 - .3); sfx('whoosh', s10 - .35, .6);
+  go(165, 1190, .5, s10 - .3); armL(0, s10, .2); armR(0, s10, .2); look(10, -4, s10 + .3);
+  tl.fromTo('#prod', { autoAlpha: 0, y: 500, rotate: 6 }, { autoAlpha: 1, y: 0, rotate: 0, duration: .65, ease: 'back.out(1.4)' }, K(10, 'safiya') - .6); sfx('whoosh', K(10, 'safiya') - .6, .5);
+  reveal('#t10a', K(10, 'safiya') - .1); pop('#aff', K(10, 'safiya') + .4, { y: -10 });
+  armR(-70, K(10, 'safiya') + .2);
+  tl.to('#prod', { y: -10, duration: 1.4, yoyo: true, repeat: 5, ease: 'sine.inOut' }, K(10, 'safiya') + .6);
+  [['#c1', 'lima'], ['#c2', 'seratus'], ['#c3', 'halal']].forEach(([c, w]) => pop(c, K(10, w) - .1, { x: 120, scale: .6 }));
+  pop('#cart', K(10, 'keranjang') - .3, { scale: .5, y: 40 }); pop('#carr', K(10, 'keranjang'), { scale: 0 });
+  tl.to('#carr', { x: -12, y: 12, duration: .35, yoyo: true, repeat: 9, ease: 'sine.inOut' }, K(10, 'keranjang') + .5);
+  /* S11 end card */
+  const s11 = S(11).start;
+  conceal('#t10a', s11 - .1); pop('#t11', s11 + .1, { y: 30, scale: .9 }); sfx('sparkle', s11 + .1, .6);
+  armR(0, s11, .2); armL(120, s11 + .1); tl.to('#chia .armL', { rotate: 95, svgOrigin: '-98 10', duration: .22, yoyo: true, repeat: 7, ease: 'sine.inOut' }, s11 + .45);
+  $$('.spk').forEach((s, k) => tl.fromTo(s, { autoAlpha: 0, scale: 0, rotate: 0 }, { autoAlpha: 1, scale: 1, rotate: 90, duration: .5, yoyo: true, repeat: 3, ease: 'sine.inOut' }, s11 + .2 + k * .25));
+
+  tl.set({}, {}, D);
+}
+
+/* ---------- pemutar ---------- */
+const stage = $('#stage'), holder = $('#holder');
+function layout() {
+  if (RENDER) { holder.style.width = '1080px'; holder.style.height = '1920px'; return; }
+  const sc = Math.min(innerWidth / 1080, (innerHeight - 60) / 1920);
+  stage.style.transform = `scale(${sc})`; holder.style.width = 1080 * sc + 'px'; holder.style.height = 1920 * sc + 'px';
+}
+if (RENDER) document.body.classList.add('render');
+addEventListener('resize', layout); layout();
+window.seek = t => { tl.seek(Math.max(0, Math.min(D, t)), false); };
+window.DURATION = D;
+
+Promise.all([document.fonts.load('italic 800 100px Fraunces'), document.fonts.load('italic 900 100px Fraunces'), document.fonts.load('800 40px "Plus Jakarta Sans"'), document.fonts.load('600 24px "Plus Jakarta Sans"'), $('#pimg').decode().catch(() => { })]).then(() => document.fonts.ready).then(() => {
+  fit(); build(); seek(0); window.READY = true;
+  if (RENDER) return;
+  const au = $('#au'), sl = $('#sl'), tm = $('#tm'), pp = $('#pp'); sl.max = D;
+  let playing = false, base = 0, t0 = 0;
+  const hasAu = () => au.currentSrc && !au.error && au.readyState >= 2;
+  const cur = () => playing ? (hasAu() ? au.currentTime : base + (performance.now() - t0) / 1000) : base;
+  const ui = t => { seek(t); sl.value = t; tm.textContent = t.toFixed(2); };
+  pp.onclick = () => {
+    if (!playing) { if (base >= D) base = 0; playing = true; t0 = performance.now(); if (hasAu()) { au.currentTime = base; au.play(); } pp.textContent = 'Pause'; }
+    else { base = cur(); playing = false; au.pause(); pp.textContent = 'Play'; }
+  };
+  sl.oninput = () => { base = +sl.value; t0 = performance.now(); if (hasAu()) au.currentTime = base; ui(base); };
+  $('#fi').onchange = e => { const f = e.target.files[0]; if (f) au.src = URL.createObjectURL(f); };
+  (function loop() { if (playing) { let t = cur(); if (t >= D) { t = D; playing = false; au.pause(); base = D; pp.textContent = 'Play'; } ui(t); } requestAnimationFrame(loop); })();
+});
+</script>
+</body>
+</html>

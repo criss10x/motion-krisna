@@ -6,3 +6,10 @@ voice/take*
 **/film/audio*.wav
 **/contact*.jpg
 __pycache__/
+
+# mindset-sehat: hasil render yang bisa dibuat ulang
+**/frames/
+**/qa/
+**/audio/
+mix*.wav
+narasi.wav

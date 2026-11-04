@@ -1,0 +1,242 @@
+{
+ "w": 1080,
+ "h": 1920,
+ "fps": 30,
+ "duration": 73.72,
+ "estimated": false,
+ "music": false,
+ "sfx": "halus",
+ "scenes": [
+  {
+   "id": 1,
+   "start": 0,
+   "end": 4.93,
+   "voice": 0.1,
+   "keywords": [
+    {
+     "word": "kurus",
+     "t": 1.6,
+     "est": false
+    },
+    {
+     "word": "kecuali",
+     "t": 2.84,
+     "est": false
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "start": 4.93,
+   "end": 9.81,
+   "voice": 4.93,
+   "keywords": [
+    {
+     "word": "dua",
+     "t": 7.45,
+     "est": false
+    },
+    {
+     "word": "turun",
+     "t": 9.01,
+     "est": false
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "start": 9.81,
+   "end": 17.6,
+   "voice": 9.81,
+   "keywords": [
+    {
+     "word": "masuk",
+     "t": 14.13,
+     "est": false
+    },
+    {
+     "word": "kepakai",
+     "t": 15.35,
+     "est": false
+    },
+    {
+     "word": "turun",
+     "t": 16.81,
+     "est": false
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "start": 17.6,
+   "end": 23.24,
+   "voice": 17.6,
+   "keywords": [
+    {
+     "word": "kenyang",
+     "t": 18.08,
+     "est": false
+    },
+    {
+     "word": "tiga",
+     "t": 21.86,
+     "est": false
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "start": 23.24,
+   "end": 31.42,
+   "voice": 23.24,
+   "keywords": [
+    {
+     "word": "camilan",
+     "t": 24.68,
+     "est": false
+    },
+    {
+     "word": "puding",
+     "t": 26.02,
+     "est": false
+    },
+    {
+     "word": "buah",
+     "t": 30.68,
+     "est": false
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "start": 31.42,
+   "end": 43.62,
+   "voice": 31.42,
+   "keywords": [
+    {
+     "word": "puasa",
+     "t": 35.22,
+     "est": false
+    },
+    {
+     "word": "mirip",
+     "t": 39.12,
+     "est": false
+    },
+    {
+     "word": "buka",
+     "t": 40.4,
+     "est": false
+    },
+    {
+     "word": "kalap",
+     "t": 42.94,
+     "est": false
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "start": 43.62,
+   "end": 49.08,
+   "voice": 43.62,
+   "keywords": [
+    {
+     "word": "setengah",
+     "t": 44.76,
+     "est": false
+    },
+    {
+     "word": "nasinya",
+     "t": 47.32,
+     "est": false
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "start": 49.08,
+   "end": 58.08,
+   "voice": 49.08,
+   "keywords": [
+    {
+     "word": "direndam",
+     "t": 50.36,
+     "est": false
+    },
+    {
+     "word": "satu",
+     "t": 51.54,
+     "est": false
+    },
+    {
+     "word": "air",
+     "t": 53.04,
+     "est": false
+    },
+    {
+     "word": "dokter",
+     "t": 56.9,
+     "est": false
+    }
+   ]
+  },
+  {
+   "id": 9,
+   "start": 58.08,
+   "end": 60.48,
+   "voice": 58.08,
+   "keywords": [
+    {
+     "word": "plus",
+     "t": 58.24,
+     "est": false
+    },
+    {
+     "word": "worth",
+     "t": 59.48,
+     "est": false
+    }
+   ]
+  },
+  {
+   "id": 10,
+   "start": 60.48,
+   "end": 70.72,
+   "voice": 60.48,
+   "keywords": [
+    {
+     "word": "safiya",
+     "t": 61.96,
+     "est": false
+    },
+    {
+     "word": "lima",
+     "t": 64.36,
+     "est": false
+    },
+    {
+     "word": "seratus",
+     "t": 65.66,
+     "est": false
+    },
+    {
+     "word": "halal",
+     "t": 67.94,
+     "est": false
+    },
+    {
+     "word": "keranjang",
+     "t": 69.7,
+     "est": false
+    }
+   ]
+  },
+  {
+   "id": 11,
+   "start": 70.72,
+   "end": 73.72,
+   "keywords": []
+  }
+ ]
+}
