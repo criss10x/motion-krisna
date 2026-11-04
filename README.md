@@ -19,7 +19,6 @@ Contoh hasil: "Rakyat Diperas" (pajak), "Dua Tahun Berkuasa" (demo 5 tuntutan), 
 | `templates/logo.png` | Logo Muslim Leveling (latar transparan) |
 | `tools/` | `vertex.py` (Gemini TTS + transkrip), `record.mjs` (render headless Chrome), `mix.py` (SFX + mix): dari anatomy-studio, MIT. Di SKILL.md disebut `gorengan/tools` |
 | `projects/` | Proyek jadi seri Mukjizat Quran: `romawi-akan-menang`, `quran-birmingham` (naskah, caption, preview.html, narasi, timeline SFX, MP4 versi HP) |
-| `projects/chia-bukan-obat-kurus`, `projects/evoo-buat-goreng` | Proyek Mindset.sehat8 (naskah, caption, preview.html, CUES, SFX, narasi, skrip, MP4 versi HP) |
 | `REQUIREMENTS.md` | Semua kebutuhan software, akun, cara pasang, spesifikasi VPS (hasil ukur) |
 | `setup-ubuntu.sh` | Pasang semua kebutuhan di Ubuntu 24.04 (VPS/WSL) sekali jalan |
 
