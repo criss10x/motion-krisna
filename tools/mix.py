@@ -6,7 +6,7 @@ from pathlib import Path
 import numpy as np
 
 # Synthesized sound design + music bed + narration, mixed to -14 LUFS / -1.5 dBTP (Reels/TikTok loudness).
-#   python3 -I mix.py --project DIR   -> DIR/film/audio.wav and DIR/film/audio-nomusic.wav
+#   /usr/bin/python3 -I mix.py --project DIR   -> DIR/film/audio.wav and DIR/film/audio-nomusic.wav
 # Reads DIR/film/timeline.json: "narration" {file, at}, "sfx" [{t, kind, gain, until?, pitch?}],
 # optional "bed" {pad, groove, arp, bright, duck, fadeIn, from, to, dropFrom, dropTo, bpm}. Every sound is numpy-made, so nothing
 # needs a licence. Kinds: klik press snap relay whoosh hum buzz boil riser impact arc room powerdown powerup jeglek zap drop

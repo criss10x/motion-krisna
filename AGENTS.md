@@ -96,13 +96,13 @@ Langkah lengkapnya ada di `templates/remotion/README.md`. Ringkasnya:
 
 
 1. Riset dan naskah (dalil shahih bernomor) → `naskah.md`
-2. Salin template: `cp -r templates/remotion projects/<topik>/film-remotion`, `cp templates/cues.py templates/gen.py projects/<topik>/voice/`. Tulis `voice/script.txt` (versi TTS), jalankan `python3 -I voice/gen.py` (2 take), lalu pilih take.
-3. Percepat bila perlu: `ffmpeg -i voice/take2.wav -af atempo=1.12 voice/narasi.wav`. Salin take terpilih: `cp voice/take2.json voice/narasi.json`.
-4. Isi `OPENERS` dan `FIX` di `voice/cues.py`, lalu `python3 -I voice/cues.py` → `film-remotion/public/cues.json`
-5. Edit `film-remotion/src/Video.tsx` (adegan dan waktu kata kunci `K`)
-6. QA: `npx remotion still AlIkhlas shots/x.jpg --frame=N --gl=swangle`, gabungkan jadi contact sheet
-7. SFX: `film/timeline.json` → `python3 -I ../../tools/mix.py --project .` → `cp film/audio-nomusic.wav film-remotion/public/narasi.wav`
-8. Render (di dalam tmux): `npx remotion render AlIkhlas ../<topik>_9x16_v1.mp4 --gl=swangle --codec=h264 --crf=18 --audio-codec=aac`
+2. Salin template: `cp -r templates/remotion projects/<topik>/film-remotion`, `cp templates/cues.py templates/gen.py templates/tighten.py projects/<topik>/voice/`. Tulis `voice/script.txt` (versi TTS), atur `VOICE`/`STYLE`/`VOCAB` di `voice/gen.py`, jalankan `/usr/bin/python3 -I voice/gen.py` (2 take), lalu pilih take.
+3. Durasi: kalau take terlalu panjang, pangkas jeda + percepat sekaligus: `/usr/bin/python3 -I voice/tighten.py take1 1.15` → `voice/narasi.wav` + `voice/narasi.json` (lalu `SPEED = 1.0` di `cues.py`). Kalau cukup dipercepat: `ffmpeg -i voice/take2.wav -af atempo=1.12 voice/narasi.wav && cp voice/take2.json voice/narasi.json`.
+4. Isi `OPENERS` dan `FIX` di `voice/cues.py` (atau `BOUNDS` manual bila adegan dibuka bacaan Arab, yang tidak ikut ditranskrip), lalu `/usr/bin/python3 -I voice/cues.py` → `film-remotion/public/cues.json`
+5. Edit `film-remotion/src/Video.tsx` (adegan dan waktu kata kunci `K`), ganti id komposisi di `src/Root.tsx`
+6. QA: `npx remotion bundle --out-dir=build`, lalu `npx remotion still build <Id> ../shots/fN.jpg --frame=N --gl=swangle --scale=0.5` per frame, gabungkan jadi contact sheet
+7. SFX: `film/timeline.json` → `/usr/bin/python3 -I ../../tools/mix.py --project .` → normalisasi −14 LUFS: `ffmpeg -i film/audio-nomusic.wav -af loudnorm=I=-14:TP=-1.0:LRA=11 -ar 48000 film-remotion/public/narasi.wav`
+8. Render (di dalam tmux): `npx remotion render build <Id> ../<topik>_9x16_v1.mp4 --gl=swangle --codec=h264 --crf=18 --audio-codec=aac` (bundle ulang dulu kalau `Video.tsx` berubah)
 9. Versi HP (<30 MB): `ffmpeg -i <topik>_9x16_v1.mp4 -c:v libx264 -crf 25 -preset slow -pix_fmt yuv420p -c:a copy -movflags +faststart <topik>_9x16_v1-hp.mp4`
 10. `caption.md` (TikTok, IG, Shorts). Hasil video dan folder proyek **tidak** di-commit; yang di-commit hanya perubahan workflow (tools, templates, skill, panduan).
 
@@ -110,8 +110,8 @@ Langkah lengkapnya ada di `templates/remotion/README.md`. Ringkasnya:
 
 - **VPS tidak punya GPU:** selalu pakai `--gl=swangle`. `--gl=angle` hanya untuk Windows dengan GPU.
 - **Safe zone TikTok/Reels (1080×1920):** teks penting di y 250–1440, kanan x≥940 kosong (tombol), 480 px bawah kosong (caption platform).
-- Python dijalankan dengan `python3 -I`, jadi numpy harus dari paket sistem (`python3-numpy`).
-- Jaringan putus (error SSL `bad record mac`) → ulangi perintahnya. `gen.py` aman diulang per take: `python3 -I voice/gen.py 2`.
+- Python dijalankan dengan `/usr/bin/python3 -I`, jadi numpy harus dari paket sistem (`python3-numpy`).
+- Jaringan putus (error SSL `bad record mac`) → ulangi perintahnya. `gen.py` aman diulang per take: `/usr/bin/python3 -I voice/gen.py 2`.
 - Ambil file hasil (MP4) dari VPS lewat Claude desktop app, atau `scp ml-vps:~/motion-krisna/projects/<topik>/*.mp4 .`
 - Jangan commit `node_modules/`, `voice/take*`, `shots/`, atau `film-remotion/public/narasi.wav` (sudah di `.gitignore`).
 - Remotion gratis untuk tim ≤3 orang (https://www.remotion.pro/license).

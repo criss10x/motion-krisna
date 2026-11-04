@@ -18,7 +18,7 @@ Workflow `gaya-muslim-leveling` berjalan di Linux. Di Windows pakai WSL Ubuntu, 
 | Google Cloud CLI (`gcloud`) | 590 | token untuk Vertex AI (Gemini TTS + transkripsi) |
 | Internet | – | Google Fonts (Reem Kufi, Readex Pro, Amiri) dan GSAP 3.12.5 dari cdnjs dimuat saat render |
 
-Catatan numpy: semua skrip dijalankan dengan `python3 -I`, yang mengabaikan site-packages milik user. Jadi numpy harus terpasang untuk interpreter sistem (`apt install python3-numpy`). Cara lain: pakai venv lalu aktifkan sebelum menjalankan skrip. `pip install --user` tidak akan terbaca.
+Catatan numpy: semua skrip dijalankan dengan `/usr/bin/python3 -I`, yang mengabaikan site-packages milik user. Jadi numpy harus terpasang untuk interpreter sistem (`apt install python3-numpy`). Pakai path lengkap `/usr/bin/python3`, jangan `python3` saja: di VPS, `python3` di PATH bisa menunjuk ke venv lain (mis. milik agent) yang tidak punya numpy (`ModuleNotFoundError: numpy`). `pip install --user` tidak akan terbaca.
 
 ## 2. Akun & layanan
 
@@ -98,7 +98,7 @@ echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 ## 6. Cek cepat setelah pasang
 
 ```bash
-node --version && python3 -I -c "import numpy; print('numpy', numpy.__version__)" && ffmpeg -version | head -1 && google-chrome --version && gcloud auth print-access-token >/dev/null && echo OK
+node --version && /usr/bin/python3 -I -c "import numpy; print('numpy', numpy.__version__)" && ffmpeg -version | head -1 && google-chrome --version && gcloud auth print-access-token >/dev/null && echo OK
 ```
 
 Uji render tanpa TTS (memakai narasi yang sudah ada):

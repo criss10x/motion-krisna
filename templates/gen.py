@@ -1,7 +1,7 @@
 """Narasi Gemini TTS (Vertex) per take + transkrip timestamp per kata.
 Salin ke projects/<topik>/voice/, atur VOICE, STYLE, VOCAB, lalu dari projects/<topik>/:
-  python3 -I voice/gen.py      -> take1 + take2 (.wav + .json)
-  python3 -I voice/gen.py 2    -> ulangi take2 saja"""
+  /usr/bin/python3 -I voice/gen.py      -> take1 + take2 (.wav + .json)
+  /usr/bin/python3 -I voice/gen.py 2    -> ulangi take2 saja"""
 import json, os, subprocess, sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "..", "tools"))
 import vertex

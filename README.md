@@ -12,6 +12,7 @@ Contoh hasil: "Rakyat Diperas" (pajak), "Dua Tahun Berkuasa" (demo 5 tuntutan), 
 | `skills/gaya-muslim-leveling/assets/` | Contact sheet frame kunci (gaya dasar + latar ramai) |
 | `templates/remotion/` | Template Remotion (proyek baru): salin ke `projects/<topik>/film-remotion`, lihat README-nya |
 | `templates/cues.py` | Transkrip take terpilih → `public/cues.json` (adegan + waktu kata) untuk Remotion |
+| `templates/tighten.py` | Pangkas jeda narasi + atempo, timestamp kata ikut dihitung ulang (take terlalu panjang) |
 | `templates/preview.html` | Jalur lama: animasi HTML + GSAP dengan adaptor `window.__film` untuk `tools/record.mjs` |
 | `templates/gen.py` | Narasi Gemini TTS (Vertex AI) + transkrip timestamp per kata |
 | `templates/timeline.example.json` | Contoh daftar SFX untuk mix audio |

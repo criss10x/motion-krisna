@@ -77,49 +77,70 @@ Larangan: foto, emoji sebagai ilustrasi, logo instansi digambar ulang, wajah tok
 - Narasi: Gemini TTS `gemini-3.8-flash-tts` (Vertex, `global`). Klasik: voice **Sadachbia** (pria), style "suara dalam & tegas seperti pengkhotbah muda; melambat & khidmat saat hadis". Neon: Sadachbia atau **Sulafat** (perempuan, lembut). Buat 2 take, pilih yang durasinya pas (≤ target − end card) dan transkripnya cocok.
 - SFX halus sintetis, tanpa musik (default), lewat `tools/mix.py`: `clink` (notif/chip), `pop`, `impact` (angka/stempel/klimaks), `whoosh` (transisi), `glasscrack` (kubah retak), `room` (dasar adegan dalil), `riser`→`impact` (klimaks & CTA), `scrape` (coretan), `hiss`, `powerup` (objek menyala). Target −14 LUFS.
 
-## Workflow di VPS (Remotion, terbukti 2026-11-02)
-Jalankan dari `~/motion-krisna`. Render & langkah lama jalankan di dalam `tmux` (koneksi SSH bisa putus).
+## Workflow di VPS (Remotion, terbukti 2026-11-03: Al-Fatihah 62,8 dtk)
+Jalankan dari `~/motion-krisna`. Python selalu `/usr/bin/python3 -I` (lihat Pelajaran teknis). Render & langkah lama di dalam `tmux`.
 
-1. **Topik.** Riset web berita/sumber terkini; tawarkan 4–5 sudut islami; ikuti sikap user (mis. berpihak ke rakyat) tapi kritik KEBIJAKAN, bukan pribadi; tanpa ajakan rusuh.
+1. **Sudut dulu, bukan naskah.** Dari topik user, riset lalu tawarkan 4–5 sudut (judul kerja · inti · hook · dalil utama) + rekomendasi dan alasannya (manfaat amal untuk penonton, potensi simpan/bagikan). **Tunggu user memilih.** Isu berita: ikuti sikap user (mis. berpihak ke rakyat) tapi kritik KEBIJAKAN, bukan pribadi; tanpa ajakan rusuh.
 2. **Fakta.** Angka harus bersumber (aturan/PMK, tanggal, lembaga). Pernyataan pejabat ≠ aturan resmi → sebut "belum resmi". Kutipan tokoh dicek tahun aslinya.
-3. **Dalil.** Hanya ayat & hadis shahih/hasan dengan nomor; cek derajat di web (mis. Abu Dawud 2937 "shahibul maks" = dha'if Albani → dibuang). Teks Arab yang tidak terverifikasi → tandai [CEK] dan minta user cek ke ustadz/kitab. Tulis `projects/<topik>/naskah.md` (naskah + daftar dalil bernomor + sumber), minta user setujui sebelum TTS.
+3. **Dalil & naskah.** Hanya ayat & hadis shahih/hasan dengan nomor; cek derajat di web (Dorar, Sunnah.com; mis. Abu Dawud 2937 "shahibul maks" = dha'if Albani → dibuang). Hadis yang diperselisihkan sanadnya → tulis siapa yang menshahihkan ("shahih menurut Al-Albani"). Teks Arab → [CEK], minta user cocokkan dengan mushaf/kitab. Panjang `script.txt` **maksimal 170 kata** (termasuk transliterasi ayat); di bawah itu boleh, tapi jangan terlalu pendek. Patokan durasi: 125 kata ≈ 75 dtk take mentah ≈ 59 dtk setelah `tighten.py` (1.15), jadi 170 kata ≈ 80 dtk setelah tighten (+ end card 3 dtk). Wajib ada **value**: ajakan amal konkret (mis. 3 langkah praktis) di akhir. Tulis `projects/<topik>/naskah.md` (tabel adegan, dalil, catatan akurasi, sumber) + `voice/script.txt`, **minta user setujui sebelum TTS**.
 4. **Siapkan proyek.**
    ```bash
    T=<topik>; mkdir -p projects/$T/voice projects/$T/film
    cp -r templates/remotion projects/$T/film-remotion
-   cp templates/cues.py templates/gen.py projects/$T/voice/
+   cp templates/cues.py templates/gen.py templates/tighten.py projects/$T/voice/
    (cd projects/$T/film-remotion && npm i && npx remotion browser ensure) &
    ```
-   Ganti id komposisi `AlIkhlas` di `src/Root.tsx` dengan nama topik (PascalCase, mis. `PajakZalim`) bila mau; pakai id yang sama di semua perintah di bawah.
-5. **Narasi.** `voice/script.txt` = versi TTS: angka ditulis huruf, ejaan bunyi ("onlen", "i-wolet"), jeda "…". Di `voice/gen.py` atur `VOICE`, `STYLE`, `VOCAB` (istilah/nama untuk transkrip). Lalu dari `projects/<topik>/`:
+   Ganti id komposisi `AlIkhlas` di `src/Root.tsx` (import, `id`, `component`) dengan nama topik PascalCase (mis. `AlFatihah`); pakai id itu di semua perintah di bawah.
+5. **Narasi.** `voice/script.txt` = versi TTS: angka ditulis huruf, ejaan bunyi ("onlen", "i-wolet"), ayat ditulis **transliterasi** ("Alhamdulillahi rabbil 'aalamiin"), jeda "…". Di `voice/gen.py` atur `VOICE`, `STYLE` (arah emosi per bagian), `VOCAB` (pendek). Lalu dari `projects/<topik>/`:
    ```bash
    gcloud auth print-access-token >/dev/null && echo TOKEN_OK
-   python3 -I voice/gen.py          # take1 + take2; ulangi satu take: python3 -I voice/gen.py 2
+   /usr/bin/python3 -I voice/gen.py          # take1 + take2; ulangi satu take: /usr/bin/python3 -I voice/gen.py 2
    ```
    Error SSL `bad record mac` = jaringan, ulangi saja.
-6. **Pilih & percepat take.** Cek durasi + transkrip yang dicetak. `ffmpeg -i voice/take2.wav -af atempo=1.12 voice/narasi.wav && cp voice/take2.json voice/narasi.json`. Atempo harus sama dengan `SPEED` di `cues.py` (1.0 = tanpa percepatan, cukup `cp` wav-nya).
-7. **Cues.** Isi `OPENERS` (kata pembuka tiap adegan, urut) dan `FIX` (salah dengar → teks naskah) di `voice/cues.py`, lalu `python3 -I voice/cues.py` → `film-remotion/public/cues.json` (adegan, durasi, waktu tiap kata). Batas adegan = tengah jeda sebelum kalimat baru.
-8. **Adegan.** Edit `film-remotion/src/Video.tsx`: `C` (palet varian), `K` (waktu kata kunci dari `cues.json`), `CHAPTERS`, cut di `Leaks`, `END = S[n].start`, dan komponen `Scene1…SceneN` (satu per adegan + end card). Cek tipe: `npx tsc --noEmit`.
-9. **QA frame (contact sheet).** Bundle sekali, lalu still cepat; lihat sheet sekali, perbaiki tabrakan/safe zone, ulangi.
+6. **Pilih take & atur durasi.** Pilih take yang lebih ringkas dan transkripnya cocok. TTS cenderung lebih panjang dari perkiraan (Al-Fatihah: 75 dtk untuk naskah 60 dtk). Kalau > target:
+   ```bash
+   /usr/bin/python3 -I voice/tighten.py take1 1.15     # pangkas jeda >0,32 dtk + atempo -> narasi.wav/.json final
+   ```
+   lalu `SPEED = 1.0` di `cues.py`. Jangan atempo > 1.2 (terdengar terburu-buru). Kalau cukup dipercepat: `ffmpeg -i voice/take2.wav -af atempo=1.12 voice/narasi.wav && cp voice/take2.json voice/narasi.json` (SPEED = atempo).
+7. **Cues.** Di `voice/cues.py`: `OPENERS` (kata pembuka tiap adegan), `FIX` (ejaan transkrip → naskah, mis. "salat"→"shalat", "hambaku"→"hamba-Ku"). Bacaan Arab **tidak ikut ditranskrip** (muncul sebagai celah 2–4 dtk): ambil awal/akhirnya dengan `ffmpeg -i voice/narasi.wav -af silencedetect=n=-38dB:d=0.18 -f null - 2>&1 | grep silence_`, isi `BOUNDS` manual bila adegan dibuka ayat, dan taruh rentang ayat di `EXTRA` (mis. `{"ayat": [{"s":..,"e":..,"ar":..,"lat":..,"no":..}]}`). Lalu `/usr/bin/python3 -I voice/cues.py` → `film-remotion/public/cues.json`.
+8. **Adegan.** Edit `film-remotion/src/Video.tsx`: `C` (palet varian), `K` (waktu kata kunci dari `cues.json`), `CHAPTERS`, `CUTS` untuk `Leaks`, `END = S[n].start`, komponen adegan. Bagian berulang dengan layout sama (mis. dialog ayat ↔ jawaban) → **satu lapisan kontinu** di luar daftar adegan (objek utama tidak berkedip antar-adegan; isi kartu berganti per rentang waktu). Teks Arab muncul per kata dibagi rata di rentang bacaannya. Cek tipe: `npx tsc --noEmit`.
+9. **QA frame (contact sheet).** Bundle sekali, lalu still cepat; lihat sheet, perbaiki, ulangi sampai bersih (Al-Fatihah: 3 putaran).
    ```bash
    cd film-remotion && npx remotion bundle --out-dir=build && mkdir -p ../shots
-   for f in 45 300 600 900 1200 1500; do npx remotion still build AlIkhlas ../shots/f$f.jpg --frame=$f --gl=swangle --scale=0.5; done
-   ffmpeg -y -loglevel error $(for f in 45 300 600 900 1200 1500; do echo -i ../shots/f$f.jpg; done) -filter_complex hstack=6 ../shots/sheet.jpg
+   F="45 300 600 900 1200 1500"   # tengah tiap adegan + klimaks + end card (frame = dtk × 30)
+   for f in $F; do npx remotion still build <Id> ../shots/f$f.jpg --frame=$f --gl=swangle --scale=0.5; done
+   ffmpeg -y -loglevel error $(for f in $F; do echo -i ../shots/f$f.jpg; done) -filter_complex hstack=6 ../shots/sheet.jpg
    ```
-   Pilih frame = tengah tiap adegan + momen klimaks + end card (frame = detik × 30). Bandingkan dengan `assets/contact-sheet*.jpg`.
-10. **Audio.** `film/timeline.json` (contoh `templates/timeline.example.json`: `narration`, `beats [{at:0}]`, `sfx` dengan waktu dari `K`/`cues.json`) → `python3 -I ../../tools/mix.py --project .` → `cp film/audio-nomusic.wav film-remotion/public/narasi.wav`. Cek loudness: `ffmpeg -i film/audio-nomusic.wav -af ebur128 -f null - 2>&1 | grep "I:" | tail -1`.
+   Cek: tabrakan judul/objek, teks keluar kartu, kata terpotong di tanda hubung, glyph kotak (ﷺ, emoji), safe zone. Bandingkan dengan `assets/contact-sheet*.jpg`.
+10. **Audio.** `film/timeline.json` (contoh `templates/timeline.example.json`; waktu SFX dari `K`/`cues.json`) → mix → normalisasi:
+    ```bash
+    /usr/bin/python3 -I ../../tools/mix.py --project .
+    ffmpeg -y -i film/audio-nomusic.wav -af loudnorm=I=-14:TP=-1.0:LRA=11 -ar 48000 film-remotion/public/narasi.wav
+    ```
+    Pola SFX yang terbukti: `clink` dengan pitch naik bertahap di tiap "jawaban/poin", `riser`→`impact`+`powerup` di klimaks, `pop` per kartu, `whoosh` di tiap cut, `room` tipis di bagian dalil.
 11. **Render (tmux).**
     ```bash
-    tmux new -s render
-    cd projects/<topik>/film-remotion && npx remotion render AlIkhlas ../<topik>_9x16_v1.mp4 --gl=swangle --codec=h264 --crf=18 --audio-codec=aac
+    cd projects/<topik>/film-remotion
+    tmux new -d -s render "npx remotion render build <Id> ../<topik>_9x16_v1.mp4 --gl=swangle --codec=h264 --crf=18 --audio-codec=aac > ../render.log 2>&1; tmux wait -S render-done"
+    tmux wait render-done; tail -3 ../render.log     # atau: tmux attach -t render
     ```
-    Lepas: `Ctrl-b d`; kembali: `tmux attach -t render`. Sebelum render penuh, ulangi `bundle` bila `Video.tsx` berubah setelah QA (render langsung dari `src` juga boleh).
-12. **Versi HP (<30 MB).** `ffmpeg -i <topik>_9x16_v1.mp4 -c:v libx264 -crf 25 -preset slow -pix_fmt yuv420p -c:a copy -movflags +faststart <topik>_9x16_v1-hp.mp4`. Cek ukuran (`ls -lh`); kalau masih >30 MB naikkan CRF 1–2.
-13. **Caption & kirim.** `caption.md` 3 platform (contoh `templates/caption.example.md`), lalu kirim MP4 versi HP + caption (user mengambil lewat Claude desktop app atau `scp ml-vps:~/motion-krisna/projects/<topik>/*.mp4 .`).
+    Bundle ulang dulu bila `Video.tsx`/`public/` berubah setelah QA.
+12. **Versi HP (<30 MB).** `ffmpeg -i <topik>_9x16_v1.mp4 -c:v libx264 -crf 25 -preset slow -pix_fmt yuv420p -c:a copy -movflags +faststart <topik>_9x16_v1-hp.mp4` (Al-Fatihah: 30 MB → 14 MB). Ambil 4–5 frame dari MP4 final sebagai cek terakhir.
+13. **Caption & kirim.** `caption.md` 3 platform (contoh `templates/caption.example.md`), kirim MP4 versi HP + caption (SendUserFile, atau user ambil lewat Claude desktop app / `scp ml-vps:~/motion-krisna/projects/<topik>/*.mp4 .`). Ingatkan user menonton & mendengar sekali (fasih tidaknya bacaan ayat TTS tidak bisa dicek dari frame) dan mencocokkan teks Arab [CEK].
 
 Yang di-commit hanya perubahan workflow (tools, templates, skill, panduan). Folder proyek, MP4, `node_modules/`, `voice/take*`, `shots/`, `build/`, `public/narasi.wav` tidak di-commit.
 
 Jalur lama (`preview.html` + GSAP + `tools/record.mjs`, Chrome headless) masih bisa untuk membuka proyek lama di `projects/`: `node tools/record.mjs --project projects/<topik> --page preview.html` lalu mux dengan audio. Proyek baru pakai Remotion.
+
+## Pelajaran teknis (Remotion di VPS)
+- **Python:** `python3` di PATH bisa menunjuk ke venv lain tanpa numpy → `ModuleNotFoundError: numpy`. Selalu `/usr/bin/python3 -I` (numpy dari `python3-numpy`).
+- **Font:** Readex Pro tidak punya glyph ﷺ → tampil kotak. Bungkus ﷺ dengan `<span style={{ fontFamily: AMIRI }}>`. VPS tidak punya font emoji → jangan pakai emoji di video (ganti ikon SVG kecil); emoji di caption.md aman.
+- **Kata bertanda hubung** ("hamba-Ku", "sungguh-sungguh") bisa patah di tengah. Beri `whiteSpace: "nowrap"` per kata, **tapi spasi antarkata harus di luar span** (kalau di dalam, baris tak bisa patah dan teks keluar kartu).
+- **Teks Arab selalu emas** (`C.gold`), kata yang sedang dibaca `#FFE7A3` + glow; transliterasi kecil (muted) di bawahnya.
+- **Karaoke caption vs kartu:** sembunyikan `Captions` saat kartu di layar sudah menampilkan kalimat yang sama (hindari dobel teks & tabrakan di y 1300–1400).
+- **Judul 3 baris** menabrak objek di y≈800: pakai `size={80}` atau pindahkan objek ke bawah.
+- **Loudness:** `mix.py` keluar ≈ −15 LUFS; loudnorm satu-pass memberi ≈ −14,7 LUFS (cukup).
+- **Bundle sekali** lalu `still build`/`render build`: jauh lebih cepat daripada `still` dari `src` yang bundle ulang tiap frame.
 
 ## Caption (tiga versi)
 - TikTok: 2–3 baris pendek, hook = baris pertama, ajakan komentar satu kata ("Tulis ADIL"), 6–8 hashtag, akhiri #muslimleveling #fyp.
@@ -140,4 +161,6 @@ Jalur lama (`preview.html` + GSAP + `tools/record.mjs`, Chrome headless) masih b
 - [ ] Safe zone: tidak ada teks penting di x≥940 atau y>1440; caption karaoke ≤1400.
 - [ ] Setiap kartu dalil ada nomor HR/QS + label Muslim Leveling; teks Arab terverifikasi atau ditandai [CEK].
 - [ ] Durasi video = `cues.json` duration; narasi selesai sebelum end card.
+- [ ] Tidak ada glyph kotak (ﷺ di Amiri, tanpa emoji) dan tidak ada kata terpotong di tanda hubung.
+- [ ] Ada value/ajakan amal konkret sebelum CTA.
 - [ ] Audio ≈ −14 LUFS; versi HP < 30 MB.

@@ -7,18 +7,18 @@ Titik awal untuk video bergaya neon elegan: bintang 8 sudut, glow, light leak We
 ```bash
 mkdir -p projects/<topik>/voice projects/<topik>/film
 cp -r templates/remotion projects/<topik>/film-remotion
-cp templates/cues.py templates/gen.py projects/<topik>/voice/
+cp templates/cues.py templates/gen.py templates/tighten.py projects/<topik>/voice/
 cd projects/<topik>
 ```
 
-1. Tulis `voice/script.txt`. Atur suara dan gaya di `voice/gen.py` (`voice="Sulafat"` atau `"Sadachbia"`), lalu jalankan `python3 -I voice/gen.py`.
-2. Pilih take dan percepat: `ffmpeg -i voice/take1.wav -af atempo=1.12 voice/narasi.wav`, lalu `cp voice/take1.json voice/narasi.json`.
-3. Isi `OPENERS` (dan `FIX` kalau ada salah dengar) di `voice/cues.py`, lalu `python3 -I voice/cues.py` → `film-remotion/public/cues.json`.
-4. Edit `film-remotion/src/Video.tsx`: konstanta `K` (waktu kata kunci dari `cues.json`), `CHAPTERS`, daftar cut di `Leaks`, dan komponen adegan.
-5. SFX: tulis `film/timeline.json` (lihat `templates/timeline.example.json`), jalankan `python3 -I ../../tools/mix.py --project .`, lalu `cp film/audio-nomusic.wav film-remotion/public/narasi.wav`.
+1. Tulis `voice/script.txt` (ayat dalam transliterasi). Atur `VOICE` (`"Sulafat"` atau `"Sadachbia"`), `STYLE`, `VOCAB` di `voice/gen.py`, lalu `/usr/bin/python3 -I voice/gen.py`.
+2. Pilih take dan atur durasi. Terlalu panjang: `/usr/bin/python3 -I voice/tighten.py take1 1.15` (pangkas jeda + atempo, lalu `SPEED = 1.0` di `cues.py`). Cukup dipercepat: `ffmpeg -i voice/take1.wav -af atempo=1.12 voice/narasi.wav && cp voice/take1.json voice/narasi.json`.
+3. Isi `OPENERS` dan `FIX` di `voice/cues.py` (atau `BOUNDS`/`EXTRA` bila adegan dibuka bacaan Arab yang tidak ditranskrip), lalu `/usr/bin/python3 -I voice/cues.py` → `film-remotion/public/cues.json`.
+4. Edit `film-remotion/src/Video.tsx`: konstanta `K` (waktu kata kunci dari `cues.json`), `CHAPTERS`, daftar cut di `Leaks`, dan komponen adegan. Ganti id `AlIkhlas` di `src/Root.tsx`.
+5. SFX: tulis `film/timeline.json` (lihat `templates/timeline.example.json`), jalankan `/usr/bin/python3 -I ../../tools/mix.py --project .`, lalu `ffmpeg -y -i film/audio-nomusic.wav -af loudnorm=I=-14:TP=-1.0:LRA=11 -ar 48000 film-remotion/public/narasi.wav`.
 6. `cd film-remotion && npm i && npx remotion browser ensure`
-7. QA: `npx remotion still AlIkhlas shots/x.jpg --frame=N --gl=swangle`
-8. Render: `npx remotion render AlIkhlas ../<topik>_9x16_v1.mp4 --gl=swangle --codec=h264 --crf=18 --audio-codec=aac`
+7. QA: `npx remotion bundle --out-dir=build`, lalu `npx remotion still build <Id> ../shots/fN.jpg --frame=N --gl=swangle --scale=0.5` per frame, gabung jadi contact sheet.
+8. Render (tmux): `npx remotion render build <Id> ../<topik>_9x16_v1.mp4 --gl=swangle --codec=h264 --crf=18 --audio-codec=aac`
 
 `--gl=swangle` dipakai di VPS tanpa GPU; di Windows dengan GPU pakai `--gl=angle`.
 

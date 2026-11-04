@@ -36,7 +36,7 @@ cp -r skills/gaya-muslim-leveling ~/.claude/skills/
 
 echo
 node --version
-python3 -I -c "import numpy; print('numpy', numpy.__version__)"
+/usr/bin/python3 -I -c "import numpy; print('numpy', numpy.__version__)"
 ffmpeg -version | head -1
 google-chrome --version
 gcloud --version | head -1
