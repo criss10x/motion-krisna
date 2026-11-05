@@ -1,6 +1,6 @@
 ---
 name: gaya-muslim-leveling
-description: "Gaya & workflow Muslim Leveling untuk video motion graphic islami 9:16 (1080x1920) yang dirender dengan Remotion di VPS Ubuntu: latar hijau-hitam berpola geometris islami, objek utama yang berubah status mengikuti cerita, judul Reem Kufi kapital, kartu dalil Arab Amiri + terjemahan + nomor rujukan, narasi Gemini TTS (Vertex), SFX sintetis, caption TikTok/IG/Shorts. Pakai saat user minta video/konten islami, dakwah, nasihat, kisah, mukjizat Quran, atau isu berita dengan sudut islami untuk Muslim Leveling, atau menyebut gaya-muslim-leveling."
+description: "Gaya & workflow Muslim Leveling untuk video motion graphic islami 9:16 (1080x1920) yang dirender dengan Remotion di VPS Ubuntu: tiga varian (Sinematik: ilustrasi lingkungan berlapis ala Makkah abad ke-7; Neon: latar hijau-hitam berpola geometris; Klasik kubah), objek utama yang berubah status mengikuti cerita, judul Reem Kufi kapital, kartu dalil Arab Amiri + terjemahan + nomor rujukan, narasi Gemini TTS (Vertex), SFX sintetis, caption TikTok/IG/Shorts. Pakai saat user minta video/konten islami, dakwah, nasihat, kisah, mukjizat Quran, atau isu berita dengan sudut islami untuk Muslim Leveling, atau menyebut gaya-muslim-leveling."
 ---
 
 # Gaya Muslim Leveling
@@ -12,10 +12,11 @@ Repo: `~/motion-krisna` (lihat `AGENTS.md` untuk VPS & Google Cloud, `templates/
 ## Pilih varian dulu
 | Varian | Kapan | Titik awal | Objek utama |
 | --- | --- | --- | --- |
-| **Neon** (default baru) | Ibadah, keutamaan surah, kisah, mukjizat; nuansa khidmat-elegan | `templates/remotion/` (contoh Al-Ikhlas, komposisi `AlIkhlas`) | Bintang 8 sudut / mushaf / pintu cahaya, glow + light leak |
+| **Sinematik** (favorit user, 2026-11-04) | Kisah, sirah, mukjizat Al-Qur'an, nubuat; apa pun yang punya latar tempat & waktu | `templates/remotion/` + `templates/sinematik/env.tsx` (contoh lengkap `templates/sinematik/contoh-AbuLahab.tsx`; acuan visual `assets/sinematik-sheet.jpg`) | Motif cerita (mis. gelembung kata kosong, kartu nubuat perkamen + stempel), bukan bintang |
+| **Neon** | Ibadah, keutamaan surah, amalan harian; nuansa khidmat-elegan | `templates/remotion/` (contoh Al-Ikhlas, komposisi `AlIkhlas`) | Bintang 8 sudut / mushaf / pintu cahaya, glow + light leak |
 | **Klasik kubah** | Isu berita/kebijakan, kritik kezaliman, nasihat tegas | `templates/remotion/` + gaya di bawah (kubah, palet klasik, latar flat ramai). Acuan visual: `assets/contact-sheet*.jpg`, `projects/romawi-akan-menang/preview.html` | Kubah logo: redup → retak → menyala → logo |
 
-Kalau user tidak menyebut, usulkan varian sesuai topik dalam satu kalimat lalu lanjut.
+Kalau user tidak menyebut, usulkan varian sesuai topik dalam satu kalimat lalu lanjut. User menyukai **Sinematik** (lingkungan kaya, tidak terikat latar hijau); utamakan varian ini untuk kisah/mukjizat.
 
 ## Palet
 | Peran | Klasik | Neon | Dipakai untuk |
@@ -28,6 +29,8 @@ Kalau user tidak menyebut, usulkan varian sesuai topik dalam satu kalimat lalu l
 | Emas | – | #E9C46A | kata kunci utama, angka, cahaya |
 | Peringatan | #FF5A5F | #FF5A5F | HANYA beban/kezaliman ("zalim/pajak/dipotong"), retak, stempel (hemat) |
 | Muted | #8FB5A8 | #8FB5A8 | label sumber |
+
+**Sinematik** (konstanta `C` di `env.tsx`): latar #07060F · kartu rgba(16,11,26,.74) · emas #E9C46A / #FFE7A3 (Arab, kata kunci, cahaya) · teks #FFF9EF · muted #CDBB9E · bara #FF7A3D · merah #E5483A (bentakan, NASAB ✕) · hijau #3FE0A0 (hanya tanda ✓ / IMAN) · perkamen #EBD7AE + tinta #3A2414 · stempel #A3201A. Langit: `NIGHT` (indigo), `DAWN` (ungu→jingga), `MORNING` (biru→peach), `STORM` (hitam→merah bara), dicampur dengan `lerpSky`. Progress bar gradasi bara→emas.
 
 Turunan untuk ilustrasi (klasik): hijau gelap #0E241D/#123A2E/#163B31/#174A3A/#1F5A48, api #FF5A5F→#FFB38A.
 
@@ -54,6 +57,16 @@ Latar polos terasa sepi. Buat lingkungan ilustrasi flat sesuai topik, berlapis, 
 - Lapisan: langit gradasi (gelap → tosca saat harapan) · matahari/bulan · gunung jauh #0E241D · hutan jauh (20 pohon segitiga #123A2E) · objek utama · hutan/kota dekat #174A3A · tanah #0A1C17 · bangunan (rumah, sekolah + bendera, klinik +, masjid, gedung) · kerumunan · efek (asap, bara, hujan, burung) paling depan.
 - Lingkungan ikut cerita: api membesar di klimaks lalu padam, asap tersibak saat dalil, langit cerah + burung di CTA.
 - Deterministik: pakai `random("seed-i")` dari `remotion`, jangan `Math.random()`. Bentuk berulang (pohon, rumah, awan, api, burung, orang) jadi komponen kecil yang di-`map`.
+
+### Lingkungan sinematik (varian Sinematik, `templates/sinematik/env.tsx`)
+Setiap adegan menggambar dunianya sendiri sebagai layer penuh (crossfade 0,4 dtk antar-adegan), urutan lapisan dari belakang:
+`Sky` → `Stars` (± `milky` bima sakti) → `Orb` (matahari/bulan, `moon`) → `Clouds` → `Mountain` jauh → `Mountain` tengah (`rim` = cahaya tepi) → bukit/tokoh tempat → `Houses` belakang (kecil, `lit` = jendela menyala malam) → `Kaaba` → `Houses` depan → `Palm` → `Dune` → `Person` (siluet tanpa wajah, `aura` bara untuk tokoh antagonis) → `Dust`/`Embers` → UI → `Vignette`.
+- `Valley` = lembah Makkah siap pakai (langit, gunung, bukit Shafa + `shafaLight` cahaya Nabi ﷺ, rumah, Ka'bah, kurma); `night` 0–1 mencampur warna siang/malam. `Mihrab` = interior masjid (lengkung, lampu, ubin, sajadah) untuk bagian amal/shalat.
+- **Waktu & cuaca ikut cerita:** malam misterius (hook) → pagi (kisah) → badai merah + `Rays` wahyu (ayat) → malam berlampu (godaan/tantangan) → time-lapse siang-malam cepat (tahun berlalu) → langit berbintang + bima sakti (renungan "Hanya Allah") → fajar → interior mihrab (amal) → pagi cerah (CTA).
+- **Parallax:** geser lapisan dengan `x`/`pan` beda kecepatan (jauh 0,2× … depan 1,1×); kamera adegan zoom 1,00 → 1,05 + rotasi ±0,6°.
+- **Momen kunci:** `shake(t, at)` saat bentakan/stempel; `Embers` untuk tokoh "Lahab"/api; retak cahaya (polyline `strokeDashoffset`) saat ayat dibaca; stempel slam (scale 2,4 → 1, easing IN) tepat di kata bukti.
+- **Motif cerita** menggantikan objek utama bintang: muncul di hook, tengah, klimaks, CTA (Abu Lahab: gelembung kata kosong + kursor berkedip → pecah jadi serpihan; kartu nubuat perkamen "menunggu bukti…" → stempel **TERBUKTI**).
+- Teks di atas lingkungan ramai: kartu/pill gelap `C.card`, judul `textGlow`, caption karaoke berlatar rgba(10,7,18,.66).
 
 ## Objek utama
 - **Kubah logo (klasik):** path kubah bawang (lebar 560, tinggi 850), stroke 56 px gradasi #A7F3D0 → #34D399 → #00E1EF + garis dalam 10 px. Tanpa bulan sabit (bulan hanya di logo). Status: redup (opacity .25) → retak (path merah 9 px digambar, shake) → pulih (retak ditarik balik) → menyala penuh (+halo 130 px opacity .12) → logo di end card. Napas ±2% sepanjang video.
@@ -88,6 +101,7 @@ Jalankan dari `~/motion-krisna`. Python selalu `/usr/bin/python3 -I` (lihat Pela
    T=<topik>; mkdir -p projects/$T/voice projects/$T/film
    cp -r templates/remotion projects/$T/film-remotion
    cp templates/cues.py templates/gen.py templates/tighten.py projects/$T/voice/
+   cp templates/sinematik/env.tsx projects/$T/film-remotion/src/   # varian Sinematik
    (cd projects/$T/film-remotion && npm i && npx remotion browser ensure) &
    ```
    Ganti id komposisi `AlIkhlas` di `src/Root.tsx` (import, `id`, `component`) dengan nama topik PascalCase (mis. `AlFatihah`); pakai id itu di semua perintah di bawah.
@@ -140,6 +154,9 @@ Jalur lama (`preview.html` + GSAP + `tools/record.mjs`, Chrome headless) masih b
 - **Karaoke caption vs kartu:** sembunyikan `Captions` saat kartu di layar sudah menampilkan kalimat yang sama (hindari dobel teks & tabrakan di y 1300–1400).
 - **Judul 3 baris** menabrak objek di y≈800: pakai `size={80}` atau pindahkan objek ke bawah.
 - **Loudness:** `mix.py` keluar ≈ −15 LUFS; loudnorm satu-pass memberi ≈ −14,7 LUFS (cukup).
+- **Klimaks jangan jatuh di batas adegan:** kalau kata kunci klimaks (mis. "Badar") ada < 1 dtk sebelum akhir adegan, stempel/ledakan tertelan crossfade. Geser batas adegan dengan `BOUNDS` manual di `cues.py` (Abu Lahab: adegan 5 diperpanjang ke 44,1 dtk) dan tampilkan teks adegan berikut mulai `S[n].start`, bukan dari kata pertamanya.
+- **Time-lapse siang-malam:** maksimal ±6 siklus dan amplitudo terang 0,8, supaya tidak berkedip seperti strobo.
+- **Stempel di kartu:** taruh menggantung di pojok kanan atas (`right: -70, top: -52`) supaya tidak menutup teks; matahari/bulan jangan di belakang judul (taruh dekat horizon).
 - **Bundle sekali** lalu `still build`/`render build`: jauh lebih cepat daripada `still` dari `src` yang bundle ulang tiap frame.
 
 ## Caption (tiga versi)
@@ -154,9 +171,10 @@ Jalur lama (`preview.html` + GSAP + `tools/record.mjs`, Chrome headless) masih b
 - Angka tanpa sumber; pernyataan pejabat disajikan sebagai aturan resmi.
 
 ## Cek khas gaya (sebelum render penuh)
-- [ ] Palet hanya dari tabel varian; merah hanya untuk beban/kezaliman.
+- [ ] Palet hanya dari tabel varian; merah hanya untuk beban/kezaliman (sinematik: juga bentakan/antagonis).
+- [ ] Sinematik: tiap adegan punya lingkungan berlapis (≥5 lapis) yang waktunya/cuacanya mengikuti cerita; klimaks tidak jatuh di crossfade.
 - [ ] Reem Kufi / Readex Pro / Amiri tampil (bukan font cadangan) di contact sheet.
-- [ ] Objek utama muncul & berubah status di tiap bab; berakhir jadi logo.
+- [ ] Objek utama (sinematik: motif cerita) muncul & berubah status di tiap bab; berakhir di logo end card.
 - [ ] Watermark mulai dtk 2, hook tanpa logo; judul y≥450 tidak tabrakan dengan watermark.
 - [ ] Safe zone: tidak ada teks penting di x≥940 atau y>1440; caption karaoke ≤1400.
 - [ ] Setiap kartu dalil ada nomor HR/QS + label Muslim Leveling; teks Arab terverifikasi atau ditandai [CEK].

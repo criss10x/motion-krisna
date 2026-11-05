@@ -8,6 +8,7 @@ Titik awal untuk video bergaya neon elegan: bintang 8 sudut, glow, light leak We
 mkdir -p projects/<topik>/voice projects/<topik>/film
 cp -r templates/remotion projects/<topik>/film-remotion
 cp templates/cues.py templates/gen.py templates/tighten.py projects/<topik>/voice/
+cp templates/sinematik/env.tsx projects/<topik>/film-remotion/src/   # hanya varian Sinematik
 cd projects/<topik>
 ```
 
