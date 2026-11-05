@@ -1,6 +1,6 @@
 ---
 name: gaya-mindset-sehat
-description: "Gaya & workflow pribadi Mindset.sehat8 (seri 'Viral? Cek Dulu') untuk video motion graphic kesehatan 9:16: kertas krem bertekstur, judul Fraunces italic dengan stabilo kunyit, karakter produk lucu (mis. Si Chia) sebagai objek utama, timbangan dua sisi MASUK/KELUAR, tracker '3 cara', stempel verdict WORTH IT/SKIP, CTA affiliate keranjang kuning, narasi edge-tts Gadis, SFX sintetis halus. Pakai bersama start-motion saat user minta video/konten kesehatan, makanan sehat, cara hidup sehat, cek fakta produk viral TikTok (chia seed, EVOO, teh rimpang, collagen, probiotik, dll.) atau affiliate produk sehat untuk Mindset.sehat8, atau menyebut gaya-mindset-sehat."
+description: "Gaya & workflow pribadi Mindset.sehat8 (seri 'Viral? Cek Dulu') untuk video motion graphic kesehatan 9:16: kertas krem bertekstur, judul Fraunces italic dengan stabilo kunyit, karakter produk lucu (mis. Si Chia) sebagai objek utama, timbangan dua sisi MASUK/KELUAR, tracker '3 cara', stempel verdict WORTH IT/SKIP, CTA affiliate keranjang kuning, narasi edge-tts Gadis, SFX sintetis halus, lalu posting/jadwal ke TikTok, Instagram, YouTube, Facebook & Threads lewat API Repliz (affiliate hanya TikTok & Facebook, Threads teks personal). Pakai bersama start-motion saat user minta video/konten kesehatan, makanan sehat, cara hidup sehat, cek fakta produk viral TikTok (chia seed, EVOO, teh rimpang, collagen, probiotik, dll.) atau affiliate produk sehat untuk Mindset.sehat8, atau menyebut gaya-mindset-sehat."
 ---
 
 # Gaya Mindset Sehat ("Viral? Cek Dulu")
@@ -68,8 +68,22 @@ Hook ≤9 kata yang mematahkan mitos + janji ("X nggak bikin kurus. Kecuali kamu
 6. QA: ffprobe + 6 frame MP4 jadi satu sheet.
 Jebakan: jangan `autoAlpha:0` pada `.title` (reveal hanya menggerakkan `.i`, judul jadi tak pernah tampil); sembunyikan lewat `yPercent` kata saja. Elemen yang dipusatkan pakai `gsap.set({xPercent:-50})`, bukan CSS translate (GSAP menimpanya). Hindari `svgOrigin` + scale pada grup SVG berviewBox negatif; pakai opacity/geser atau `transformOrigin`.
 
-## Caption
-Baris 1 = hook. 1–2 kalimat nilai + ajak simpan. Wajib: "Produk di keranjang kuning adalah link affiliate. Info umum, bukan pengganti saran dokter." 5–6 hashtag: #<produk> #viralcekdulu #hidupsehat #faktakesehatan #mindsetsehat (+#affiliate).
+## Caption (maks 5 hashtag, termasuk #Shorts di YouTube)
+Baris 1 = hook. Nilai singkat + "Simpan…". Selalu: "Info umum, bukan pengganti saran dokter."
+- **Affiliate hanya TikTok & Facebook.** TikTok: "Produk di keranjang kuning adalah link affiliate." Facebook: "Link produk ada di bio (link affiliate)."
+- **Instagram & YouTube tanpa produk:** video versi tanpa adegan CTA + caption tanpa baris affiliate. YouTube: judul ≤100 karakter tanpa hashtag, deskripsi + baris Sumber, `tags`.
+- Hashtag dasar: `#<produk> #dietsehat #viralcekdulu #hidupsehat #mindsetsehat`.
+
+## Threads (teks berantai, tanpa video, tanpa CTA produk)
+Suara manusia pribadi, santai kekinian, huruf kecil boleh. Hook (post utama) ≤12 kata, pakai "aku" (bukan "kita harus"), diakhiri titik dua atau bikin penasaran, JANGAN langsung isi. Isi baru di reply 1. Pola hook yang work: before-after jujur ("Dulu aku kira X. Ternyata:"), baru sadar tubuh, hari ini belajar, pertanyaan menohok/myth busting, tubuh berbicara, butuh didengar, parabel. Reply 2 = "jadi sekarang aku nyoba begini:" + 3 butir; reply 3 = catatan aman + pertanyaan ke pembaca. Tanpa klaim hasil pribadi ("turun X kilo"). `topic` 1 kata/frasa, tanpa hashtag.
+
+## Posting via Repliz (terbukti 2026-11-05)
+Kredensial dari user, pakai env `REPLIZ_AUTH="key:secret"`; JANGAN tulis ke file. Script: `assets/template/repliz.py` (+ `plan.example.json`, ID akun Mindset Sehat sudah terisi).
+1. Versi tanpa CTA untuk IG & YouTube: potong sebelum transisi ke adegan CTA (mulai adegan CTA di CUES − 0,33 dtk), tahan frame akhir 1,2 dtk:
+   `ffmpeg -t <potong> -i <topik>_9x16_v1.mp4 -vf "tpad=stop_mode=clone:stop_duration=1.2" -af "afade=t=out:st=<potong-0.25>:d=0.25,apad=whole_dur=<potong+1.2>" -c:v libx264 -crf 18 -pix_fmt yuv420p -c:a aac -b:a 192k -movflags +faststart <topik>_9x16_v1-tanpa-cta.mp4` (`-t` SEBELUM `-i`). Cek frame akhir: tak ada sisa produk.
+2. Tulis `plan.json` (salin contoh): satu entri per akun; `video` = file lokal (diunggah sekali, dipakai ulang), `info` = opsi platform: TikTok `isDraft: true` (keranjang kuning tak bisa lewat API → user tambah produk di app lalu publish) + `isAiGenerated: true`; IG `isShareToFeed: true`; YouTube `isAiGenerated`, `privacy`, `tags`; FB `isAiGenerated`. Jadwal default: video 19.00 WIB, Threads 12.00 WIB hari sama.
+3. Tampilkan draf ke user (tabel akun × waktu × caption) dan TUNGGU "ya" sebelum posting.
+4. `python repliz.py post plan.json` → `python repliz.py list 6` (status `pending`). Ubah jadwal yang sudah ada: tambahkan `"scheduleId"` di entri → PUT (body lengkap diganti, status tetap). `python repliz.py accounts` untuk ID akun lain.
 
 ## Dilarang di gaya ini
 - Bukti lemah/membosankan sebagai solusi (mis. "6 bulan turun 2 kilo"); utamakan logika yang gampang dipahami.
