@@ -4,7 +4,7 @@
 set -euo pipefail
 
 sudo apt update
-sudo apt install -y ffmpeg python3 python3-numpy git curl ca-certificates gnupg
+sudo apt install -y ffmpeg python3 python3-numpy git curl ca-certificates gnupg tmux
 
 if ! node --version 2>/dev/null | grep -qE '^v(2[2-9]|[3-9][0-9])'; then
   curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
@@ -25,14 +25,21 @@ fi
 
 command -v claude >/dev/null || sudo npm install -g @anthropic-ai/claude-code
 
+# swap 2 GB sebagai pengaman RAM saat render
+if ! swapon --show | grep -q .; then
+  sudo fallocate -l 2G /swapfile && sudo chmod 600 /swapfile && sudo mkswap /swapfile && sudo swapon /swapfile
+  echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab >/dev/null
+fi
+
 mkdir -p ~/.claude/skills
 cp -r skills/gaya-muslim-leveling ~/.claude/skills/
 
 echo
 node --version
-python3 -I -c "import numpy; print('numpy', numpy.__version__)"
+/usr/bin/python3 -I -c "import numpy; print('numpy', numpy.__version__)"
 ffmpeg -version | head -1
 google-chrome --version
 gcloud --version | head -1
 echo
-echo "Selesai. Langkah berikutnya: gcloud auth login && gcloud config set project <PROJECT_ID>"
+echo "Selesai. Berikutnya: claude (login), gcloud auth login --no-launch-browser, gcloud config set project <PROJECT_ID>"
+echo "Proyek Remotion: salin templates/remotion ke projects/<topik>/film-remotion, lalu cd ke sana && npm i && npx remotion browser ensure (render pakai --gl=swangle)"
