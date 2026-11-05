@@ -3,6 +3,7 @@ import sys, asyncio, pathlib, subprocess
 from playwright.async_api import async_playwright
 async def main(ts):
     pathlib.Path('qa').mkdir(exist_ok=True)
+    for old in pathlib.Path('qa').glob('q[0-9]*.jpg'): old.unlink()  # ponytail: sheet hanya dari run ini
     async with async_playwright() as p:
         b = await p.chromium.launch()
         pg = await b.new_page(viewport={'width':1080,'height':1920})

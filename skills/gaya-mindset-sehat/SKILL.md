@@ -1,6 +1,6 @@
 ---
 name: gaya-mindset-sehat
-description: "Gaya & workflow pribadi Mindset.sehat8 (seri 'Viral? Cek Dulu') untuk video motion graphic kesehatan 9:16: kertas krem bertekstur, judul Fraunces italic dengan stabilo kunyit, karakter produk lucu (mis. Si Chia) sebagai objek utama, timbangan dua sisi MASUK/KELUAR, tracker '3 cara', stempel verdict WORTH IT/SKIP, CTA affiliate keranjang kuning, narasi edge-tts Gadis, SFX sintetis halus, lalu posting/jadwal ke TikTok, Instagram, YouTube, Facebook & Threads lewat API Repliz (affiliate hanya TikTok & Facebook, Threads teks personal). Pakai bersama start-motion saat user minta video/konten kesehatan, makanan sehat, cara hidup sehat, cek fakta produk viral TikTok (chia seed, EVOO, teh rimpang, collagen, probiotik, dll.) atau affiliate produk sehat untuk Mindset.sehat8, atau menyebut gaya-mindset-sehat."
+description: "Gaya & workflow pribadi Mindset.sehat8 (seri 'Viral? Cek Dulu') untuk video motion graphic kesehatan 9:16: kertas krem bertekstur, judul Fraunces italic dengan stabilo kunyit, karakter produk lucu (mis. Si Chia) sebagai objek utama, timbangan dua sisi MASUK/KELUAR, tracker '3 cara', stempel verdict WORTH IT/SKIP, CTA affiliate keranjang kuning, narasi Gemini TTS suara Leda, SFX sintetis halus, lalu posting/jadwal ke TikTok, Instagram, YouTube, Facebook & Threads lewat API Repliz (affiliate hanya TikTok & Facebook, Threads teks personal). Pakai bersama start-motion saat user minta video/konten kesehatan, makanan sehat, cara hidup sehat, cek fakta produk viral TikTok (chia seed, EVOO, teh rimpang, collagen, probiotik, dll.) atau affiliate produk sehat untuk Mindset.sehat8, atau menyebut gaya-mindset-sehat."
 ---
 
 # Gaya Mindset Sehat ("Viral? Cek Dulu")
@@ -53,7 +53,9 @@ Video ≤20 dtk (hook → 1 fakta → 1 aturan → verdict → end card 1,2 dtk)
 - Tempo 2,5–12 dtk per adegan; visual berubah tiap 3–5 dtk.
 
 ## Suara & SFX
-- Narasi: edge-tts `id-ID-GadisNeural`, rate +18%, satu klip per adegan (`tts.py`), trim hening, jeda 0,35 dtk, lead 0,1 dtk (`build_cues.py` → narasi.wav/mp3 + cues.json; kata kunci dari faster-whisper base + alias). Tulis lafal: "chia seed" → "chia sid"; singkatan (EVOO) jangan diucapkan, pakai nama Indonesia ("minyak zaitun"), singkatan cukup di teks layar. `build_cues.py`: isi KW per adegan (alias pakai `|` untuk salah dengar whisper), END = durasi end card. Izin komersial edge-tts [CEK]; alternatif Speechma/ElevenLabs.
+- Narasi STANDAR (pilihan user 2026-11-05): **Gemini TTS suara `Leda`** lewat `assets/template/tts_gemini.py` (`python -I tts_gemini.py`, butuh `gcloud` login + `vertex.py` di `Documents\Claude Code Ku\gorengan\tools`). Style: "Perempuan Indonesia umur 25-an, ngobrol santai dan ceria seperti teman yang lagi bongkar fakta kesehatan di TikTok. Tempo cepat dan bertenaga, jeda singkat, natural, tidak seperti pembaca berita." Satu klip per adegan → `audio/sNN.wav`; `python -I tts_gemini.py 3 8` untuk ulang adegan tertentu. Gemini membaca nama merek Inggris dengan benar (tulis "Vitalife Magnesium Bisglycinate" apa adanya); singkatan tetap dieja ("be-pe-o-em"), "HP" → "hape". Leda ±15% lebih cepat dari edge-tts: 137 kata ≈ 60 dtk.
+- JANGAN pakai edge-tts (`tts.py`, suara Gadis) lagi: user menilai "jelek sekali", robotik. Hanya cadangan darurat bila gcloud tidak tersedia, dan katakan ke user.
+- Setelah TTS: trim hening per klip → `t01.wav…`, lalu `build_cues.py` (jeda 0,35 dtk, lead 0,1 dtk → narasi.wav/mp3 + cues.json; kata kunci dari faster-whisper base). Whisper base sering salah dengar → isi KW dengan alias `|` (mis. "lansia|landsia", "worth|urtir", "keranjang|keren"); END = durasi end card. Tempel cues ke `const CUES` di preview.html.
 - SFX sintetis (`mix.py`, 17 dB di bawah narasi): pop, whoosh, tick, thud, ding, stamp, plung, sparkle. Tanpa musik. Loudnorm −14 LUFS, TP −1,5.
 
 ## Struktur naskah yang disukai user
@@ -62,7 +64,7 @@ Hook ≤9 kata yang mematahkan mitos + janji ("X nggak bikin kurus. Kecuali kamu
 ## Workflow (terbukti 2026-11-04)
 1. Riset web: angka wajib bersumber; tampilkan sumber di pill y=1452.
 2. Foto produk affiliate dari `Documents\Claude Code\Foto Affiliate\` → salin jadi `produk.png`; klaim hanya yang tertulis di kemasan.
-3. `python tts.py` → `python build_cues.py` (edit LINES & KW dulu).
+3. `python -I tts_gemini.py` (Leda) → trim → `python build_cues.py` (edit LINES & KW dulu).
 4. preview.html: tempel CUES, ubah adegan; cek `python shots.py t1 t2 …` → `qa/sheet.jpg`, lihat sekali, perbaiki tabrakan.
 5. `python render.py 6` (background) → `python mix.py` → loudnorm → encode `<topik>_9x16_v1.mp4` (crf 18, aac 192k, faststart).
 6. QA: ffprobe + 6 frame MP4 jadi satu sheet.
