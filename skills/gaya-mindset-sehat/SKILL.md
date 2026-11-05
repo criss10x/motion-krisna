@@ -68,13 +68,21 @@ Hook ≤9 kata yang mematahkan mitos + janji ("X nggak bikin kurus. Kecuali kamu
 4. preview.html: tempel CUES, ubah adegan; cek `python shots.py t1 t2 …` → `qa/sheet.jpg`, lihat sekali, perbaiki tabrakan.
 5. `python render.py 6` (background) → `python mix.py` → loudnorm → encode `<topik>_9x16_v1.mp4` (crf 18, aac 192k, faststart).
 6. QA: ffprobe + 6 frame MP4 jadi satu sheet.
+7. Versi tanpa CTA untuk IG & YouTube (lihat Posting langkah 1).
+8. Tulis caption semua platform + Threads (aturan & template di bawah) → simpan `caption.md` dan `plan.json` di folder proyek, `at` diisi `"TANYA_USER"` dulu.
+9. **TANYA user kapan posting** (tanggal, jam video, jam Threads) — boleh usul, tapi JANGAN isi waktu sendiri.
+10. Tampilkan draf (tabel akun × waktu × caption) → tunggu "ya" → posting via Repliz → `list` untuk verifikasi.
 Jebakan: jangan `autoAlpha:0` pada `.title` (reveal hanya menggerakkan `.i`, judul jadi tak pernah tampil); sembunyikan lewat `yPercent` kata saja. Elemen yang dipusatkan pakai `gsap.set({xPercent:-50})`, bukan CSS translate (GSAP menimpanya). Hindari `svgOrigin` + scale pada grup SVG berviewBox negatif; pakai opacity/geser atau `transformOrigin`.
 
 ## Caption (maks 5 hashtag, termasuk #Shorts di YouTube)
 Baris 1 = hook. Nilai singkat + "Simpan…". Selalu: "Info umum, bukan pengganti saran dokter."
 - **Affiliate hanya TikTok & Facebook.** TikTok: "Produk di keranjang kuning adalah link affiliate." Facebook: "Link produk ada di bio (link affiliate)."
 - **Instagram & YouTube tanpa produk:** video versi tanpa adegan CTA + caption tanpa baris affiliate. YouTube: judul ≤100 karakter tanpa hashtag, deskripsi + baris Sumber, `tags`.
-- Hashtag dasar: `#<produk> #dietsehat #viralcekdulu #hidupsehat #mindsetsehat`.
+- Hashtag dasar: `#<produk> #<manfaat> #viralcekdulu #hidupsehat #mindsetsehat` (YouTube: `#Shorts` menggantikan `#viralcekdulu`).
+- Template (contoh magnesium, `mindset-sehat\magnesium\caption.md`):
+  - TikTok: `<Hook>… kecuali kamu lakuin 3 hal ini 👇` / `Simpan buat <kapan>!` / baris affiliate TikTok + dokter / hashtag.
+  - IG (FB sama + baris affiliate FB): hook `👇` → daftar 1–3 cara (≤10 kata/butir) → 1 kalimat aturan aman → `📌 Simpan buat pengingat.` → dokter → hashtag.
+  - YouTube: judul = hook tanpa emoji; deskripsi 1–2 kalimat nilai → `Sumber: …` → dokter → hashtag; `tags` 4 frasa pencarian.
 
 ## Threads (teks berantai, tanpa video, tanpa CTA produk)
 Suara manusia pribadi, santai kekinian, huruf kecil boleh. Hook (post utama) ≤12 kata, pakai "aku" (bukan "kita harus"), diakhiri titik dua atau bikin penasaran, JANGAN langsung isi. Isi baru di reply 1. Pola hook yang work: before-after jujur ("Dulu aku kira X. Ternyata:"), baru sadar tubuh, hari ini belajar, pertanyaan menohok/myth busting, tubuh berbicara, butuh didengar, parabel. Reply 2 = "jadi sekarang aku nyoba begini:" + 3 butir; reply 3 = catatan aman + pertanyaan ke pembaca. Tanpa klaim hasil pribadi ("turun X kilo"). `topic` 1 kata/frasa, tanpa hashtag.
@@ -83,8 +91,8 @@ Suara manusia pribadi, santai kekinian, huruf kecil boleh. Hook (post utama) ≤
 Kredensial dari user, pakai env `REPLIZ_AUTH="key:secret"`; JANGAN tulis ke file. Script: `assets/template/repliz.py` (+ `plan.example.json`, ID akun Mindset Sehat sudah terisi).
 1. Versi tanpa CTA untuk IG & YouTube: potong sebelum transisi ke adegan CTA (mulai adegan CTA di CUES − 0,33 dtk), tahan frame akhir 1,2 dtk:
    `ffmpeg -t <potong> -i <topik>_9x16_v1.mp4 -vf "tpad=stop_mode=clone:stop_duration=1.2" -af "afade=t=out:st=<potong-0.25>:d=0.25,apad=whole_dur=<potong+1.2>" -c:v libx264 -crf 18 -pix_fmt yuv420p -c:a aac -b:a 192k -movflags +faststart <topik>_9x16_v1-tanpa-cta.mp4` (`-t` SEBELUM `-i`). Cek frame akhir: tak ada sisa produk.
-2. Tulis `plan.json` (salin contoh): satu entri per akun; `video` = file lokal (diunggah sekali, dipakai ulang), `info` = opsi platform: TikTok `isDraft: true` (keranjang kuning tak bisa lewat API → user tambah produk di app lalu publish) + `isAiGenerated: true`; IG `isShareToFeed: true`; YouTube `isAiGenerated`, `privacy`, `tags`; FB `isAiGenerated`. Jadwal default: video 19.00 WIB, Threads 12.00 WIB hari sama.
-3. Tampilkan draf ke user (tabel akun × waktu × caption) dan TUNGGU "ya" sebelum posting.
+2. Tulis `plan.json` (salin contoh): satu entri per akun; `video` = file lokal (diunggah sekali, dipakai ulang), `info` = opsi platform: TikTok `isDraft: true` (keranjang kuning tak bisa lewat API → user tambah produk di app lalu publish) + `isAiGenerated: true`; IG `isShareToFeed: true`; YouTube `isAiGenerated`, `privacy`, `tags`; FB `isAiGenerated`. Waktu (`at`, ISO +07:00): TIDAK ada default — selalu tanya user dulu (tanggal, jam video, jam Threads); usulan boleh (mis. video 10.00 atau 19.00 WIB, Threads 12.00), sebut juga bila hari itu sudah ada jadwal lain (`repliz.py list`).
+3. Tampilkan draf ke user (tabel akun × waktu × caption) dan TUNGGU "ya" sebelum posting. Persetujuan waktu ≠ persetujuan caption; butuh keduanya.
 4. `python repliz.py post plan.json` → `python repliz.py list 6` (status `pending`). Ubah jadwal yang sudah ada: tambahkan `"scheduleId"` di entri → PUT (body lengkap diganti, status tetap). `python repliz.py accounts` untuk ID akun lain.
 
 ## Dilarang di gaya ini

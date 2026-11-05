@@ -61,6 +61,7 @@ def post(plan_path):
     plan = json.load(open(plan_path, encoding="utf-8"))
     for p in plan:
         assert p["desc"].count("#") <= 5, f"{p.get('name')}: hashtag > 5"
+        assert p["at"] != "TANYA_USER", f"{p.get('name')}: waktu posting belum ditanyakan ke user"
     for p in plan:
         b = body(p)
         if p.get("scheduleId"):
