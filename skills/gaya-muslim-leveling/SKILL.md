@@ -159,10 +159,14 @@ Jalur lama (`preview.html` + GSAP + `tools/record.mjs`, Chrome headless) masih b
 - **Stempel di kartu:** taruh menggantung di pojok kanan atas (`right: -70, top: -52`) supaya tidak menutup teks; matahari/bulan jangan di belakang judul (taruh dekat horizon).
 - **Bundle sekali** lalu `still build`/`render build`: jauh lebih cepat daripada `still` dari `src` yang bundle ulang tiap frame.
 
-## Caption (tiga versi)
-- TikTok: 2–3 baris pendek, hook = baris pertama, ajakan komentar satu kata ("Tulis ADIL"), 6–8 hashtag, akhiri #muslimleveling #fyp.
-- Instagram Reels: paragraf pendek, kutip dalil + nomor HR/QS, "📌 Simpan & bagikan", "📲 Muslim Leveling — link di bio", baris Sumber, ≤10 hashtag.
-- YouTube Shorts: judul ≤100 karakter + #Shorts, deskripsi 3 paragraf (fakta + sumber, dalil, sikap), ajakan like/subscribe, 5–6 hashtag.
+## Caption & posting
+**Maksimal 5 hashtag per posting di semua channel** (permintaan user). Selalu sertakan #muslimleveling, tanpa #fyp. Untuk YouTube, #Shorts di judul ikut dihitung. Hindari "#1"/"#2" di teks; tulis "seri 1" atau "bagian 2".
+- TikTok: 2–3 baris pendek, hook di baris pertama, ajakan komentar satu kata ("Tulis ADIL"), 5 hashtag.
+- Instagram Reels: paragraf pendek, kutip dalil + nomor HR/QS, "📌 Simpan & bagikan", "📲 Muslim Leveling — link di bio", baris Sumber, 5 hashtag.
+- YouTube Shorts: judul ≤100 karakter + #Shorts, deskripsi 3 paragraf (fakta + sumber, dalil, sikap), ajakan like/subscribe, 4 hashtag (+#Shorts = 5).
+- Facebook (page Muslim Leveling): bagian `## Facebook` = versi IG tanpa "link di bio".
+- Threads (@krisnasuryana): **teks saja**, `threads.txt` = 3 post dipisah `---`. Post 1 hook personal ("aku", kalimat pertama ≤12 kata, diakhiri titik dua/penasaran, tanpa dalil); post 2 dalil/kisah; post 3 refleksi/"PR aku". Contoh pembuka: "Jujur aja, baru umur segini aku paham ini:", "Catatan hari ini: [topik]. Ternyata…", "Bukan ustadz, cuma mau share catatan ngaji biar gak lupa:".
+- Kirim lewat Repliz: `/usr/bin/python3 -I tools/repliz.py video|threads projects/<topik> [--jam ...|sekarang] [--kecuali instagram] [--kirim]`. Tanpa `--kirim` = simulasi. Tool menolak caption dengan >5 hashtag. Tunjukkan draf ke user dan tunggu persetujuan sebelum `--kirim`.
 
 ## Dilarang di gaya ini
 - Hadis dha'if/palsu atau dalil tanpa nomor rujukan.
