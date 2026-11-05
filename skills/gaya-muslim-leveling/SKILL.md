@@ -88,7 +88,8 @@ Larangan: foto, emoji sebagai ilustrasi, logo instansi digambar ulang, wajah tok
 
 ## Suara
 - Narasi: Gemini TTS `gemini-3.8-flash-tts` (Vertex, `global`). Klasik: voice **Sadachbia** (pria), style "suara dalam & tegas seperti pengkhotbah muda; melambat & khidmat saat hadis". Neon: Sadachbia atau **Sulafat** (perempuan, lembut). Buat 2 take, pilih yang durasinya pas (≤ target − end card) dan transkripnya cocok.
-- SFX halus sintetis, tanpa musik (default), lewat `tools/mix.py`: `clink` (notif/chip), `pop`, `impact` (angka/stempel/klimaks), `whoosh` (transisi), `glasscrack` (kubah retak), `room` (dasar adegan dalil), `riser`→`impact` (klimaks & CTA), `scrape` (coretan), `hiss`, `powerup` (objek menyala). Target −14 LUFS.
+- **Musik latar A (default sejak 2026-11-05, pilihan user):** pad akor + ketukan ringan (kick/hi-hat 96 bpm) yang disintesis sendiri oleh `tools/mix.py`, jadi 100% bebas copyright. Jangan pakai lagu/sampel dari luar. Hasilnya di `film/audio.wav` (yang dipakai); `film/audio-nomusic.wav` hanya cadangan kalau user minta tanpa musik.
+- SFX halus sintetis lewat `tools/mix.py`: `clink` (notif/chip), `pop`, `impact` (angka/stempel/klimaks), `whoosh` (transisi), `glasscrack` (kubah retak), `room` (dasar adegan dalil), `riser`→`impact` (klimaks & CTA), `scrape` (coretan), `hiss`, `powerup` (objek menyala). Target −14 LUFS.
 
 ## Workflow di VPS (Remotion, terbukti 2026-11-03: Al-Fatihah 62,8 dtk)
 Jalankan dari `~/motion-krisna`. Python selalu `/usr/bin/python3 -I` (lihat Pelajaran teknis). Render & langkah lama di dalam `tmux`.
@@ -129,7 +130,7 @@ Jalankan dari `~/motion-krisna`. Python selalu `/usr/bin/python3 -I` (lihat Pela
 10. **Audio.** `film/timeline.json` (contoh `templates/timeline.example.json`; waktu SFX dari `K`/`cues.json`) → mix → normalisasi:
     ```bash
     /usr/bin/python3 -I ../../tools/mix.py --project .
-    ffmpeg -y -i film/audio-nomusic.wav -af loudnorm=I=-14:TP=-1.0:LRA=11 -ar 48000 film-remotion/public/narasi.wav
+    ffmpeg -y -i film/audio.wav -af loudnorm=I=-14:TP=-1.0:LRA=11 -ar 48000 film-remotion/public/narasi.wav
     ```
     Pola SFX yang terbukti: `clink` dengan pitch naik bertahap di tiap "jawaban/poin", `riser`→`impact`+`powerup` di klimaks, `pop` per kartu, `whoosh` di tiap cut, `room` tipis di bagian dalil.
 11. **Render (tmux).**

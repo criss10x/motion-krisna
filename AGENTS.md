@@ -101,7 +101,7 @@ Langkah lengkapnya ada di `templates/remotion/README.md`. Ringkasnya:
 4. Isi `OPENERS` dan `FIX` di `voice/cues.py` (atau `BOUNDS` manual bila adegan dibuka bacaan Arab, yang tidak ikut ditranskrip), lalu `/usr/bin/python3 -I voice/cues.py` → `film-remotion/public/cues.json`
 5. Edit `film-remotion/src/Video.tsx` (adegan dan waktu kata kunci `K`), ganti id komposisi di `src/Root.tsx`
 6. QA: `npx remotion bundle --out-dir=build`, lalu `npx remotion still build <Id> ../shots/fN.jpg --frame=N --gl=swangle --scale=0.5` per frame, gabungkan jadi contact sheet
-7. SFX: `film/timeline.json` → `/usr/bin/python3 -I ../../tools/mix.py --project .` → normalisasi −14 LUFS: `ffmpeg -i film/audio-nomusic.wav -af loudnorm=I=-14:TP=-1.0:LRA=11 -ar 48000 film-remotion/public/narasi.wav`
+7. SFX: `film/timeline.json` → `/usr/bin/python3 -I ../../tools/mix.py --project .` → normalisasi −14 LUFS: `ffmpeg -i film/audio.wav -af loudnorm=I=-14:TP=-1.0:LRA=11 -ar 48000 film-remotion/public/narasi.wav`
 8. Render (di dalam tmux): `npx remotion render build <Id> ../<topik>_9x16_v1.mp4 --gl=swangle --codec=h264 --crf=18 --audio-codec=aac` (bundle ulang dulu kalau `Video.tsx` berubah)
 9. Versi HP (<30 MB): `ffmpeg -i <topik>_9x16_v1.mp4 -c:v libx264 -crf 25 -preset slow -pix_fmt yuv420p -c:a copy -movflags +faststart <topik>_9x16_v1-hp.mp4`
 10. `caption.md` (TikTok, IG, Shorts). Hasil video dan folder proyek **tidak** di-commit; yang di-commit hanya perubahan workflow (tools, templates, skill, panduan).

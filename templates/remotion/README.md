@@ -16,7 +16,7 @@ cd projects/<topik>
 2. Pilih take dan atur durasi. Terlalu panjang: `/usr/bin/python3 -I voice/tighten.py take1 1.15` (pangkas jeda + atempo, lalu `SPEED = 1.0` di `cues.py`). Cukup dipercepat: `ffmpeg -i voice/take1.wav -af atempo=1.12 voice/narasi.wav && cp voice/take1.json voice/narasi.json`.
 3. Isi `OPENERS` dan `FIX` di `voice/cues.py` (atau `BOUNDS`/`EXTRA` bila adegan dibuka bacaan Arab yang tidak ditranskrip), lalu `/usr/bin/python3 -I voice/cues.py` → `film-remotion/public/cues.json`.
 4. Edit `film-remotion/src/Video.tsx`: konstanta `K` (waktu kata kunci dari `cues.json`), `CHAPTERS`, daftar cut di `Leaks`, dan komponen adegan. Ganti id `AlIkhlas` di `src/Root.tsx`.
-5. SFX: tulis `film/timeline.json` (lihat `templates/timeline.example.json`), jalankan `/usr/bin/python3 -I ../../tools/mix.py --project .`, lalu `ffmpeg -y -i film/audio-nomusic.wav -af loudnorm=I=-14:TP=-1.0:LRA=11 -ar 48000 film-remotion/public/narasi.wav`.
+5. SFX: tulis `film/timeline.json` (lihat `templates/timeline.example.json`), jalankan `/usr/bin/python3 -I ../../tools/mix.py --project .`, lalu `ffmpeg -y -i film/audio.wav -af loudnorm=I=-14:TP=-1.0:LRA=11 -ar 48000 film-remotion/public/narasi.wav`.
 6. `cd film-remotion && npm i && npx remotion browser ensure`
 7. QA: `npx remotion bundle --out-dir=build`, lalu `npx remotion still build <Id> ../shots/fN.jpg --frame=N --gl=swangle --scale=0.5` per frame, gabung jadi contact sheet.
 8. Render (tmux): `npx remotion render build <Id> ../<topik>_9x16_v1.mp4 --gl=swangle --codec=h264 --crf=18 --audio-codec=aac`
