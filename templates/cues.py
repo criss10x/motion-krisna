@@ -27,7 +27,7 @@ for i, txt in FIX.items():
     words[i]["word"] = txt
 
 def clean(s):
-    return s.strip(",.?!:\"'").lower()
+    return s.strip(",.?!:\"'…").lower()
 
 if BOUNDS:
     bounds = list(BOUNDS)

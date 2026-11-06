@@ -45,6 +45,7 @@ Turunan untuk ilustrasi (klasik): hijau gelap #0E241D/#123A2E/#163B31/#174A3A/#1
 - Teks penting di y 250–1440; kolom kanan x≥940 kosong (tombol); 480 px bawah kosong (caption platform).
 - Progress bar 6 px primary di y=236, x 80–1000 (neon: titik per bab, `CHAPTERS`).
 - Watermark: logo 52 px + "Muslim Leveling" Reem Kufi 30 px di (80, 262), muncul dtk 2, hilang di end card. Hook 0–2 dtk TANPA logo.
+- **Teks hook 1 kalimat sejak frame 0 (wajib):** hook narasi dipadatkan jadi SATU kalimat layar (≤8 kata, mis. "Dituduh *karangan Nabi*, tapi *1 ayat ini* meruntuhkannya"), tampil PENUH di frame 0 tanpa animasi masuk (terbaca tanpa suara & jadi thumbnail), Reem Kufi ±82 px di y≈420, kata kunci merah/emas; bertahan sepanjang adegan 1 lalu pudar. Tulis kalimatnya di `naskah.md` ("Teks layar sejak frame 0"). Contoh komponen: `HookLine` di `projects/teguran-abasa/film-remotion/src/Video.tsx`.
 - Judul y=450 · label sumber y=600 · objek utama pusat (540,1080) · kerumunan/chip y 1250–1440 · caption karaoke berakhir y≤1400.
 - Kartu dalil 920 px lebar di (540,1030): Arab → terjemahan → "HR. Muslim no. …" / "QS. Ar-Rum: 2–4" (tertiary) → logo kecil + "Muslim Leveling".
 - End card 2,5–3,5 dtk (`END_CARD` di `cues.py`): objek utama mengecil-pudar, logo 460 px di (540,900) tumbuh di titik sama, nama 92 px y=1220, pill "Download sekarang" tertiary y=1360.
@@ -96,7 +97,7 @@ Jalankan dari `~/motion-krisna`. Python selalu `/usr/bin/python3 -I` (lihat Pela
 
 1. **Sudut dulu, bukan naskah.** Dari topik user, riset lalu tawarkan 4–5 sudut (judul kerja · inti · hook · dalil utama) + rekomendasi dan alasannya (manfaat amal untuk penonton, potensi simpan/bagikan). **Tunggu user memilih.** Isu berita: ikuti sikap user (mis. berpihak ke rakyat) tapi kritik KEBIJAKAN, bukan pribadi; tanpa ajakan rusuh.
 2. **Fakta.** Angka harus bersumber (aturan/PMK, tanggal, lembaga). Pernyataan pejabat ≠ aturan resmi → sebut "belum resmi". Kutipan tokoh dicek tahun aslinya.
-3. **Dalil & naskah.** Hanya ayat & hadis shahih/hasan dengan nomor; cek derajat di web (Dorar, Sunnah.com; mis. Abu Dawud 2937 "shahibul maks" = dha'if Albani → dibuang). Hadis yang diperselisihkan sanadnya → tulis siapa yang menshahihkan ("shahih menurut Al-Albani"). Teks Arab → [CEK], minta user cocokkan dengan mushaf/kitab. Panjang `script.txt` **maksimal 170 kata** (termasuk transliterasi ayat); di bawah itu boleh, tapi jangan terlalu pendek. Patokan durasi: 125 kata ≈ 75 dtk take mentah ≈ 59 dtk setelah `tighten.py` (1.15), jadi 170 kata ≈ 80 dtk setelah tighten (+ end card 3 dtk). Wajib ada **value**: ajakan amal konkret (mis. 3 langkah praktis) di akhir. Tulis `projects/<topik>/naskah.md` (tabel adegan, dalil, catatan akurasi, sumber) + `voice/script.txt`, **minta user setujui sebelum TTS**.
+3. **Dalil & naskah.** Hanya ayat & hadis shahih/hasan dengan nomor; cek derajat di web (Dorar, Sunnah.com; mis. Abu Dawud 2937 "shahibul maks" = dha'if Albani → dibuang). Hadis yang diperselisihkan sanadnya → tulis siapa yang menshahihkan ("shahih menurut Al-Albani"). Teks Arab → [CEK], minta user cocokkan dengan mushaf/kitab. Panjang `script.txt` **maksimal 170 kata** (termasuk transliterasi ayat); di bawah itu boleh, tapi jangan terlalu pendek. Patokan durasi: 125 kata ≈ 75 dtk take mentah ≈ 59 dtk setelah `tighten.py` (1.15), jadi 170 kata ≈ 80 dtk setelah tighten (+ end card 3 dtk). Hook ditawarkan dulu (5 pilihan), lalu tiap hook disertai **teks layar 1 kalimat**. Wajib ada **value**: ajakan amal konkret (mis. 3 langkah praktis) di akhir. Tulis `projects/<topik>/naskah.md` (tabel adegan, dalil, catatan akurasi, sumber) + `voice/script.txt`, **minta user setujui sebelum TTS**.
 4. **Siapkan proyek.**
    ```bash
    T=<topik>; mkdir -p projects/$T/voice projects/$T/film
@@ -180,6 +181,7 @@ Jalur lama (`preview.html` + GSAP + `tools/record.mjs`, Chrome headless) masih b
 - [ ] Sinematik: tiap adegan punya lingkungan berlapis (≥5 lapis) yang waktunya/cuacanya mengikuti cerita; klimaks tidak jatuh di crossfade.
 - [ ] Reem Kufi / Readex Pro / Amiri tampil (bukan font cadangan) di contact sheet.
 - [ ] Objek utama (sinematik: motif cerita) muncul & berubah status di tiap bab; berakhir di logo end card.
+- [ ] Frame 0 sudah menampilkan teks hook 1 kalimat utuh (cek still `--frame=0`).
 - [ ] Watermark mulai dtk 2, hook tanpa logo; judul y≥450 tidak tabrakan dengan watermark.
 - [ ] Safe zone: tidak ada teks penting di x≥940 atau y>1440; caption karaoke ≤1400.
 - [ ] Setiap kartu dalil ada nomor HR/QS + label Muslim Leveling; teks Arab terverifikasi atau ditandai [CEK].
