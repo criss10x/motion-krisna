@@ -28,7 +28,8 @@ Ilustrasi boleh turunan: hijau #2d6b51/#3f7a5c, kunyit muda #f6c977, cokelat kay
 ## Sistem layar (1080x1920)
 - Header y=250–306: kiri "VIRAL? CEK DULU · NO. XX", kanan label bab berganti (CHIA SEED / FAKTA / KENAPA? / KUNCINYA / CARA 1/3 … / ATURAN AMAN / VERDICT / REKOMENDASI / FOLLOW), 24 px 800 spasi .2em, garis bawah 2 px hijau 22%.
 - Progress bar 6 px kunyit y=314, x 80–1000, terisi sepanjang video.
-- Judul y 350–640 · ilustrasi y 700–1300 · tracker 3 cara y=1370 (3 pill 290×68, centang kunyit saat selesai, pill aktif berbingkai kunyit) · pill sumber y=1452 (tengah, hijau 8%) · y>1500 kosong.
+- Judul y 350–640 · ilustrasi y 700–1300 · tracker 3 cara y=1370 (3 pill 290×68, centang kunyit saat selesai, pill aktif berbingkai kunyit) · pill sumber y=668 (tepat di bawah judul, tengah, hijau 8%) · **subtitle** y=1448–1512 · y>1515 kosong.
+- **Subtitle WAJIB** (permintaan user 2026-11-06), zona aman sosmed: band y 1448–1512 (di atas caption/username bawah), pusat x=470 dan lebar maks 820 px (menjauhi kolom tombol like/komentar/share di kanan ±160 px), pill hijau 86% + Plus Jakarta Sans 800 40 px, maks 5 kata/28 huruf per potongan, kata yang sudah diucapkan menyala (sisanya 50%). Sudah ada di template (`#sub`, `renderSub`, `const SUBS`); isi dengan `python gen_subs.py` setelah `build_cues.py` (waktu kata proporsional per klip; ejaan ucapan → layar lewat tabel DISPLAY: "hape"→HP, "be-pe-o-em"→BPOM, angka terucap→digit). Panah keranjang di (120,1300), jangan masuk band subtitle.
 - Objek utama di tengah (540, ~1100) skala 1,25–1,35 saat jadi fokus; mengecil 0,4–0,5 ke pinggir saat ilustrasi lain bicara.
 
 ## Latar & tekstur
@@ -58,13 +59,22 @@ Video ≤20 dtk (hook → 1 fakta → 1 aturan → verdict → end card 1,2 dtk)
 - Setelah TTS: trim hening per klip → `t01.wav…`, lalu `build_cues.py` (jeda 0,35 dtk, lead 0,1 dtk → narasi.wav/mp3 + cues.json; kata kunci dari faster-whisper base). Whisper base sering salah dengar → isi KW dengan alias `|` (mis. "lansia|landsia", "worth|urtir", "keranjang|keren"); END = durasi end card. Tempel cues ke `const CUES` di preview.html.
 - SFX sintetis (`mix.py`, 17 dB di bawah narasi): pop, whoosh, tick, thud, ding, stamp, plung, sparkle. Tanpa musik. Loudnorm −14 LUFS, TP −1,5.
 
-## Struktur naskah yang disukai user
+## POLA UTAMA: "Apa yang terjadi kalau rutin X" (pola yang bikin video user viral — default untuk produk affiliate)
+Acuan: `mindset-sehat\chia2\` (51 dtk, 128 kata). Urutan:
+1. Hook (pertanyaan): "Apa yang terjadi kalau kamu [minum/makan X] setiap hari/malam?" Teks layar: "X TIAP HARI?" / "INI YANG TERJADI" (+ kalender HARI 1→30).
+2. Lock-in = cara pakai + janji ke GOAL penonton: "Kalau diminum [kapan/caranya], ini rantai yang bikin [goal] bisa [hasil]." Teks: "[KAPAN] = KUNCINYA".
+3. Tiga efek sebagai RANTAI sebab-akibat yang tiap mata rantainya langsung menjawab "terus apa untungnya buat aku?" menuju goal (chia: kenyang lebih cepat → ngidam manis turun → defisit kalori, berat bisa turun). Efek 1–2 didukung studi (pill "studi kecil" bila kecil), efek 3 = hasil logis yang paling diinginkan penonton.
+4. Caranya (dosis/kapan) + 1 kalimat aman ("minggu pertama…", "tanya dokter").
+5. Verdict "[X] [cara]? Worth it." → CTA affiliate → end card.
+WAJIB: tiap efek nyambung ke goal utama penonton (berat badan, tidur nyenyak, kulit, dll.). Efek yang cuma "fakta" tanpa untung jelas (mis. "gula darah naik lebih pelan", "dapat omega-3") DIBUANG — user menolaknya ("kurang what's in it for me"). Tetap jujur: "bisa", bukan janji; tanpa angka/hasil karangan.
+
+## Pola kedua: mitos → fakta (chia #1, magnesium #1)
 Hook ≤9 kata yang mematahkan mitos + janji ("X nggak bikin kurus. Kecuali kamu lakukan ini.") → fakta/penelitian 1 kalimat → KENAPA dengan logika sederhana (mis. total kalori sehari masuk > keluar) → jembatan ("X bantu …, jadi … lebih gampang. Ini tiga caranya.") → 3 cara praktis (lokal, murah) → aturan aman + "tanya dokter" bila relevan → verdict 4 kata → CTA affiliate (nama produk, 3 fakta dari kemasan, "Cek di keranjang kuning ya"). Durasi ≤80 dtk, ±145 kata.
 
 ## Workflow (terbukti 2026-11-04)
 1. Riset web: angka wajib bersumber; tampilkan sumber di pill y=1452.
 2. Foto produk affiliate dari `Documents\Claude Code\Foto Affiliate\` → salin jadi `produk.png`; klaim hanya yang tertulis di kemasan.
-3. `python -I tts_gemini.py` (Leda) → trim → `python build_cues.py` (edit LINES & KW dulu).
+3. `python -I tts_gemini.py` (Leda) → trim → `python build_cues.py` (edit LINES & KW dulu) → `python gen_subs.py` (subtitle).
 4. preview.html: tempel CUES, ubah adegan; cek `python shots.py t1 t2 …` → `qa/sheet.jpg`, lihat sekali, perbaiki tabrakan.
 5. `python render.py 6` (background) → `python mix.py` → loudnorm → encode `<topik>_9x16_v1.mp4` (crf 18, aac 192k, faststart).
 6. QA: ffprobe + 6 frame MP4 jadi satu sheet.
