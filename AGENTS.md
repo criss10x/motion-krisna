@@ -96,8 +96,8 @@ Langkah lengkapnya ada di `templates/remotion/README.md`. Ringkasnya:
 
 
 1. Riset dan naskah (dalil shahih bernomor) → `naskah.md`
-2. Salin template: `cp -r templates/remotion projects/<topik>/film-remotion`, `cp templates/cues.py templates/gen.py templates/tighten.py projects/<topik>/voice/`. Tulis `voice/script.txt` (versi TTS), atur `VOICE`/`STYLE`/`VOCAB` di `voice/gen.py`, jalankan `/usr/bin/python3 -I voice/gen.py` (2 take), lalu pilih take.
-3. Durasi: kalau take terlalu panjang, pangkas jeda + percepat sekaligus: `/usr/bin/python3 -I voice/tighten.py take1 1.15` → `voice/narasi.wav` + `voice/narasi.json` (lalu `SPEED = 1.0` di `cues.py`). Kalau cukup dipercepat: `ffmpeg -i voice/take2.wav -af atempo=1.12 voice/narasi.wav && cp voice/take2.json voice/narasi.json`.
+2. Salin template: `cp -r templates/remotion projects/<topik>/film-remotion`, `cp templates/cues.py templates/gen.py templates/tighten.py projects/<topik>/voice/`. Tulis `voice/script.txt` (versi TTS; ayat **tanpa** bacaan Arab: "Dalam surat X ayat N, Allah berfirman: <terjemahan>", tulisan Arab hanya visual), atur `VOICE`/`STYLE`/`VOCAB` di `voice/gen.py`, jalankan `/usr/bin/python3 -I voice/gen.py` (2 take), lalu pilih take.
+3. Durasi (default tempo 1.10): pangkas jeda + percepat sekaligus: `/usr/bin/python3 -I voice/tighten.py take1 1.10 0.7` → `voice/narasi.wav` + `voice/narasi.json` (lalu `SPEED = 1.0` di `cues.py`). Kalau cukup dipercepat: `ffmpeg -i voice/take2.wav -af atempo=1.12 voice/narasi.wav && cp voice/take2.json voice/narasi.json`.
 4. Isi `OPENERS` dan `FIX` di `voice/cues.py` (atau `BOUNDS` manual bila adegan dibuka bacaan Arab, yang tidak ikut ditranskrip), lalu `/usr/bin/python3 -I voice/cues.py` → `film-remotion/public/cues.json`
 5. Edit `film-remotion/src/Video.tsx` (adegan dan waktu kata kunci `K`), ganti id komposisi di `src/Root.tsx`
 6. QA: `npx remotion bundle --out-dir=build`, lalu `npx remotion still build <Id> ../shots/fN.jpg --frame=N --gl=swangle --scale=0.5` per frame, gabungkan jadi contact sheet

@@ -12,8 +12,8 @@ cp templates/sinematik/env.tsx projects/<topik>/film-remotion/src/   # hanya var
 cd projects/<topik>
 ```
 
-1. Tulis `voice/script.txt` (ayat dalam transliterasi). Atur `VOICE` (`"Sulafat"` atau `"Sadachbia"`), `STYLE`, `VOCAB` di `voice/gen.py`, lalu `/usr/bin/python3 -I voice/gen.py`.
-2. Pilih take dan atur durasi. Terlalu panjang: `/usr/bin/python3 -I voice/tighten.py take1 1.15` (pangkas jeda + atempo, lalu `SPEED = 1.0` di `cues.py`). Cukup dipercepat: `ffmpeg -i voice/take1.wav -af atempo=1.12 voice/narasi.wav && cp voice/take1.json voice/narasi.json`.
+1. Tulis `voice/script.txt`. Ayat **tidak** dibacakan dalam bahasa Arab: "Dalam surat <Nama> ayat <n>, Allah berfirman: <terjemahan>"; tulisan Arab hanya di layar (sweep seirama terjemahan). Atur `VOICE` (`"Sulafat"` atau `"Sadachbia"`), `STYLE`, `VOCAB` di `voice/gen.py`, lalu `/usr/bin/python3 -I voice/gen.py`.
+2. Pilih take dan atur durasi. Default: `/usr/bin/python3 -I voice/tighten.py take1 1.10 0.7` (pangkas jeda + atempo, lalu `SPEED = 1.0` di `cues.py`). Cukup dipercepat: `ffmpeg -i voice/take1.wav -af atempo=1.12 voice/narasi.wav && cp voice/take1.json voice/narasi.json`.
 3. Isi `OPENERS` dan `FIX` di `voice/cues.py` (atau `BOUNDS`/`EXTRA` bila adegan dibuka bacaan Arab yang tidak ditranskrip), lalu `/usr/bin/python3 -I voice/cues.py` → `film-remotion/public/cues.json`.
 4. Edit `film-remotion/src/Video.tsx`: konstanta `K` (waktu kata kunci dari `cues.json`), `CHAPTERS`, daftar cut di `Leaks`, dan komponen adegan. Ganti id `AlIkhlas` di `src/Root.tsx`.
 5. SFX: tulis `film/timeline.json` (lihat `templates/timeline.example.json`), jalankan `/usr/bin/python3 -I ../../tools/mix.py --project .`, lalu `ffmpeg -y -i film/audio.wav -af loudnorm=I=-14:TP=-1.0:LRA=11 -ar 48000 film-remotion/public/narasi.wav`.

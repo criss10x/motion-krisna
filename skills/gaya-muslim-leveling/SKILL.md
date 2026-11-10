@@ -97,7 +97,7 @@ Jalankan dari `~/motion-krisna`. Python selalu `/usr/bin/python3 -I` (lihat Pela
 
 1. **Sudut dulu, bukan naskah.** Dari topik user, riset lalu tawarkan 4–5 sudut (judul kerja · inti · hook · dalil utama) + rekomendasi dan alasannya (manfaat amal untuk penonton, potensi simpan/bagikan). **Tunggu user memilih.** Isu berita: ikuti sikap user (mis. berpihak ke rakyat) tapi kritik KEBIJAKAN, bukan pribadi; tanpa ajakan rusuh.
 2. **Fakta.** Angka harus bersumber (aturan/PMK, tanggal, lembaga). Pernyataan pejabat ≠ aturan resmi → sebut "belum resmi". Kutipan tokoh dicek tahun aslinya.
-3. **Dalil & naskah.** Hanya ayat & hadis shahih/hasan dengan nomor; cek derajat di web (Dorar, Sunnah.com; mis. Abu Dawud 2937 "shahibul maks" = dha'if Albani → dibuang). Hadis yang diperselisihkan sanadnya → tulis siapa yang menshahihkan ("shahih menurut Al-Albani"). Teks Arab → [CEK], minta user cocokkan dengan mushaf/kitab. Panjang `script.txt` **maksimal 170 kata** (termasuk transliterasi ayat); di bawah itu boleh, tapi jangan terlalu pendek. Patokan durasi: 125 kata ≈ 75 dtk take mentah ≈ 59 dtk setelah `tighten.py` (1.15), jadi 170 kata ≈ 80 dtk setelah tighten (+ end card 3 dtk). Hook ditawarkan dulu (5 pilihan), lalu tiap hook disertai **teks layar 1 kalimat**. Wajib ada **value**: ajakan amal konkret (mis. 3 langkah praktis) di akhir. Tulis `projects/<topik>/naskah.md` (tabel adegan, dalil, catatan akurasi, sumber) + `voice/script.txt`, **minta user setujui sebelum TTS**.
+3. **Dalil & naskah.** Hanya ayat & hadis shahih/hasan dengan nomor; cek derajat di web (Dorar, Sunnah.com; mis. Abu Dawud 2937 "shahibul maks" = dha'if Albani → dibuang). Hadis yang diperselisihkan sanadnya → tulis siapa yang menshahihkan ("shahih menurut Al-Albani"). Teks Arab → [CEK], minta user cocokkan dengan mushaf/kitab. Panjang `script.txt` **maksimal 170 kata** (termasuk transliterasi ayat); di bawah itu boleh, tapi jangan terlalu pendek. Patokan durasi: 125 kata ≈ 75 dtk take mentah ≈ 59 dtk setelah `tighten.py` (1.15), jadi 170 kata ≈ 80 dtk setelah tighten (+ end card 3 dtk). Seri edukasi panjang (mis. "Bukan Karangan Manusia") boleh lebih dari 170 kata bila isinya butuh: patokan terbaru 246 kata ≈ 98,6 dtk setelah `tighten.py 1.10 0.7` dengan gaya bicara cepat (Musa 136, 2026-11-10); ≤90 dtk tetap target umum. Hook ditawarkan dulu (5 pilihan), lalu tiap hook disertai **teks layar 1 kalimat**; hook menyebut "Nabi Muhammad ﷺ"/"Rasulullah ﷺ" (bukan "Ia"), kata kunci KAPITAL, dan memancing penasaran sampai akhir. Wajib ada **value**: ajakan amal konkret (mis. 3 langkah praktis) di akhir. Tulis `projects/<topik>/naskah.md` (tabel adegan, dalil, catatan akurasi, sumber) + `voice/script.txt`, **minta user setujui sebelum TTS**.
 4. **Siapkan proyek.**
    ```bash
    T=<topik>; mkdir -p projects/$T/voice projects/$T/film
@@ -107,7 +107,7 @@ Jalankan dari `~/motion-krisna`. Python selalu `/usr/bin/python3 -I` (lihat Pela
    (cd projects/$T/film-remotion && npm i && npx remotion browser ensure) &
    ```
    Ganti id komposisi `AlIkhlas` di `src/Root.tsx` (import, `id`, `component`) dengan nama topik PascalCase (mis. `AlFatihah`); pakai id itu di semua perintah di bawah.
-5. **Narasi.** `voice/script.txt` = versi TTS: angka ditulis huruf, ejaan bunyi ("onlen", "i-wolet"), ayat ditulis **transliterasi** ("Alhamdulillahi rabbil 'aalamiin"), jeda "…". Di `voice/gen.py` atur `VOICE`, `STYLE` (arah emosi per bagian), `VOCAB` (pendek). Lalu dari `projects/<topik>/`:
+5. **Narasi.** `voice/script.txt` = versi TTS: angka ditulis huruf, ejaan bunyi ("onlen", "i-wolet"), jeda "…". **Ayat TIDAK dibacakan dalam bahasa Arab** (sejak 2026-11-09, lihat "Format ayat tanpa TTS Arab"): tulis "Dalam surat Ali 'Imran ayat seratus empat puluh empat, Allah berfirman: <terjemahan Kemenag>". Proyek lama memakai transliterasi + `splice.py`; jangan dipakai lagi. Di `voice/gen.py` atur `VOICE`, `STYLE` (arah emosi per bagian), `VOCAB` (pendek). Lalu dari `projects/<topik>/`:
    ```bash
    gcloud auth print-access-token >/dev/null && echo TOKEN_OK
    /usr/bin/python3 -I voice/gen.py          # take1 + take2; ulangi satu take: /usr/bin/python3 -I voice/gen.py 2
@@ -117,8 +117,14 @@ Jalankan dari `~/motion-krisna`. Python selalu `/usr/bin/python3 -I` (lihat Pela
    ```bash
    /usr/bin/python3 -I voice/tighten.py take1 1.15     # pangkas jeda >0,32 dtk + atempo -> narasi.wav/.json final
    ```
+   **Default sekarang (permintaan user 2026-11-09): `tighten.py takeN 1.10 0.7`** (atempo 1.10, jeda dipotong maks 0,7 dtk). Kalau dua take masih terlalu panjang, buat take tambahan dengan gaya lebih cepat: salin `gen.py` → `gen_brisk.py`, tambahkan di akhir `STYLE` kalimat "Tempo CEPAT dan rapat seperti narator video pendek yang energik… Baca SEMUA kalimat tanpa ada yang terlewat." lalu `/usr/bin/python3 -I voice/gen_brisk.py 3 4` (Musa 136: take2 104,5 dtk → take3 98,6 dtk).
+   **Verifikasi transkrip** take terpilih (id-ID saja) terhadap naskah, terutama angka, nama, dan nomor ayat:
+   ```bash
+   /usr/bin/python3 -I -c "import sys,subprocess;sys.path.insert(0,'/root/motion-krisna/tools');import vertex;t=subprocess.check_output(['gcloud','auth','print-access-token'],text=True).strip();print(vertex.transcribe('voice/narasi.wav',t,language='id-ID'))" > voice/verify_id.txt
+   ```
+   Kata yang hilang/salah baca (mis. take1 Musa: "Dari dalamnya") = buang take itu.
    lalu `SPEED = 1.0` di `cues.py`. Jangan atempo > 1.2 (terdengar terburu-buru). Kalau cukup dipercepat: `ffmpeg -i voice/take2.wav -af atempo=1.12 voice/narasi.wav && cp voice/take2.json voice/narasi.json` (SPEED = atempo).
-7. **Cues.** Di `voice/cues.py`: `OPENERS` (kata pembuka tiap adegan), `FIX` (ejaan transkrip → naskah, mis. "salat"→"shalat", "hambaku"→"hamba-Ku"). Bacaan Arab **tidak ikut ditranskrip** (muncul sebagai celah 2–4 dtk): ambil awal/akhirnya dengan `ffmpeg -i voice/narasi.wav -af silencedetect=n=-38dB:d=0.18 -f null - 2>&1 | grep silence_`, isi `BOUNDS` manual bila adegan dibuka ayat, dan taruh rentang ayat di `EXTRA` (mis. `{"ayat": [{"s":..,"e":..,"ar":..,"lat":..,"no":..}]}`). Lalu `/usr/bin/python3 -I voice/cues.py` → `film-remotion/public/cues.json`.
+7. **Cues.** Di `voice/cues.py`: `OPENERS` (kata pembuka tiap adegan), `FIX` (ejaan transkrip → naskah, mis. "salat"→"shalat", "hambaku"→"hamba-Ku"). (Proyek lama dengan TTS Arab:) bacaan Arab **tidak ikut ditranskrip** (muncul sebagai celah 2–4 dtk): ambil awal/akhirnya dengan `ffmpeg -i voice/narasi.wav -af silencedetect=n=-38dB:d=0.18 -f null - 2>&1 | grep silence_`, isi `BOUNDS` manual bila adegan dibuka ayat, dan taruh rentang ayat di `EXTRA` (mis. `{"ayat": [{"s":..,"e":..,"ar":..,"lat":..,"no":..}]}`). Format baru tanpa TTS Arab tidak punya celah: waktu sweep Arab = waktu kata terjemahan di `cues.json`. Lalu `/usr/bin/python3 -I voice/cues.py` → `film-remotion/public/cues.json`.
 8. **Adegan.** Edit `film-remotion/src/Video.tsx`: `C` (palet varian), `K` (waktu kata kunci dari `cues.json`), `CHAPTERS`, `CUTS` untuk `Leaks`, `END = S[n].start`, komponen adegan. Bagian berulang dengan layout sama (mis. dialog ayat ↔ jawaban) → **satu lapisan kontinu** di luar daftar adegan (objek utama tidak berkedip antar-adegan; isi kartu berganti per rentang waktu). Teks Arab muncul per kata dibagi rata di rentang bacaannya. Cek tipe: `npx tsc --noEmit`.
 9. **QA frame (contact sheet).** Bundle sekali, lalu still cepat; lihat sheet, perbaiki, ulangi sampai bersih (Al-Fatihah: 3 putaran).
    ```bash
@@ -133,6 +139,7 @@ Jalankan dari `~/motion-krisna`. Python selalu `/usr/bin/python3 -I` (lihat Pela
     /usr/bin/python3 -I ../../tools/mix.py --project .
     ffmpeg -y -i film/audio.wav -af loudnorm=I=-14:TP=-1.0:LRA=11 -ar 48000 film-remotion/public/narasi.wav
     ```
+    Musik merendah (ketukan berhenti) saat ayat tampil: `"bed": {"drops": [[27.4, 38.0], [67.6, 76.2]]}` (beberapa rentang; `dropFrom`/`dropTo` lama tetap jalan) + `riser`/`whoosh` tiap kali tulisan Arab masuk. Loudnorm **dua-pass** (ukur dulu dengan `print_format=json`, lalu `measured_*` + `linear=true`) supaya tepat −14,0 LUFS.
     Pola SFX yang terbukti: `clink` dengan pitch naik bertahap di tiap "jawaban/poin", `riser`→`impact`+`powerup` di klimaks, `pop` per kartu, `whoosh` di tiap cut, `room` tipis di bagian dalil.
 11. **Render (tmux).**
     ```bash
@@ -142,11 +149,32 @@ Jalankan dari `~/motion-krisna`. Python selalu `/usr/bin/python3 -I` (lihat Pela
     ```
     Bundle ulang dulu bila `Video.tsx`/`public/` berubah setelah QA.
 12. **Versi HP (<30 MB).** `ffmpeg -i <topik>_9x16_v1.mp4 -c:v libx264 -crf 25 -preset slow -pix_fmt yuv420p -c:a copy -movflags +faststart <topik>_9x16_v1-hp.mp4` (Al-Fatihah: 30 MB → 14 MB). Ambil 4–5 frame dari MP4 final sebagai cek terakhir.
-13. **Caption & kirim.** `caption.md` 3 platform (contoh `templates/caption.example.md`), kirim MP4 versi HP + caption (SendUserFile, atau user ambil lewat Claude desktop app / `scp ml-vps:~/motion-krisna/projects/<topik>/*.mp4 .`). Ingatkan user menonton & mendengar sekali (fasih tidaknya bacaan ayat TTS tidak bisa dicek dari frame) dan mencocokkan teks Arab [CEK].
+13. **Caption & kirim.** `caption.md` 3 platform (contoh `templates/caption.example.md`), kirim MP4 versi HP + caption (SendUserFile, atau user ambil lewat Claude desktop app / `scp ml-vps:~/motion-krisna/projects/<topik>/*.mp4 .`). Sebelum kirim, ekstrak frame 0 dari versi HP (`ffmpeg -v error -y -i <hp.mp4> -frames:v 1 -vf scale=540:-1 f0.jpg`) dan lihat contact sheet; laporkan jujur apa yang belum dicek (mis. gerakan/transisi hanya dari still). Ingatkan user menonton & mendengar sekali dan mencocokkan teks Arab [CEK].
+14. **Jadwalkan (setelah user setuju).** Slot user: 04.00, 11.00, 18.00, 20.00 WIB. Dry-run dulu, lalu:
+    ```bash
+    /usr/bin/python3 -I tools/repliz.py video   projects/<topik> --jam 2026-11-12T20:00:00+07:00 --kirim   # TikTok, IG, YouTube, FB
+    /usr/bin/python3 -I tools/repliz.py threads projects/<topik> --jam 2026-11-12T20:00:00+07:00 --kirim   # Threads teks
+    ```
+    Simpan scheduleId di catatan. Ganti versi = `repliz.py hapus <id>` untuk keempat jadwal lama, lalu kirim ulang. `repliz.py jadwal` hanya halaman 1 (100 item); halaman berikutnya: `repliz.call('GET','/schedule?page=2&limit=100')`.
 
 Yang di-commit hanya perubahan workflow (tools, templates, skill, panduan). Folder proyek, MP4, `node_modules/`, `voice/take*`, `shots/`, `build/`, `public/narasi.wav` tidak di-commit.
 
 Jalur lama (`preview.html` + GSAP + `tools/record.mjs`, Chrome headless) masih bisa untuk membuka proyek lama di `projects/`: `node tools/record.mjs --project projects/<topik> --page preview.html` lalu mux dengan audio. Proyek baru pakai Remotion.
+
+## Format ayat tanpa TTS Arab (default sejak 2026-11-09)
+Bacaan Arab TTS sering kurang fasih dan butuh splice + verifikasi ar-SA. Sekarang:
+- **Narator:** "Dalam surat <Nama> ayat <n>, Allah berfirman: <terjemahan Kemenag>" (angka ditulis huruf di `script.txt`). Hadis: "Rasulullah ﷺ bersabda: …".
+- **Layar:** teks Arab tetap tampil (Amiri, emas) dengan **sweep kanan→kiri yang seirama terjemahan** (bagian Arab dipetakan ke rentang kata terjemahan di `cues.json`), pill "QS. <Surat>: <ayat>", chip kata kunci (kata Arab + arti), musik `drops` + `riser` saat Arab muncul.
+- Terjemahan diambil dari `https://quranenc.com/api/v1/translation/aya/indonesian_affairs/<surat>/<ayat>` (Kemenag); boleh diringkas di narasi, tulis apa adanya di `naskah.md`.
+
+## Seri "Bukan Karangan Manusia" (Mukjizat Al-Qur'an, 2026-11)
+- Inti tiap episode: satu keistimewaan Al-Qur'an yang sulit dikarang oleh Nabi ﷺ yang ummi. Selalu ditutup refrein tetap **"Ia tak bisa membaca dan menulis… lalu siapa yang mengajarinya?"** (QS. Al-'Ankabut 48) + jawaban **QS. An-Najm 3–4**. Label layar "SERI: BUKAN KARANGAN MANUSIA · <n>".
+- **Jujur lebih dulu:** sebut terang bila orang zaman itu sudah tahu sebagian (mis. orang Arab tahu awan membawa air), pakai pill "keselarasan, bukan bukti" / "tafsir klasik selaras · sains menambah rinciannya". Tanpa klaim sains berisiko, hadis lemah, atau isra'iliyyat.
+- **Hitungan kata Al-Qur'an** dihitung sendiri dari teks Tanzil simple-clean (format `surat|ayat|teks`, 6.236 ayat) dengan regex, lalu tulis daftar ayatnya di `naskah.md`. Contoh hasil: Musa 136 kali (131 ayat, 34 surat), Muhammad 4 (3:144, 33:40, 47:2, 48:29) + Ahmad 1 (61:6), «يا محمد» 0, «يا أيها النبي» 13. Bedakan "kemunculan di teks" dan "firman yang ditujukan kepada", dan beri catatan layar kecil bila angka bisa menyesatkan.
+- Bahasa awam: tanpa istilah teknis/tata bahasa Arab ("ambing" → "kantong susu").
+
+## Visual dari data asli (pola Musa 136)
+Untuk topik angka/hitungan, jadikan datanya visual utama: ekspor data ke `film-remotion/public/<data>.json` lalu gambar dalam **satu `<svg>`** (ribuan titik sebagai `<circle>`, bukan ribuan `<div>`). Musa 136: 6.236 ayat = titik bintang, 114 gugus surat berurutan; ayat Musa menyala emas beruntun mengikuti narasi, 4 ayat Muhammad putih-hijau berdenyut. Lalu: balapan batang berpenghitung (penghitung harus sampai angka akhir **sebelum** narator menyebutnya), kartu ayat dari bintang, label panggilan "يَا مُوسَىٰ … يَا مُحَمَّد = 0 KALI", hujan kata قُلْ. Font judul merender "×" jelek: tulis "KALI".
 
 ## Pelajaran teknis (Remotion di VPS)
 - **Python:** `python3` di PATH bisa menunjuk ke venv lain tanpa numpy → `ModuleNotFoundError: numpy`. Selalu `/usr/bin/python3 -I` (numpy dari `python3-numpy`).
@@ -155,7 +183,9 @@ Jalur lama (`preview.html` + GSAP + `tools/record.mjs`, Chrome headless) masih b
 - **Teks Arab selalu emas** (`C.gold`), kata yang sedang dibaca `#FFE7A3` + glow; transliterasi kecil (muted) di bawahnya.
 - **Karaoke caption vs kartu:** sembunyikan `Captions` saat kartu di layar sudah menampilkan kalimat yang sama (hindari dobel teks & tabrakan di y 1300–1400).
 - **Judul 3 baris** menabrak objek di y≈800: pakai `size={80}` atau pindahkan objek ke bawah.
-- **Loudness:** `mix.py` keluar ≈ −15 LUFS; loudnorm satu-pass memberi ≈ −14,7 LUFS (cukup).
+- **Loudness:** `mix.py` keluar ≈ −15 LUFS; loudnorm satu-pass memberi ≈ −14,7 LUFS; dua-pass tepat −14,0 (dipakai sejak seri Bukan Karangan Manusia).
+- **`env.mix` hanya untuk hex:** memanggilnya dengan string `rgb(...)`/`rgba(...)` menghasilkan warna rusak; pakai fungsi mix hex lokal.
+- **Batas pemakaian API (429) di tengah fork:** pekerjaan fork tersimpan; setelah reset, lanjutkan fork yang sama dengan SendMessage (jangan buat fork baru).
 - **Klimaks jangan jatuh di batas adegan:** kalau kata kunci klimaks (mis. "Badar") ada < 1 dtk sebelum akhir adegan, stempel/ledakan tertelan crossfade. Geser batas adegan dengan `BOUNDS` manual di `cues.py` (Abu Lahab: adegan 5 diperpanjang ke 44,1 dtk) dan tampilkan teks adegan berikut mulai `S[n].start`, bukan dari kata pertamanya.
 - **Time-lapse siang-malam:** maksimal ±6 siklus dan amplitudo terang 0,8, supaya tidak berkedip seperti strobo.
 - **Stempel di kartu:** taruh menggantung di pojok kanan atas (`right: -70, top: -52`) supaya tidak menutup teks; matahari/bulan jangan di belakang judul (taruh dekat horizon).

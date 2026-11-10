@@ -11,6 +11,8 @@ TEXT = open(os.path.join(HERE, "script.txt"), encoding="utf-8").read().strip()
 VOICE = "Sadachbia"  # pria (klasik); "Sulafat" = perempuan lembut (neon)
 # istilah/nama yang sering salah dengar di transkrip, mis. ["Bukhari", "Ar-Rum"]; jaga tetap pendek (tiap entri membiaskan transkrip)
 VOCAB = []
+# Take terlalu panjang? Salin jadi gen_brisk.py dan tambahkan di akhir STYLE:
+#   "Tempo CEPAT dan rapat seperti narator video pendek yang energik: jeda antar kalimat sesingkat mungkin. Baca SEMUA kalimat tanpa ada yang terlewat."
 STYLE = ("Pria Indonesia, suara dalam dan tegas seperti pengkhotbah muda yang membela rakyat. "
          "Tempo sedang-cepat di awal, melambat dan khidmat saat membaca hadis dan doa Nabi, "
          "lalu menguat penuh harap di akhir. Jeda singkat di setiap tanda elipsis.")
