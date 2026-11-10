@@ -6,9 +6,9 @@ from pathlib import Path
 import numpy as np
 
 # Synthesized sound design + music bed + narration, mixed to -14 LUFS / -1.5 dBTP (Reels/TikTok loudness).
-#   python3 -I mix.py --project DIR   -> DIR/film/audio.wav and DIR/film/audio-nomusic.wav
+#   /usr/bin/python3 -I mix.py --project DIR   -> DIR/film/audio.wav and DIR/film/audio-nomusic.wav
 # Reads DIR/film/timeline.json: "narration" {file, at}, "sfx" [{t, kind, gain, until?, pitch?}],
-# optional "bed" {pad, groove, arp, bright, duck, fadeIn, from, to, dropFrom, dropTo, bpm}. Every sound is numpy-made, so nothing
+# optional "bed" {pad, groove, arp, bright, duck, fadeIn, from, to, dropFrom, dropTo, drops, bpm}. Every sound is numpy-made, so nothing
 # needs a licence. Kinds: klik press snap relay whoosh hum buzz boil riser impact arc room powerdown powerup jeglek zap drop
 # hiss (steam release, dur) rattle (a pressure weight chattering on its vent, dur, rate) thunk (a metal lid seating)
 # engine (a scooter following a revs curve: "curve" [[t, rpm, throttle, km/h, level], ...] and "until") blub (air gulping
@@ -609,7 +609,7 @@ def engine(ev):
     return out * level * env(n, 0.04, 0.25)
 
 
-def groove(start, stop, drop_from, drop_to, bpm=96):
+def groove(start, stop, drops, bpm=96):
     out = np.zeros(N)
     step = 60 / bpm
     kick_n = int(0.22 * SR)
@@ -620,7 +620,7 @@ def groove(start, stop, drop_from, drop_to, bpm=96):
     t = start
     i = 0
     while t < stop:
-        if not (drop_from <= t < drop_to):
+        if not any(a <= t < b for a, b in drops):
             if i % 2 == 0:
                 place(out, kick, t, 0.55)
             place(out, hat, t + step / 2, 0.5)
@@ -722,19 +722,21 @@ for ev in T["sfx"]:
 voice_env = np.convolve(np.abs(voice), np.ones(int(0.12 * SR)) / int(0.12 * SR), mode="same")
 beds = T["beats"]
 B = {"pad": 0.38, "groove": 0.32, "arp": 0.0, "bright": 0.0, "duck": 0.5, "fadeIn": 1.5, "from": beds[min(2, len(beds) - 1)]["at"], "to": T["duration"] - 0.6, "dropFrom": -1, "dropTo": -1, "bpm": 96, **T.get("bed", {})}
+# "drops": [[from, to], ...] = several beat-free stretches (e.g. two recitations); "dropFrom"/"dropTo" = one stretch
+DROPS = B.get("drops") or ([[B["dropFrom"], B["dropTo"]]] if B["dropFrom"] >= 0 else [])
 duck = 1 - B["duck"] * np.clip(voice_env / (np.percentile(voice_env[voice_env > 1e-4], 60) + 1e-9), 0, 1)
-bed = pad() * B["pad"] + groove(B["from"], B["to"], B["dropFrom"], B["dropTo"], B["bpm"]) * B["groove"]
+bed = pad() * B["pad"] + groove(B["from"], B["to"], DROPS, B["bpm"]) * B["groove"]
 if B["arp"]:
     arps = arp(B["from"], B["to"], B["bpm"])
-    if B["dropFrom"] >= 0:
-        t_axis = np.arange(N) / SR
-        arps *= 1 - ((t_axis >= B["dropFrom"]) & (t_axis < B["dropTo"]))
+    t_axis = np.arange(N) / SR
+    for a, b in DROPS:
+        arps *= 1 - ((t_axis >= a) & (t_axis < b))
     bed = bed + arps * B["arp"]
 if B["bright"]:
     lift = bright(B["from"], B["to"], B["bpm"])
-    if B["dropFrom"] >= 0:
-        t_axis = np.arange(N) / SR
-        lift *= 1 - ((t_axis >= B["dropFrom"]) & (t_axis < B["dropTo"]))
+    t_axis = np.arange(N) / SR
+    for a, b in DROPS:
+        lift *= 1 - ((t_axis >= a) & (t_axis < b))
     bed = bed + lift * B["bright"]
 bed *= duck
 bed *= np.clip(np.arange(N) / SR / max(B["fadeIn"], 1e-3), 0, 1) * np.clip((T["duration"] + 0.3 - np.arange(N) / SR) / 1.2, 0, 1)

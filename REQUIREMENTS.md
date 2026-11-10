@@ -1,5 +1,7 @@
 # Requirements: semua yang dibutuhkan untuk membuat 1 video
 
+Panduan VPS lengkap (Claude desktop app via SSH, Google Cloud, workflow Remotion) ada di [AGENTS.md](AGENTS.md).
+
 Workflow `gaya-muslim-leveling` berjalan di Linux. Di Windows pakai WSL Ubuntu, di VPS pakai Ubuntu 24.04. Yang sudah diuji: WSL Ubuntu 24.04, i5-12400F, 1 November 2026.
 
 ## 1. Software
@@ -11,10 +13,12 @@ Workflow `gaya-muslim-leveling` berjalan di Linux. Di Windows pakai WSL Ubuntu, 
 | Python | 3.12 (≥ 3.10) + **numpy** 1.26 | `tools/vertex.py` (TTS + transkrip), `tools/mix.py` (SFX sintetis + mix) |
 | ffmpeg | 6.1 dengan libx264 | encode video, atempo narasi, versi HP, cek loudness |
 | Google Chrome | 156 | render frame headless (tanpa GPU) |
+| Remotion | 4.0.539 (per proyek, `npm i` di `film-remotion/`) | render proyek bergaya neon (template `templates/remotion/`); di VPS pakai `--gl=swangle` |
+| tmux | – | render panjang tetap jalan saat SSH putus |
 | Google Cloud CLI (`gcloud`) | 590 | token untuk Vertex AI (Gemini TTS + transkripsi) |
 | Internet | – | Google Fonts (Reem Kufi, Readex Pro, Amiri) dan GSAP 3.12.5 dari cdnjs dimuat saat render |
 
-Catatan numpy: semua skrip dijalankan dengan `python3 -I`, yang mengabaikan site-packages milik user. Jadi numpy harus terpasang untuk interpreter sistem (`apt install python3-numpy`). Cara lain: pakai venv lalu aktifkan sebelum menjalankan skrip. `pip install --user` tidak akan terbaca.
+Catatan numpy: semua skrip dijalankan dengan `/usr/bin/python3 -I`, yang mengabaikan site-packages milik user. Jadi numpy harus terpasang untuk interpreter sistem (`apt install python3-numpy`). Pakai path lengkap `/usr/bin/python3`, jangan `python3` saja: di VPS, `python3` di PATH bisa menunjuk ke venv lain (mis. milik agent) yang tidak punya numpy (`ModuleNotFoundError: numpy`). `pip install --user` tidak akan terbaca.
 
 ## 2. Akun & layanan
 
@@ -32,7 +36,7 @@ gcloud services enable aiplatform.googleapis.com
 | Path | Peran |
 |---|---|
 | `skills/gaya-muslim-leveling/` | skill gaya + workflow 12 langkah (salin ke `~/.claude/skills/`) |
-| `tools/vertex.py`, `tools/record.mjs`, `tools/mix.py` | skrip TTS, render, dan mix (dari anatomy-studio, MIT, lihat `tools/LICENSE-anatomy-studio`). Di SKILL.md folder ini disebut `gorengan/tools`. |
+| `tools/vertex.py`, `tools/record.mjs`, `tools/mix.py` | skrip TTS, render, dan mix (dari anatomy-studio, MIT, lihat `tools/LICENSE-anatomy-studio`). |
 | `templates/` | titik awal: `preview.html`, `gen.py`, contoh timeline SFX & caption, logo |
 | `projects/<topik>/` | proyek jadi: naskah, caption, `preview.html`, `voice/` (script, gen.py, narasi.wav, narasi.json), `film/timeline.json`, MP4 versi HP |
 
@@ -94,7 +98,7 @@ echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 ## 6. Cek cepat setelah pasang
 
 ```bash
-node --version && python3 -I -c "import numpy; print('numpy', numpy.__version__)" && ffmpeg -version | head -1 && google-chrome --version && gcloud auth print-access-token >/dev/null && echo OK
+node --version && /usr/bin/python3 -I -c "import numpy; print('numpy', numpy.__version__)" && ffmpeg -version | head -1 && google-chrome --version && gcloud auth print-access-token >/dev/null && echo OK
 ```
 
 Uji render tanpa TTS (memakai narasi yang sudah ada):

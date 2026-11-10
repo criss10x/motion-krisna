@@ -7,6 +7,7 @@ import base64
 import json
 import os
 import re
+import shutil
 import subprocess
 import urllib.error
 import urllib.request
@@ -16,7 +17,7 @@ def _project():
     found = os.environ.get("VERTEX_PROJECT")
     if not found:
         try:
-            found = subprocess.run(["gcloud", "config", "get-value", "project"], capture_output=True, text=True).stdout.strip()
+            found = subprocess.run([shutil.which("gcloud") or "gcloud", "config", "get-value", "project"], capture_output=True, text=True).stdout.strip()
         except FileNotFoundError:
             found = ""
     if not found or found == "(unset)":
@@ -33,7 +34,7 @@ TRANSCRIBE_MODEL = os.environ.get("TRANSCRIBE_MODEL", "gemini-3.5-transcribe-pre
 
 
 def token():
-    return subprocess.run(["gcloud", "auth", "print-access-token"], capture_output=True, text=True, check=True).stdout.strip()
+    return subprocess.run([shutil.which("gcloud") or "gcloud", "auth", "print-access-token"], capture_output=True, text=True, check=True).stdout.strip()
 
 
 def call(model, body, bearer, timeout=300):
