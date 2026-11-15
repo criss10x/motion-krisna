@@ -8,8 +8,8 @@ import numpy as np
 # Synthesized sound design + music bed + narration, mixed to -14 LUFS / -1.5 dBTP (Reels/TikTok loudness).
 #   /usr/bin/python3 -I mix.py --project DIR   -> DIR/film/audio.wav and DIR/film/audio-nomusic.wav
 # Reads DIR/film/timeline.json: "narration" {file, at}, "sfx" [{t, kind, gain, until?, pitch?}],
-# optional "bed" {pad, groove, arp, bright, duck, fadeIn, from, to, dropFrom, dropTo, drops, bpm}. Every sound is numpy-made, so nothing
-# needs a licence. Kinds: klik press snap relay whoosh hum buzz boil riser impact arc room powerdown powerup jeglek zap drop
+# optional "bed" {pad, groove, arp, bright, duck, fadeIn, from, to, dropFrom, dropTo, drops, bpm, chords}. Every sound is numpy-made, so nothing
+# needs a licence. Kinds: bees (a honeybee swarm, until, n, pitch) klik press snap relay whoosh hum buzz boil riser impact arc room powerdown powerup jeglek zap drop
 # hiss (steam release, dur) rattle (a pressure weight chattering on its vent, dur, rate) thunk (a metal lid seating)
 # engine (a scooter following a revs curve: "curve" [[t, rpm, throttle, km/h, level], ...] and "until") blub (air gulping
 # into a galon: size, pitch, bass 0-1 for a rounder, heavier gulp) plip (a bubble breaking the surface) pour (water into
@@ -349,6 +349,22 @@ def rattle(dur=1.2, rate=8.0):
     return out * env(n, 0.05, 0.2) + hiss(dur) * 0.35
 
 
+def bees(dur, n=5, pitch=1.0):
+    """A small swarm of honeybees: n detuned wing buzzes (~200-260 Hz sawtooth, wobbling pitch) drifting past."""
+    m = int(dur * SR)
+    t = np.arange(m) / SR
+    out = np.zeros(m)
+    for k in range(n):
+        f0 = pitch * (195 + 65 * rng.random())
+        f = f0 * (1 + 0.035 * np.sin(2 * np.pi * (2.5 + 4 * rng.random()) * t + 6.28 * rng.random()))
+        ph = 2 * np.pi * np.cumsum(f) / SR
+        saw = sum(np.sin(h * ph) / h for h in range(1, 8))
+        out += saw * (0.35 + 0.65 * np.clip(np.sin(2 * np.pi * (0.15 + 0.35 * rng.random()) * t + 6.28 * rng.random()), 0, 1) ** 1.5)
+    out = lowpass(out, 3200) - lowpass(out, 160)
+    out /= np.max(np.abs(out)) + 1e-9
+    return out * env(m, 0.6, 0.6)
+
+
 def blub(size=1.0, pitch=1.0, bass=0.0):
     """Air gulping into an upside-down bottle (a galon on a dispenser): a hollow, damped "bloop" that glides up as the
     bubble leaves the neck (a Minnaert-style ring, about 190 Hz for a 30 mL bubble), a soft knock from the water column
@@ -609,6 +625,10 @@ def engine(ev):
     return out * level * env(n, 0.04, 0.25)
 
 
+# Pad/arp/bright chord voicings (Hz), one chord per 4 s. Override with "bed": {"chords": [[...], ...]} for a different tune.
+CHORDS = T.get("bed", {}).get("chords") or [[110.0, 164.81, 220.0, 277.18], [98.0, 146.83, 196.0, 246.94], [87.31, 130.81, 174.61, 220.0], [98.0, 146.83, 196.0, 246.94]]
+
+
 def groove(start, stop, drops, bpm=96):
     out = np.zeros(N)
     step = 60 / bpm
@@ -633,7 +653,7 @@ def arp(start, stop, bpm=96):
     """A plucked eighth-note arpeggio over the pad's chords: it keeps the bed audible on phone speakers."""
     out = np.zeros(N)
     step = 60 / bpm / 2
-    chords = [[110.0, 164.81, 220.0, 277.18], [98.0, 146.83, 196.0, 246.94], [87.31, 130.81, 174.61, 220.0], [98.0, 146.83, 196.0, 246.94]]
+    chords = CHORDS
     pattern = [0, 2, 1, 3, 2, 1, 3, 2]
     n = int(0.3 * SR)
     tt = np.arange(n) / SR
@@ -652,7 +672,7 @@ def bright(start, stop, bpm=96):
     syncopated sixteenth pattern (one bar), and a soft shaker on the sixteenths, accented off the beat."""
     out = np.zeros(N)
     step = 60 / bpm / 4
-    chords = [[110.0, 164.81, 220.0, 277.18], [98.0, 146.83, 196.0, 246.94], [87.31, 130.81, 174.61, 220.0], [98.0, 146.83, 196.0, 246.94]]
+    chords = CHORDS
     pattern = {0: 2, 3: 3, 6: 1, 8: 2, 10: 3, 13: 1, 14: 2}
     n = int(0.4 * SR)
     tt = np.arange(n) / SR
@@ -674,10 +694,10 @@ def bright(start, stop, bpm=96):
 
 def pad():
     t = np.arange(N) / SR
-    chords = [[110.0, 164.81, 220.0, 277.18], [98.0, 146.83, 196.0, 246.94], [87.31, 130.81, 174.61, 220.0], [98.0, 146.83, 196.0, 246.94]]
+    chords = CHORDS
     bar = 4.0
     out = np.zeros(N)
-    for i, chord in enumerate(chords * 4):
+    for i, chord in enumerate(chords * (int(T["duration"] // (bar * len(chords))) + 2)):
         start = i * bar
         if start > T["duration"]:
             break
@@ -707,6 +727,7 @@ MAKERS = {
     "engine": engine,
     "beep": lambda ev: beep(ev.get("count", 3), ev.get("on", 0.07), ev.get("gap", 0.1), ev.get("freq", 2730.0)),
     "key": lambda ev: key(), "clack": lambda ev: clack(),
+    "bees": lambda ev: bees(ev["until"] - ev["t"], ev.get("n", 5), ev.get("pitch", 1.0)),
     "blub": lambda ev: blub(ev.get("size", 1.0), ev.get("pitch", 1.0), ev.get("bass", 0.0)), "plip": lambda ev: plip(ev.get("pitch", 1.0)),
     "pour": lambda ev: pour(ev["until"] - ev["t"], ev.get("start", 0.0), ev.get("end", 0.75), ev.get("height", 0.1)),
     "sizzle": lambda ev: sizzle(ev.get("dur", 2.0)), "scrape": lambda ev: scrape(ev.get("dur", 0.45)), "slide": lambda ev: slide(ev.get("dur", 0.5)),

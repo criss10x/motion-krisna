@@ -8,10 +8,12 @@ Tidak ada upload atau jadwal yang dibuat kecuali ditambah --kirim.
   /usr/bin/python3 -I tools/repliz.py jadwal
   /usr/bin/python3 -I tools/repliz.py video   projects/<topik> [--jam 2026-11-06T19:00+07:00|sekarang] [--kecuali instagram,...] [--kirim]
   /usr/bin/python3 -I tools/repliz.py threads projects/<topik> [--jam ...] [--kirim]
+  /usr/bin/python3 -I tools/repliz.py video-en projects/<topik> [--jam 2026-11-16T03:00+07:00] [--kirim]   (versi Inggris, YouTube saja)
   /usr/bin/python3 -I tools/repliz.py hapus <scheduleId>
 
 Sumber konten per proyek:
   video   -> <topik>_9x16_v1-hp.mp4 + caption.md (## TikTok / ## Instagram Reels / ## YouTube Shorts)
+  video-en -> en/*_9x16_v*-hp.mp4 + en/caption-en.md (**Title**, **Description:**, **Tags:**) -> YouTube @muslim.levelingup
   threads -> threads.txt (teks saja; post utama + balasan dipisah baris '---', tiap bagian maks 500 karakter)
 Kredensial: .env di root repo (tidak di-commit): REPLIZ_KEY=..., REPLIZ_SECRET=...
 """
@@ -25,6 +27,7 @@ API = "https://api.repliz.com/public"
 VIDEO_TARGETS = {"tiktok": "muslim.leveling", "instagram": "muslim.leveling", "youtube": "@muslim.levelingidn",
                  "facebook": "Muslim Leveling"}
 TEXT_TARGETS = {"threads": "krisnasuryana"}
+EN_TARGETS = {"youtube": "@muslim.levelingup"}  # akun Muslim Leveling berbahasa Inggris: hanya YouTube
 THREADS_MAX = 500
 HASHTAG_MAX = 5  # permintaan user: maks 5 hashtag per posting di semua channel
 
@@ -205,6 +208,35 @@ def cmd_video(proj, args):
         send(label, p) if kirim else show(label, p)
 
 
+def cmd_video_en(proj, args):
+    """Versi Inggris: en/*_9x16_v*-hp.mp4 + en/caption-en.md, hanya ke YouTube EN_TARGETS."""
+    kirim = "--kirim" in args
+    mp4 = sorted(glob.glob(os.path.join(proj, "en", "*_9x16_v*-hp.mp4")))
+    if not mp4:
+        sys.exit("Tidak ada en/*_9x16_v*-hp.mp4 di " + proj)
+    mp4 = mp4[-1]
+    md = open(os.path.join(proj, "en", "caption-en.md"), encoding="utf-8").read()
+    m_t = re.search(r"\*\*Title[^*]*\*\*\s*\n(.+)", md)
+    m_d = re.search(r"\*\*Description:?\*\*\s*\n(.*?)(?=\n\*\*Tags|\Z)", md, re.S)
+    m_g = re.search(r"\*\*Tags:?\*\*\s*(.+)", md)
+    title = m_t.group(1).strip() if m_t else ""
+    desc = m_d.group(1).strip() if m_d else ""
+    tags = [x.strip() for x in m_g.group(1).split(",")] if m_g else []
+    if not title or len(title) > 100 or not desc:
+        sys.exit(f"caption-en.md: judul kosong/>100 karakter atau deskripsi kosong: {title!r}")
+    when = when_arg(args)
+    tgt = pick(accounts(), EN_TARGETS)
+    if "youtube" not in tgt:
+        sys.exit("Akun YouTube EN tidak terhubung")
+    print(f"Video : {mp4} ({os.path.getsize(mp4)/1e6:.1f} MB)\nJadwal: {when}\nMode  : {'KIRIM' if kirim else 'SIMULASI (tidak ada yang dikirim)'}")
+    url = upload(mp4) if kirim else "<URL Repliz Storage setelah upload>"
+    media = [{"alt": "", "customThumbnail": False, "type": "video", "thumbnail": "", "url": url}]
+    label = "YouTube " + tgt["youtube"]["username"]
+    p = payload(tgt["youtube"], "video", desc, when, title=title, medias=media, tags=tags)
+    check_tags(label, title, desc)
+    send(label, p) if kirim else show(label, p)
+
+
 def cmd_threads(proj, args):
     """threads.txt: post utama + balasan (thread), dipisah baris '---'. Tiap bagian maks 500 karakter."""
     kirim = "--kirim" in args
@@ -233,7 +265,8 @@ def main():
     if c == "akun":
         for x in accounts():
             ids = (x["username"], x["name"])
-            used = (VIDEO_TARGETS.get(x["type"]) in ids and "video") or (TEXT_TARGETS.get(x["type"]) in ids and "teks") or "-"
+            used = (VIDEO_TARGETS.get(x["type"]) in ids and "video") or (TEXT_TARGETS.get(x["type"]) in ids and "teks") \
+                or (EN_TARGETS.get(x["type"]) in ids and "video-en") or "-"
             print(f"{x['_id']}  {x['type']:<9} {x['username']:<22} {x['name']:<22} dipakai: {used}")
     elif c == "jadwal":
         st, d = call("GET", "/schedule?page=1&limit=100")
@@ -242,6 +275,8 @@ def main():
         print(f"HTTP {st}, total {d.get('totalDocs') if isinstance(d, dict) else d}")
     elif c == "video":
         cmd_video(a[1], a[2:])
+    elif c == "video-en":
+        cmd_video_en(a[1], a[2:])
     elif c == "threads":
         cmd_threads(a[1], a[2:])
     elif c == "hapus":

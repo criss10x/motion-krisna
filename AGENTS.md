@@ -59,7 +59,7 @@ git clone https://github.com/criss10x/motion-krisna && cd motion-krisna && bash 
 | Claude Code | terbaru | agent |
 | tmux | – | render panjang tetap jalan saat koneksi putus |
 | swap 2 GB | – | pengaman RAM saat render |
-| skill `gaya-muslim-leveling` | dari repo | disalin ke `~/.claude/skills/` |
+| skill `gaya-muslim-leveling`, `muslim-leveling-en` | dari repo | disalin ke `~/.claude/skills/` |
 
 Per proyek Remotion (`projects/<topik>/film-remotion/`, disalin dari `templates/remotion/`): jalankan `npm i`, lalu `npx remotion browser ensure` (mengunduh Chrome headless untuk Remotion).
 
