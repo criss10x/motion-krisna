@@ -66,6 +66,13 @@ Isi `VOCAB` (nama yang sulit, maks ±4) dan baris per-video di `STYLE` (`en/voic
 Di `en/voice/cues.py`: `OPENERS` = kata pembuka tiap adegan (sama jumlahnya dengan adegan ID), `BOUNDS = []`, `FIX` = indeks → ejaan caption (tanda baca, "Prophet", "Him,", kutip “ ”), `EXTRA["ayat"]` = bagian Arab untuk sorotan **yang diwaktukan ke frasa terjemahan Inggrisnya** (bagi rata berurutan sepanjang frasa), `ref` gaya Inggris `An-Nahl 16:68`. Lalu `/usr/bin/python3 -I voice/cues.py`.
 
 ### 5. Video.tsx versi EN
+**Cara cepat (sejak Ep 12):** tulis `en/edits.py` berisi `N` (nomor episode EN), `K = dict(...)` (detik kata Inggris, nama kunci sama dengan versi ID), `NEXT` (opsional) dan `EDITS = [(lama, baru[, jumlah]), ...]`, lalu
+```bash
+/usr/bin/python3 -I tools/en_project.py tsx projects/<topik>
+```
+Alat ini selalu membangun ulang dari Video.tsx Indonesia (aman diulang) dan otomatis: label seri, blok K, `Bg`/`BT` + bungkus baris `<Sky|Stars|Clouds .../>`, refrein, kartu Al-'Ankabut 48 & An-Najm 3–4, SIMPAN, BERIKUTNYA, Download sekarang, transisi zoom-out, grading, nama komposisi `…EN` di Root.tsx. Ia mencetak `TIDAK KENA` (EDITS yang tidak cocok) dan `SISA?` (teks yang masih mirip Indonesia). `SISA?` tidak lengkap: tetap periksa daftar `grep -o 'text="[^"]*"\|label="[^"]*"\|id="[^"]*"…'` dan contact sheet. Proyek yang menghitung K dengan `kw("kata")` saat runtime (mis. Maryam): K tetap ditulis sebagai angka; `export` fungsi `kw`/`kwe` agar tsc tidak protes.
+Setelah `remap`, jalankan `tools/en_project.py autosfx projects/<topik>` (whoosh tiap Title, thunk tiap kartu/pill, riser→impact tiap ayat), lalu tambahkan manual: hook, refrein, SFX tema. Proyek tanpa data ayat di cues tidak mendapat drop musik otomatis: isi `bed.drops` di timeline.json.
+
 Semua edit di `en/film-remotion/src/`. Ganti nama komposisi di `Root.tsx` dan nama export → `<Nama>EN`.
 1. **K**: ganti **nilai** saja (detik kata Inggris yang setara), **nama kunci tetap** (dipakai `remap`). Kata yang urutannya berubah dalam bahasa Inggris: pilih kata yang maknanya sama.
 2. **Semua teks layar** ke Inggris: `Title`, `Pill`, chip, label kartu, hook (`HookLine`), refrein, CTA, teaser, `AyahCard` (`id` = Saheeh, `refT` = `Al-'Ankabut 29:48`), label seri, end card "Follow for more" (proyek ID lama ada yang masih "Download sekarang"; selalu ganti). Tulisan Arab tetap. Cari sisa teks Indonesia:
