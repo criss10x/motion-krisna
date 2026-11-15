@@ -71,6 +71,11 @@ Semua edit di `en/film-remotion/src/`. Ganti nama komposisi di `Root.tsx` dan na
 2. **Semua teks layar** ke Inggris: `Title`, `Pill`, chip, label kartu, hook (`HookLine`), refrein, CTA, teaser, `AyahCard` (`id` = Saheeh, `refT` = `Al-'Ankabut 29:48`), label seri, end card "Follow for more" (proyek ID lama ada yang masih "Download sekarang"; selalu ganti). Tulisan Arab tetap. Cari sisa teks Indonesia:
    `grep -nE ">[^<>{}]*[A-Za-z]{3,}[^<>{}]*<|text=\"|id=\"|refT=" src/Video.tsx`
 3. **Adegan ayat**: dulu sorotan Arab ikut bacaan Arab; sekarang ikut terjemahan Inggris. Kalau judul dan sorotan Arab berebut tempat, sembunyikan sorotan di kata kunci berikutnya (pola `hide` di Scene5 Raja Lebah) dan ganti judul dengan `Pill` di dekat objek.
+   Pola yang dipakai di Ep 5–11 (proyek ID yang menampilkan bacaan Arab dulu, lalu judul terjemahan): `rec` jangan dipudarkan di kata terjemahan (`K.dan3` dsb. kini = `A1.s`), pindahkan `Sweep` ke **bawah judul** (top ±640–720) dengan latar `rgba(8,10,24,0.62)` + `borderRadius: 28` (Arab di atas awan/objek terang jadi terbaca), dan pill rujukan `until={S[n].end + 0.3}` di bawah sorotan.
+   **Jendela waktu yang jadi negatif bikin render error** (`inputRange must be strictly monotonically increasing`): `Pill`/`win()` dengan `until` = kata yang dulu sesudah bacaan Arab, kini sama atau lebih awal dari `at`. Cari `until={K.` dan `win(t, <angka>` di adegan ayat.
+   **Angka detik tertulis langsung** (`flashAt(t, [30.4, ...])`, `win(t, 22.9, ...)`) tidak ikut `K`: hitung ulang ke waktu Inggris.
+   **Label seri** di proyek yang lebih baru berupa teks langsung di `SeriesLabel` (`SERI: BUKAN KARANGAN MANUSIA · N`), bukan konstanta `SERIES`.
+   **CTA ajakan komentar** (mis. Kulit) diganti teaser episode EN berikutnya.
 4. **Sidik digital** (salin pola dari `raja-lebah/en`):
    ```tsx
    const BT = 1.03; // animasi latar 103%
@@ -157,4 +162,9 @@ Catat ID dan jam (ET, UTC, WIB) di `en/naskah-en.md` bagian `## Jadwal Repliz` (
 - `tools/mix.py`: pad dulu berhenti di detik 64 (sudah diperbaiki: diulang sepanjang durasi); `bed.chords` dan SFX `bees` tersedia sejak versi EN.
 - `tmux has-session -t render` mencocokkan awalan nama, jadi juga cocok dengan `render2`: antrean render kedua menunggu dirinya sendiri dan macet berjam-jam (Laut Gelap, 2026-11-15). Pakai `-t =nama` dan nama sesi yang tidak berawalan sama.
 - Draf naskah EN juga ditulis di `en/naskah-en.md` bersama tabel teks layar ID → EN; di pesan persetujuan, sebut penyimpangan dari versi ID (teaser, end card, ayat yang digabung, terjemahan tafsir yang dirapikan) supaya user bisa menolak.
+- TTS bisa **melewatkan satu kalimat** (Bahasa Semut: kalimat hook berkutip "language" hilang di dua take; Angin: take 2 melompat dari "Yet the Qur'an" ke kalimat berikutnya). Bandingkan jumlah kata transkrip dengan `wc -w script.txt`; kalau kurang, rapikan kalimatnya (buang kutip) lalu ulang take itu.
+- Transkrip memecah kata berstrip jadi dua entri berturut ("pain", "pain-sensing"; "worst", "worst-burned"): di `FIX` isi entri pertama dengan kata lengkap dan entri kedua `""` (caption membuang kata kosong).
+- `OPENERS` dicocokkan berurutan dari depan: "To be" ikut cocok dengan "to be felt" di adegan sebelumnya (Kulit). Pakai pembuka yang khas ("To be fair,") dan cek batas adegan hasil `cues.py`.
+- Refrein + kartu jawaban An-Najm butuh ±2 dtk sebelum adegan CTA. Kalau jeda setelah "taught him?" < 1,5 dtk, sisipkan hening (Rumah Laba-laba: 1,6 dtk; geser `narasi.json` setelah titik sisip) dan geser batas adegan di `cues.py`.
+- Antrean render banyak episode: satu sesi tmux per episode (`ep05`, `ep06`, …), tiap sesi menunggu sesi sebelumnya dengan `-t =epNN`.
 - Jangan janjikan YouTube pasti menganggapnya konten baru; yang paling membedakan adalah bahasa, suara, dan teks.
