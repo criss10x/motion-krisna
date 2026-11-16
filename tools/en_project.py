@@ -76,6 +76,10 @@ def init(proj):
     shutil.copy(os.path.join(ROOT, "templates", "tighten.py"), os.path.join(en, "voice", "tighten.py"))
     cues = os.path.join(proj, "voice", "cues.py")
     shutil.copy(cues if os.path.exists(cues) else os.path.join(ROOT, "templates", "cues.py"), os.path.join(en, "voice", "cues.py"))
+    # batas adegan manual versi ID (bacaan Arab) tidak berlaku untuk narasi EN: pakai OPENERS
+    ec = os.path.join(en, "voice", "cues.py")
+    src = re.sub(r"(?m)^BOUNDS = \[[0-9].*$", "BOUNDS = []  # EN: OPENERS (versi ID memakai batas manual)", open(ec, encoding="utf-8").read())
+    open(ec, "w", encoding="utf-8").write(src)
     tl = os.path.join(proj, "film", "timeline.json")
     if os.path.exists(tl):
         shutil.copy(tl, os.path.join(en, "film", "timeline.id.json"))
@@ -127,7 +131,7 @@ def remap(proj):
           f"Berikutnya: tambah SFX penegas (lihat skill), lalu: /usr/bin/python3 -I tools/mix.py --project {en}")
 
 
-ID_WORDS = r"\b(yang|dengan|tidak|tak|kita|kamu|dari|ini|itu|untuk|adalah|tahun|abad|dan|atau|lalu|sudah|belum|bukan|siapa|semua|Nabi|ayat|surat|ulama|keselarasan|raja|nama|penjelasan|dikutip|ibunya|putrinya|ayah|ibu|wahai|jumlah|teks|kali|foto|segar|pahit|sifatnya|terjaga|tetap|kini|dulu|Aristoteles|Empedokles|Yunani|Mesir|Romawi|Persia|bukti|unta|air|berat|tubuh|Ibnu|Katsir|QS|jari|kulit|darah|hewan|manusia|lain|bulat|lonjong|sebelum|menurut|kata|orang|tanah|langit|laut|gunung|bumi|awan|hujan|angin|lalat|semut|lebah|benang|rumah|susu|kotoran|ciptaan|juga|hanya|lebih|dua|tiga|satu|ribu|juta|menit|jam|hari|bulan|matahari|cahaya|perempuan|laki|ibu|anak|kitab|tulis|baca|pelajaran|simpan|berikutnya|ke-\d+)\b"
+ID_WORDS = r"\b(yang|dengan|tidak|tak|kita|kamu|dari|ini|itu|untuk|adalah|tahun|abad|dan|atau|lalu|sudah|belum|bukan|siapa|semua|Nabi|ayat|surat|ulama|keselarasan|terputus|pasti|persis|sama|teruskan|dekat|jauh|berbisik|kirim|komputer|berhasil|terbukti|menunggu|hafalan|pelepah|seperti|jadilah|wahyu|membaca|membacakan|dibacakan|mengulang|lidahmu|sehari|subuh|ashar|isya|bin|raja|tanpa|mikroskop|sel|ilmu|merah|nama|penjelasan|dikutip|ibunya|putrinya|ayah|ibu|wahai|jumlah|teks|kali|foto|segar|pahit|sifatnya|terjaga|tetap|kini|dulu|Aristoteles|Empedokles|Yunani|Mesir|Romawi|Persia|bukti|unta|air|berat|tubuh|Ibnu|Katsir|QS|jari|kulit|darah|hewan|manusia|lain|bulat|lonjong|sebelum|menurut|kata|orang|tanah|langit|laut|gunung|bumi|awan|hujan|angin|lalat|semut|lebah|benang|rumah|susu|kotoran|ciptaan|juga|hanya|lebih|dua|tiga|satu|ribu|juta|menit|jam|hari|bulan|matahari|cahaya|perempuan|laki|ibu|anak|kitab|tulis|baca|pelajaran|simpan|berikutnya|ke-\d+)\b"
 
 
 def tsx(proj):
