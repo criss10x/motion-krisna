@@ -16,6 +16,8 @@ Repo: `~/motion-krisna` (lihat `AGENTS.md` untuk VPS & Google Cloud, `templates/
 | **Neon** | Ibadah, keutamaan surah, amalan harian; nuansa khidmat-elegan | `templates/remotion/` (contoh Al-Ikhlas, komposisi `AlIkhlas`) | Bintang 8 sudut / mushaf / pintu cahaya, glow + light leak |
 | **Klasik kubah** | Isu berita/kebijakan, kritik kezaliman, nasihat tegas | `templates/remotion/` + gaya di bawah (kubah, palet klasik, latar flat ramai). Acuan visual: `assets/contact-sheet*.jpg`, `projects/romawi-akan-menang/preview.html` | Kubah logo: redup → retak → menyala → logo |
 
+**Kamera virtual** (sejak 16 Nov 2026, remake gunung-akar): dunia ilustrasi yang dijelajahi kamera (zoom ke bagian yang dibahas, whip, morph), narasi ringkas ±60–70 dtk. Kalau user minta remake "dengan workflow tadi" atau minta gerak kamera, pakai skill `kamera-virtual`. Kalau tokoh kisah ikut bicara dengan suara TTS lain (dialog), tambahkan skill `dialog-karakter`.
+
 Kalau user tidak menyebut, usulkan varian sesuai topik dalam satu kalimat lalu lanjut. User menyukai **Sinematik** (lingkungan kaya, tidak terikat latar hijau); utamakan varian ini untuk kisah/mukjizat.
 
 ## Palet

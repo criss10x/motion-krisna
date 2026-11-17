@@ -32,7 +32,7 @@ if ! swapon --show | grep -q .; then
 fi
 
 mkdir -p ~/.claude/skills
-cp -r skills/gaya-muslim-leveling skills/muslim-leveling-en ~/.claude/skills/
+cp -r skills/gaya-muslim-leveling skills/muslim-leveling-en skills/kamera-virtual skills/dialog-karakter ~/.claude/skills/
 
 echo
 node --version
