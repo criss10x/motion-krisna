@@ -1,6 +1,6 @@
 ---
 name: muslim-leveling-en
-description: "SOP membuat ulang video Muslim Leveling (seri \"Bukan Karangan Manusia\") dalam bahasa Inggris untuk akun YouTube @muslim.levelingup: urutan episode, naskah Inggris yang natural (bukan terjemahan kaku, istilah Islami umum tetap), ayat Saheeh International, TTS Gemini en-US, teks layar Inggris di Remotion, modifikasi sidik digital (latar dibalik + zoom 105% + animasi 103%, transisi zoom-out, grading), musik latar baru yang lebih kecil, SFX tambahan, metadata YouTube, dan jadwal Repliz di jam penonton Amerika. Pakai saat user minta versi Inggris/English, video untuk penonton global/Amerika, akun @muslim.levelingup, atau menyebut muslim-leveling-en."
+description: "SOP membuat ulang video Muslim Leveling (seri \"Bukan Karangan Manusia\") dalam bahasa Inggris untuk akun YouTube @muslim.levelingup: urutan episode, naskah Inggris yang natural (bukan terjemahan kaku, istilah Islami umum tetap), ayat Saheeh International, TTS Gemini en-US, teks layar Inggris di Remotion, modifikasi sidik digital (latar dibalik + zoom 105% + animasi 103%, transisi zoom-out, grading), musik latar baru yang lebih kecil, SFX tambahan, metadata YouTube, dan jadwal Repliz 2 video/hari (jam penonton Amerika + Inggris). Pakai saat user minta versi Inggris/English, video untuk penonton global/Amerika, akun @muslim.levelingup, atau menyebut muslim-leveling-en."
 ---
 
 # Muslim Leveling EN: SOP versi bahasa Inggris
@@ -147,14 +147,14 @@ Format yang dibaca `repliz.py video-en`:
 **Maks 5 hashtag termasuk `#Shorts` di judul** → deskripsi maks 4 hashtag (selalu ada `#muslimleveling`). `repliz.py` menolak kalau lebih.
 
 ### 9. Jadwal Repliz (hanya jika diminta)
-Slot penonton Amerika (riset 2026-11-15, blog vendor; perbarui dengan data YouTube Studio):
-| ET | PT | UTC (Repliz menyimpan) | WIB untuk `--jam` |
+**2 video/hari** (permintaan user 2026-11-18): satu slot untuk pasar Amerika, satu untuk pasar Inggris, berjarak jauh. Riset blog vendor (Birdeye, ClickAnalytic, SocialBu; bukan data resmi YouTube), perbarui dengan data YouTube Studio → Analytics → Audience:
+| Slot | Waktu lokal | UTC (Repliz menyimpan) | WIB untuk `--jam` |
 |---|---|---|---|
-| 12.00 | 09.00 | 17.00 | 00.00 hari berikutnya |
-| 15.00 | 12.00 | 20.00 | 03.00 hari berikutnya |
-| 19.00 | 16.00 | 00.00 hari berikutnya | 07.00 hari berikutnya |
+| US | 19.00 ET (16.00 PT), prime time sore | 00.00 hari berikutnya | 07.00 hari berikutnya |
+| UK | 14.00 GMT (jendela makan siang 12–15; = 09.00 ET) | 14.00 | 21.00 |
 
-Saat DST Amerika (14 Mar – 7 Nov 2027, dst.) semua jam WIB/UTC maju 1 jam lebih awal (23.00, 02.00, 06.00 WIB). Cek slot terisi dulu (`repliz.py jadwal` hanya menampilkan 100 pertama; filter akun `@muslim.levelingup`).
+Urutan antrean: UK hari D (14.00 UTC) → US hari D (00.00 UTC D+1) → UK D+1 … Jam di atas untuk EST/GMT. **DST**: Amerika 14 Mar – 7 Nov 2027 → slot US 23.00 UTC = 06.00 WIB; Inggris 28 Mar – 31 Okt 2027 → slot UK 13.00 UTC = 20.00 WIB. Cek slot terisi dulu (`repliz.py jadwal` hanya menampilkan 100 pertama; filter akun `@muslim.levelingup`).
+Mengubah jam jadwal yang sudah ada **tanpa upload ulang**: `PUT /schedule/<id>` dengan body lengkap (title, description, topic, type, medias, meta, additionalInfo, replies, scheduleAt; tanpa accountId) dari `GET /schedule/<id>`; respons 204, ID tetap.
 ```bash
 /usr/bin/python3 -I tools/repliz.py video-en projects/<topik> --jam 2026-11-17T00:00+07:00          # simulasi
 /usr/bin/python3 -I tools/repliz.py video-en projects/<topik> --jam 2026-11-17T00:00+07:00 --kirim  # kirim
